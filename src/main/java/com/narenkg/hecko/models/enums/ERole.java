@@ -1,0 +1,6 @@
+package com.narenkg.hecko.models.enums;
+
+public enum ERole {
+	ROLE_ADMIN, ROLE_USER, ROLE_OT_HOUSECLEANER, ROLE_OT_HOUSECOOK, ROLE_HOUSECLEANER, ROLE_HOUSECOOK, ROLE_OT_DRIVER,
+	ROLE_DRIVER
+}
