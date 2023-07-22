@@ -32,13 +32,6 @@ import lombok.Setter;
 		@UniqueConstraint(columnNames = "email"), @UniqueConstraint(columnNames = "phone") })
 
 public class User extends DateAudit  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotBlank
-	@Size(max = 50)
-	private String username;
 
 	@Size(max = 50)
 	@Email
@@ -58,9 +51,12 @@ public class User extends DateAudit  {
 
 	private Boolean isVerified;
 
-	public User(String username, String password) {
-		this.username = username;
+	public User(String email, String phone, String password) {
+		this.email = email;
 		this.password = password;
+		this.phone = phone;
 	}
+	
+	private UserDetail userDetail;
 
 }

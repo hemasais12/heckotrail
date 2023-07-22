@@ -1,6 +1,7 @@
 package com.narenkg.hecko.models;
 
 import com.narenkg.hecko.models.audit.DateAudit;
+import com.narenkg.hecko.models.audit.UserDateAudit;
 import com.narenkg.hecko.models.enums.ERole;
 
 import jakarta.persistence.Column;
@@ -20,17 +21,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role extends DateAudit {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-
+public class Role extends UserDateAudit {
+	
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private ERole name;
 
-	public Role(ERole name) {
-		this.name = name;
 	}
-
-}

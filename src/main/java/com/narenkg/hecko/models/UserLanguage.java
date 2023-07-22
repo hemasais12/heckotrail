@@ -18,12 +18,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserLanguage extends UserDateAudit  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@JsonBackReference
-	private User user;
 
 	private Language language;
 	

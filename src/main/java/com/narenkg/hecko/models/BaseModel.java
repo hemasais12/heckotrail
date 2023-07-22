@@ -1,8 +1,5 @@
 package com.narenkg.hecko.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.narenkg.hecko.models.audit.UserDateAudit;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,13 +14,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserService extends UserDateAudit  {
+public class BaseModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonBackReference
-	private User user;
-
-	private Service service;
 }

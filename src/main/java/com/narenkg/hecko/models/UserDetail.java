@@ -24,12 +24,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDetail extends UserDateAudit  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@JsonBackReference
-	private User user;
 
 	@NotBlank
 	@Size(max = 120)
@@ -39,9 +33,4 @@ public class UserDetail extends UserDateAudit  {
 	
 	@OneToMany
     private Set<UserLanguage> languages;
-	
-	@OneToMany
-    private Set<UserService> services;
-	
-	
 }

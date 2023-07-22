@@ -3,6 +3,9 @@ package com.narenkg.hecko.models;
 import com.narenkg.hecko.models.audit.UserDateAudit;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,22 +18,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language extends UserDateAudit{
+public class VendorProduct extends UserDateAudit {
 
-	@NotBlank
-	@Size(max = 80)
-	private String country;
-
-	@NotBlank
-	@Size(max = 80)
-	private String state;
+	private Product product; 
 	
-	@NotBlank
-	@Size(max = 80)
-	private String city;
-
-	@NotBlank
-	@Size(max = 80)
-	private String language;
-
+	private Double vendorPrice; 
+	
+	private Currency currency; 
+	
+	private Boolean isAvailable;
+	
+	private Boolean isDiscontinued;
 }

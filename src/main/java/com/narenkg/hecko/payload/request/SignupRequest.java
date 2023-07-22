@@ -1,10 +1,7 @@
 package com.narenkg.hecko.payload.request;
 
-import java.util.Set;
-
-import com.narenkg.hecko.models.Role;
-
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +14,16 @@ import lombok.Setter;
 public class SignupRequest {
   @NotBlank
   @Size(min = 3, max = 50)
-  private String username;
+  private String email;
+  
+  @NotBlank
+  @Size(min = 3, max = 50)
+  private String phone;
 
   @NotBlank
   @Size(min = 6, max = 120)
   private String password;
+  
+  private Boolean isVendor;
 
 }

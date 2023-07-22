@@ -1,6 +1,7 @@
 package com.narenkg.hecko.models;
 
 import com.narenkg.hecko.models.audit.DateAudit;
+import com.narenkg.hecko.models.audit.UserDateAudit;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,13 +19,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Service extends DateAudit  {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class Service extends UserDateAudit {
 
-	private Role role;
-	
 	@NotBlank
 	@Size(max = 120)
 	private String name;

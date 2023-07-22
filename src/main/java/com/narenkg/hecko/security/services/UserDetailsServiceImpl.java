@@ -9,19 +9,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.narenkg.hecko.models.User;
 import com.narenkg.hecko.repository.UserRepository;
+import com.narenkg.hecko.services.UserService;
+import com.narenkg.hecko.util.EmailUtil;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-  @Autowired
-  UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
-  @Override
-  @Transactional
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userService.findByEmailOrPhone(username, username);
 
-    return UserDetailsImpl.build(user);
-  }
+		if (user == null)
+			throw new UsernameNotFoundException("User Not Found with username: " + username);
+
+		return UserDetailsImpl.build(user);
+	}
 
 }

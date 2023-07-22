@@ -1,8 +1,9 @@
 package com.narenkg.hecko.models;
 
-import com.narenkg.hecko.models.audit.UserDateAudit;
+import com.narenkg.hecko.models.audit.DateAudit;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -15,22 +16,25 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language extends UserDateAudit{
 
-	@NotBlank
-	@Size(max = 80)
-	private String country;
-
-	@NotBlank
-	@Size(max = 80)
-	private String state;
+public class Message extends DateAudit{
 	
 	@NotBlank
-	@Size(max = 80)
-	private String city;
+	@Size(max = 10)
+	private String color;
+	
+	private String messageKey;
+	
+	private Category messageType;
 
 	@NotBlank
-	@Size(max = 80)
-	private String language;
+	@Size(max = 200)
+	private String title;
+	
+	@Lob
+	private String description;
+	
+	@Lob
+	private String remarks;
 
 }
