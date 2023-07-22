@@ -19,9 +19,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VendorProduct extends UserDateAudit {
-
-	private Product product; 
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private Product product;
+
 	private Double vendorPrice; 
 	
 	private Currency currency; 

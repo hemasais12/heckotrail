@@ -20,6 +20,10 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class Category extends DateAudit{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@NotBlank
 	@Size(max = 80)

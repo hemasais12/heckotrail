@@ -25,8 +25,9 @@ import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 @EnableMethodSecurity
 
 public class WebSecurityConfig {
+	
 	@Autowired
-	UserDetailsServiceImpl userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;

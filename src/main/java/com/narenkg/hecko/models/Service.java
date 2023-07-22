@@ -20,6 +20,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Service extends UserDateAudit {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@NotBlank
 	@Size(max = 120)

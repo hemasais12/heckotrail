@@ -1,15 +1,14 @@
 package com.narenkg.hecko.services;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.models.User;
 import com.narenkg.hecko.repository.UserRepository;
 
+@Service
 public class UserService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

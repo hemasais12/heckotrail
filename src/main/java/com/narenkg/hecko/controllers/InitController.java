@@ -26,7 +26,7 @@ import com.narenkg.hecko.services.CategoryService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/test")
 public class InitController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class InitController {
 
 	private boolean isDBUpdatePending = true;
 
-	// http://localhost:2510/api/init?requestId=0
+	// http://localhost:5001/api/test/init?requestId=0
 	@GetMapping("/init")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
 		String msg = "Welcome to the App. " + "Let's Login or SignUp";
@@ -66,7 +66,7 @@ public class InitController {
 		setRoles();
 		setCurrencies();
 		setCategories();
-		setMessages();
+		//setMessages();
 	}
 
 	private void setCategories() {
@@ -90,6 +90,7 @@ public class InitController {
 			currency.setCountry(currencies[0]);
 			currency.setSymbol(currencies[1]);
 			currency.setShortName(currencies[2]);
+			currency.setLongName(currencies[2]);
 			currencyList.add(currency);
 		}
 		currencyRepository.saveAll(currencyList);
