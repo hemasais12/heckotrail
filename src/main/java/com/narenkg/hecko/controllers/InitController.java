@@ -46,10 +46,12 @@ public class InitController {
 
 	private boolean isDBUpdatePending = true;
 
-	// http://localhost:5001/api/test/init?requestId=0
+	// http://localhost:5000/api/test/init?requestId=0
 	@GetMapping("/init")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
 		String msg = "Welcome to the App. " + "Let's Login or SignUp";
+		try {
+		
 
 		if (isDBUpdatePending) {
 			switch (requestId) {
@@ -59,6 +61,10 @@ public class InitController {
 			}
 		}
 		isDBUpdatePending = false;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			msg = "There is error in setting up the database. please check.";
+		}
 		return msg;
 	}
 
