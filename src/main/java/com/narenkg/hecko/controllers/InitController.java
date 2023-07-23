@@ -46,7 +46,7 @@ public class InitController {
 
 	private boolean isDBUpdatePending = true;
 
-	//http://34.16.136.247:5000/all //google cloud url
+	//http://34.16.136.247:5000/all //google cloud url test
 	// http://localhost:5000/api/test/init?requestId=1
 	@GetMapping("/init")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
