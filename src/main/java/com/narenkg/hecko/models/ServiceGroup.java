@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Service extends UserDateAudit {
+public class ServiceGroup extends UserDateAudit {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +33,8 @@ public class Service extends UserDateAudit {
 	@Size(max = 120)
 	private String identifier;
 	
-	private Boolean isActive;
-	
 	@ManyToOne
-	private ServiceGroup serviceGroup;
+	private ServiceCategory serviceCategory;
+	
+	private Boolean isActive;
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,22 +20,24 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Service extends UserDateAudit {
+public class VendorService extends UserDateAudit {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@OneToOne
+	private User user;
+	
+	@OneToOne
+	private Service service;
 
-	@NotBlank
-	@Size(max = 120)
-	private String name;
+	private Double vendorPrice; 
 	
-	@NotBlank
-	@Size(max = 120)
-	private String identifier;
+	@OneToOne
+	private Currency currency; 
 	
-	private Boolean isActive;
+	private Boolean isAvailable;
 	
-	@ManyToOne
-	private ServiceGroup serviceGroup;
+	private Boolean isDiscontinued;
 }

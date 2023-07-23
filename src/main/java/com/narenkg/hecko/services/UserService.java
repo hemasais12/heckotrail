@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.models.User;
 import com.narenkg.hecko.repository.UserRepository;
+import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 
 @Service
 public class UserService {
@@ -14,6 +15,11 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
+	
 
 	public Boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
@@ -46,9 +52,17 @@ public class UserService {
 
 		return user;
 	}
+	
+	public User findById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
 
 	public Object save(User user) {
 		return userRepository.save(user);
+	}
+	
+	public User getCurrentUser() {
+		return userDetailsServiceImpl.loadUserFromContext();
 	}
 
 }

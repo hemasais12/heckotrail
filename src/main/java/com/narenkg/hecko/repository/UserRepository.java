@@ -9,11 +9,15 @@ import com.narenkg.hecko.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  User findByEmail(String email);
-  
-  User findByPhone(String email);
+	Optional<User> findById(Long id);
 
-  Boolean existsByEmail(String email);
-  
-  Boolean existsByPhone(String phone);
+	User findByEmail(String email);
+
+	User findByPhone(String phone);
+	
+	User findByEmailOrPhone(String email, String phone);
+
+	Boolean existsByEmail(String email);
+
+	Boolean existsByPhone(String phone);
 }
