@@ -36,6 +36,16 @@ public class UserService {
 
 		return user;
 	}
+	
+	public User findByEmailOrPhone(String emailOrPhone) {
+
+		User user = userRepository.findByEmail(emailOrPhone);
+
+		if (user == null)
+			user = userRepository.findByPhone(emailOrPhone);
+
+		return user;
+	}
 
 	public Object save(User user) {
 		return userRepository.save(user);

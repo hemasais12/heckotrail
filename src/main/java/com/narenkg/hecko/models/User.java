@@ -1,5 +1,6 @@
 package com.narenkg.hecko.models;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,12 +50,18 @@ public class User extends DateAudit  {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
+	
+	private String otp;
+	
+	private Instant otpValidTill;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
 	private Boolean isVerified;
+	
+	private Boolean isBlocked;
 
 	public User(String email, String phone, String password) {
 		this.email = email;

@@ -4,5 +4,5 @@ public enum EApiResponseType {
 	MESSAGE,
 	SUCCESS,
 	FAIL,
-	GENETAL,
+	GENERAL,
 }
