@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "heckoapp",
+    "slug": "heckoapp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
