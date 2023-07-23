@@ -1,1 +1,5 @@
 1. Setup a VM engine
+2. Set environment variable in IDE (JSON file is compute engine key)
+	- GOOGLE_APPLICATION_CREDENTIALS
+	- C:\Users\254395\Downloads\compute engine.json
+3. 

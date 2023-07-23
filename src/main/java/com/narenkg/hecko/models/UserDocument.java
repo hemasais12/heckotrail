@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,10 +27,13 @@ public class UserDocument extends UserDateAudit {
 	private Long id;
 	
 	@JsonBackReference
+	@ManyToOne
 	private User user;
 
+	@ManyToOne
 	private Category docType;
 
+	@OneToOne
 	private Document document;
 
 	@NotBlank

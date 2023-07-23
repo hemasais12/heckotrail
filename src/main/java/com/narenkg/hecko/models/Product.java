@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,8 +31,10 @@ public class Product extends UserDateAudit {
 	@Size(max = 120)
 	private String brand; // Brand Name
 	
+	@ManyToOne
 	private Category productCategory; // Car, Bike etc
 	
+	@ManyToOne
 	private Category productType; // Oil, wire, indicators
 	
 	@NotBlank
@@ -54,6 +57,7 @@ public class Product extends UserDateAudit {
 	
 	private Date releaseDate; // product release date
 	
+	@ManyToOne
 	private Currency currency; // INR, $ etc
 	
 	private Boolean isActive;

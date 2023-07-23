@@ -72,7 +72,7 @@ public class InitController {
 		setRoles();
 		setCurrencies();
 		setCategories();
-		//setMessages();
+		setMessages();
 	}
 
 	private void setCategories() {
