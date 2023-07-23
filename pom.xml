@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<!-- Add CloudSQL Starter for MySQL -->
-			<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
+		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>
 	</properties>
 	<dependencies>
@@ -50,12 +50,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Add CloudSQL Starter for MySQL 
+		<!-- Add Local MySQL 
 		<dependency>
 			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+		<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency> -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
