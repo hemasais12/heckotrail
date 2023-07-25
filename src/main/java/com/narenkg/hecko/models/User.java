@@ -40,14 +40,11 @@ public class User extends DateAudit  {
 	private Long id;
 
 	@Size(max = 50)
-	@Email
 	private String email;
 
-	@NotBlank
 	@Size(max = 15)
 	private String phone;
 
-	@NotBlank
 	@Size(max = 120)
 	private String password;
 	
@@ -62,11 +59,14 @@ public class User extends DateAudit  {
 	private Boolean isVerified;
 	
 	private Boolean isBlocked;
+	
+	public User(String phone) {
+		this.phone = phone;
+	}
 
-	public User(String email, String phone, String password) {
+	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.phone = phone;
 	}
 	
 	@OneToOne

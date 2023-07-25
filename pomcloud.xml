@@ -16,9 +16,9 @@
 	<description>Services at Home</description>
 	<properties>
 		<java.version>17</java.version>
-		<!-- Add CloudSQL Starter for MySQL
+		<!-- Add CloudSQL Starter for MySQL -->
 		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
-		<spring-cloud.version>2022.0.1</spring-cloud.version>-->
+		<spring-cloud.version>2022.0.1</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,27 +35,27 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Add CloudSQL Starter for MySQL 
+		<!-- Add CloudSQL Starter for MySQL -->
 		<dependency>
-		<groupId>com.google.cloud</groupId>
-		<artifactId>spring-cloud-gcp-starter</artifactId>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.cloud</groupId>
-		<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
-		</dependency>-->
+			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Add Local MySQL -->
+		<!-- Add Local MySQL 
 		<dependency>
 			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+		<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -91,45 +91,30 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>32.1.1-jre</version>
-		</dependency>
-
-		<dependency>
 			<groupId>com.twilio.sdk</groupId>
 			<artifactId>twilio</artifactId>
 			<version>8.8.0</version>
 		</dependency>
 	</dependencies>
-	<!-- Add CloudSQL Starter for MySQL 
+	<!-- Add CloudSQL Starter for MySQL -->
 	<dependencyManagement>
 		<dependencies>
-	<dependency>
+			<dependency>
 				<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-dependencies</artifactId>
-	<version>${spring-cloud.version}</version>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
-	<scope>import</scope>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
-	<groupId>com.google.cloud</groupId>
-	<artifactId>spring-cloud-gcp-dependencies</artifactId>
-	<version>${spring-cloud-gcp.version}</version>
+				<groupId>com.google.cloud</groupId>
+				<artifactId>spring-cloud-gcp-dependencies</artifactId>
+				<version>${spring-cloud-gcp.version}</version>
 				<type>pom</type>
-	<scope>import</scope>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement>-->
+	</dependencyManagement>
 
 	<build>
 		<plugins>

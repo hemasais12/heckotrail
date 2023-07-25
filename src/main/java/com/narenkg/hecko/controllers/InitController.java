@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.narenkg.hecko.constants.EMessage;
-import com.narenkg.hecko.constants.ICurrency;
+import com.narenkg.hecko.consts.EMessage;
+import com.narenkg.hecko.consts.ICurrency;
 import com.narenkg.hecko.models.Category;
 import com.narenkg.hecko.models.Currency;
 import com.narenkg.hecko.models.Message;
@@ -101,13 +101,14 @@ public class InitController {
 		setCurrencies();
 		setCategories();
 		setMessages();
-	}
-
-	private void setDeltaValuesInDB() {
-		setMessages();
 		setServiceCategories();
 		setServiceGroups();
 		setServices();
+	}
+
+	private void setDeltaValuesInDB() {
+		newMessages();
+		
 	}
 
 	private void setCategories() {
@@ -200,7 +201,51 @@ public class InitController {
 		messageList
 		.add(new Message(successColor, EMessage.VENDOR_UPDATE_SERVICE_SUCCESS.name(), mapCategories.get(EMessageType.SUCCESS.name()),
 				EMessageType.SUCCESS.name(), "Vendor service update successful.", "Vendor service update successful."));
+		
+		messageList
+		.add(new Message(successColor, EMessage.OTP_GENERATE_SUCCESS.name(), mapCategories.get(EMessageType.SUCCESS.name()),
+				EMessageType.SUCCESS.name(), "Otp sent successfully.", "Otp sent successfully."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.OTP_GENERATE_FAILED.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Couldn't send OTP, please try again later.", "Couldn't send OTP, please try again later."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.OTP_EXPIRED_OR_WRONG.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "OTP is expired or wrong. Please try again.", "OTP is expired or wrong. Please try again."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.TECHNICAL_ISSUE.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Technical error. Please try again.", "Technical error. Please try again."));
+		
+		messageList
+		.add(new Message(successColor, EMessage.GOOD_TO_GO.name(), mapCategories.get(EMessageType.SUCCESS.name()),
+				EMessageType.SUCCESS.name(), "Good to go next step.", "Good to go next step."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.NOT_VALID_EMAIL_OR_PHONE.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Not a valid email or mobile number.", "Not a valid email or mobile number."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.PASSWORD_NOT_MATCHING.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Passwords not matching.", "Passwords not matching."));
+		
 
+		messageRepository.saveAll(messageList);
+		messageRepository.flush();
+	}
+	
+	private void newMessages() {
+		HashMap<String, Category> mapCategories = categoryService.getMapByCatFamily(EMessage.Message.name());
+		ArrayList<Message> messageList = new ArrayList<Message>();
+		
+		String successColor = "Green";
+		String errorColor = "Red";
+
+		messageList
+		.add(new Message(errorColor, EMessage.PASSWORD_NOT_MATCHING.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Passwords not matching.", "Passwords not matching."));
+		
 		messageRepository.saveAll(messageList);
 		messageRepository.flush();
 	}
@@ -298,13 +343,6 @@ public class InitController {
 		serviceRepository.flush();
 	}
 
-	private void newMessages() {
-		HashMap<String, Category> mapCategories = categoryService.getMapByCatFamily(EMessage.Message.name());
-		ArrayList<Message> messageList = new ArrayList<Message>();
-
-		
-		messageRepository.saveAll(messageList);
-		messageRepository.flush();
-	}
+	
 
 }

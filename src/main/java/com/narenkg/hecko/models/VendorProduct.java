@@ -31,6 +31,8 @@ public class VendorProduct extends UserDateAudit {
 
 	private Double vendorPrice; 
 	
+	private Double vendorDiscountedPrice; 
+	
 	@OneToOne
 	private Currency currency; 
 	

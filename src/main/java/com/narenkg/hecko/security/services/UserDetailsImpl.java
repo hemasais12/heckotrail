@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.narenkg.hecko.models.User;
@@ -23,11 +27,21 @@ public class UserDetailsImpl implements UserDetails {
 
 	@JsonIgnore
 	private String password;
+	
+	
 
 	private Collection<? extends GrantedAuthority> authorities;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public UserDetailsImpl(Long id, String email, String phone, String password,
 			Collection<? extends GrantedAuthority> authorities) {
+		
+		logger.info("UserDetailsImpl: ------------------------> " +email);
+		logger.info("UserDetailsImpl: ------------------------> " +phone);
+		logger.info("UserDetailsImpl: ------------------------> " +password);
+		logger.info("UserDetailsImpl: ------------------------> " +authorities);
+		
 		this.id = id;
 		this.email = email;
 		this.phone = phone;
@@ -38,9 +52,10 @@ public class UserDetailsImpl implements UserDetails {
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-
+		
 		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPhone(), user.getPassword(), authorities);
 	}
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

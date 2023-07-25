@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.narenkg.hecko.constants.EMessage;
+import com.narenkg.hecko.consts.EMessage;
 import com.narenkg.hecko.payload.request.VendorServiceUpdateRequest;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.enums.EApiResponseType;
