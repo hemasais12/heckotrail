@@ -1,24 +1,31 @@
 package com.narenkg.hecko.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
+import com.narenkg.hecko.consts.EMessage;
+import com.narenkg.hecko.payload.response.ApiResponse;
+import com.narenkg.hecko.payload.response.enums.EApiResponseType;
+import com.narenkg.hecko.services.MessageService;
 
 @RestController
 @RequestMapping("/api/sms")
 public class SmsController {
+	@Autowired
+	private MessageService messageService;
+
 	@GetMapping(value = "/sendSMS")
-	public ResponseEntity<String> sendSMS() {
-
-		
-
-		return new ResponseEntity<String>("Message sent successfully", HttpStatus.OK);
+	public ResponseEntity<?> sendSMS() {
+		try {
+			return new ResponseEntity<String>("Message sent successfully", HttpStatus.OK);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ResponseEntity.badRequest()
+					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
+		}
 	}
 }

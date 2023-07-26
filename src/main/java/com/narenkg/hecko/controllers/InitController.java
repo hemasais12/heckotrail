@@ -36,7 +36,7 @@ import com.narenkg.hecko.services.ServiceGroupService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/api/init")
 public class InitController {
 
 	@Autowired
@@ -72,7 +72,7 @@ public class InitController {
 	private boolean isDBUpdatePending = true;
 
 	// http://34.16.136.247:5000/all //google cloud url test
-	// http://localhost:5000/api/test/init?requestId=1
+	// http://localhost:5000/api/init/init?requestId=1
 	@GetMapping("/init")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
 		String msg = "Welcome to the App. " + "Let's Login or SignUp";
@@ -174,7 +174,7 @@ public class InitController {
 
 		messageList.add(new Message(errorColor, EMessage.SIGNUP_USER_ALREADY_EXISTS.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Vendor successfuly registered.", "Vendor successfuly registered."));
+				"User already exists.", "User already exists."));
 
 		messageList.add(new Message(errorColor, EMessage.SIGNIN_EMAIL_NOTVERIFIED.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
@@ -242,9 +242,6 @@ public class InitController {
 		String successColor = "Green";
 		String errorColor = "Red";
 
-		messageList
-		.add(new Message(errorColor, EMessage.PASSWORD_NOT_MATCHING.name(), mapCategories.get(EMessageType.ERROR.name()),
-				EMessageType.ERROR.name(), "Passwords not matching.", "Passwords not matching."));
 		
 		messageRepository.saveAll(messageList);
 		messageRepository.flush();

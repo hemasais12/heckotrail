@@ -27,15 +27,13 @@ public class MessageService {
 			List<Message> allMessages = messageRepository.findAll();
 			for (Message message : allMessages) {
 				mapAllMessages.put(message.getMessageKey(), message);
-				logger.info(message.getMessageKey()+": " + message.getTitle());
 			}
-			logger.info("Categories loaded: " + allMessages.size());
+			logger.info("mapAllMessages loaded: " + allMessages.size());
 		}
 	}
 
 	public Message getMessage(EMessage enumMessage) {
 		init();
-		logger.info(enumMessage.name()+": " + mapAllMessages.get(enumMessage.name()));
 		return mapAllMessages.get(enumMessage.name());
 	}
 

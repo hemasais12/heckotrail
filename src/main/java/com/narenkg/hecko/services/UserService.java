@@ -1,5 +1,8 @@
 package com.narenkg.hecko.services;
 
+import java.util.List;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class UserService {
 	@Autowired
 	private MessageService messageService;
 
+	@Autowired
+	private RoleService roleService;
+
 	public Boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
 	}
@@ -43,13 +49,13 @@ public class UserService {
 	public Boolean existsByEmailOrMobileNumber(String emailOrMobileNumber) {
 		return existsByEmailOrMobileNumber(emailOrMobileNumber, emailOrMobileNumber);
 	}
-	
+
 	public User findByEmail(String email) {
 
 		User user = userRepository.findByEmail(email);
 		return user;
 	}
-	
+
 	public User findByMobileNumber(String mobileNumber) {
 
 		User user = userRepository.findByMobileNumber(mobileNumber);
@@ -110,6 +116,32 @@ public class UserService {
 		} else {
 			return ResponseEntity.badRequest().body(
 					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+		}
+	}
+
+	public ResponseEntity<?> updateRoles(User user, List<Long> roles) {
+		if (user != null) {
+			if (user.getIsVerified() != null && user.getIsVerified()) {
+				if (user.getIsBlocked() != null && !user.getIsBlocked()) {
+
+					user.getRoles().clear();
+					user.getRoles().addAll(roleService.getRolesExceptAdmin(roles));
+					userRepository.save(user);
+
+					return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS,
+							messageService.getMessage(EMessage.ROLE_UPDATE_SUCCESS)));
+				} else {
+					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
+							messageService.getMessage(EMessage.SIGNIN_ACCOUNT_BLOCKED)));
+				}
+
+			} else {
+				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
+						messageService.getMessage(EMessage.SIGNIN_EMAIL_NOTVERIFIED)));
+			}
+		} else {
+			return ResponseEntity.badRequest()
+					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.USER_NOT_FOUND)));
 		}
 	}
 

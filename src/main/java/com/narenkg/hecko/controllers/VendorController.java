@@ -31,18 +31,24 @@ public class VendorController {
 	@PostMapping("/setServicePrice")
 	public ResponseEntity<?> setServicePrice(
 			@Valid @RequestBody VendorServiceUpdateRequest vendorServiceUpdateRequest) {
+		try {
 
-		EMessage message = vendorServiceService.updateVendorService(vendorServiceUpdateRequest);
+			EMessage message = vendorServiceService.updateVendorService(vendorServiceUpdateRequest);
 
-		switch (message) {
-		case VENDOR_UPDATE_SERVICE_SUCCESS:
-			return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(message)));
-		default:
-			break;
+			switch (message) {
+			case VENDOR_UPDATE_SERVICE_SUCCESS:
+				return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(message)));
+			default:
+				break;
+			}
+
+			return ResponseEntity.badRequest()
+					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(message)));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ResponseEntity.badRequest()
+					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
-
-		return ResponseEntity.badRequest()
-				.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(message)));
 
 	}
 

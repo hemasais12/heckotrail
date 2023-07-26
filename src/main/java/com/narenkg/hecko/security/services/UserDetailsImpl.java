@@ -37,11 +37,6 @@ public class UserDetailsImpl implements UserDetails {
 	public UserDetailsImpl(Long id, String email, String mobileNumber, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		
-		logger.info("UserDetailsImpl: ------------------------> " +email);
-		logger.info("UserDetailsImpl: ------------------------> " +mobileNumber);
-		logger.info("UserDetailsImpl: ------------------------> " +password);
-		logger.info("UserDetailsImpl: ------------------------> " +authorities);
-		
 		this.id = id;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
@@ -74,7 +69,6 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	public String getEmail() {
-		logger.info("UserDetailsImpl: -------getEmail-----------------> " +email);
 		return email;
 	}
 	
@@ -84,7 +78,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		logger.info("UserDetailsImpl: -------password-----------------> " +password);
 		return password;
 	}
 
@@ -120,8 +113,10 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		logger.info("UserDetailsImpl: -------getUsername-----------------> " );
 		// TODO Auto-generated method stub
-		return null;
+		if(mobileNumber==null)
+			return email;
+		else 
+			return mobileNumber;
 	}
 }

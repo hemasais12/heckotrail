@@ -14,9 +14,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SetRolesRequest {
-	@NotBlank
-	@Size(min = 3, max = 20)
-	private String emailOrMobileNumber;
-
 	private ArrayList<Long> roles;
 }

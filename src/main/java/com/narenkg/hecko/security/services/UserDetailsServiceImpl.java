@@ -29,7 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String emailOrMobileNumber) throws UsernameNotFoundException {
 
-		logger.info("loadUserByUsername:username: ------------------------> " + emailOrMobileNumber);
+		if (emailOrMobileNumber == null || emailOrMobileNumber.trim().isBlank())
+			throw new UsernameNotFoundException("User Not Found with username: " + emailOrMobileNumber);
 
 		User user = userRepository.findByEmailOrMobileNumber(emailOrMobileNumber, emailOrMobileNumber);
 
@@ -45,7 +46,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	public User loadUserFromContext() {
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 		return userRepository.findById(((UserDetailsImpl) authentication.getPrincipal()).getId()).orElse(null);
 	}
 
