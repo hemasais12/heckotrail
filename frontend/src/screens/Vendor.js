@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     width: 40,
     marginLeft: 25,
     marginTop: 10,
+    resizeMode: "contain",
   },
   imageText: {
     fontWeight: "bold",

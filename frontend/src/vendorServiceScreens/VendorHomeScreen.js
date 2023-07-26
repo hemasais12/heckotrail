@@ -1,30 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 
-const BikeService = (props) => {
+const VendorHomeScreen = (props) => {
   return (
     <View>
       <View style={styles.mainView}>
-        <Text style={styles.header}>Bike Services</Text>
-        <View style={styles.filterIcons}>
-          <View style={styles.topFilterText}>
-            <TouchableOpacity
-            //onPress={() => props.navigation.navigate("CustomerBikeService")}
-            >
-              <Text style={styles.innerFilterText}>All</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.topFilterText1}>
-            <TouchableOpacity>
-              <Text style={styles.innerFilterText}>Top Rated</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.topFilterText1}>
-            <TouchableOpacity>
-              <Text style={styles.innerFilterText}>Most Viewed</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <Text style={styles.header}>Registered Services</Text>
         <View style={styles.bodyView}>
           <View style={styles.innerBodyView}>
             <Image
@@ -32,11 +13,11 @@ const BikeService = (props) => {
               style={styles.imageSize}
             />
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("ProfileDetailsScreen")}
+              //onPress={() => props.navigation.navigate("ProfileDetailsScreen")}
             >
-              <Text style={styles.imageText}>Name</Text>
-              <Text style={styles.imageText1}>Specalist</Text>
-              <Text style={styles.imageText1}>Rating</Text>
+              <Text style={styles.imageText}>Shop Name</Text>
+              <Text style={styles.imageText1}>Service type</Text>
+              <Text style={styles.imageText1}>Address</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -44,7 +25,7 @@ const BikeService = (props) => {
       <View style={styles.bottomView}>
         <View style={styles.bottomImgView}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Customer")}
+            onPress={() => props.navigation.navigate("Vendor")}
           >
             <Image
               source={require("../assets/home.png")}
@@ -64,7 +45,7 @@ const BikeService = (props) => {
         </View>
         <View style={styles.bottomImgView}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Customer")}
+            onPress={() => props.navigation.navigate("VendorProfileMenu")}
           >
             <Image
               source={require("../assets/Human.png")}
@@ -77,7 +58,7 @@ const BikeService = (props) => {
   );
 };
 
-export default BikeService;
+export default VendorHomeScreen;
 
 const styles = StyleSheet.create({
   mainView: {
@@ -85,35 +66,8 @@ const styles = StyleSheet.create({
     marginVertical: 40,
   },
   header: {
-    fontSize: 35,
+    fontSize: 30,
     marginBottom: 20,
-  },
-  filterIcons: {
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  innerFilterText: {
-    fontSize: 16,
-    textAlign: "center",
-    marginTop: 3,
-    color: "blue",
-  },
-  topFilterText: {
-    width: 70,
-    height: 30,
-    borderWidth: 1,
-    borderColor: "blue",
-    borderRadius: 10,
-    marginRight: 15,
-  },
-  topFilterText1: {
-    width: 110,
-    height: 30,
-    borderWidth: 1,
-    borderColor: "blue",
-    borderRadius: 10,
-    marginRight: 15,
   },
   bodyView: {
     height: 550,
@@ -121,9 +75,9 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     backgroundColor: "orange",
-    height: 100,
+    height: 80,
     width: 393,
-    marginVertical: -30,
+    marginVertical: 15,
     borderTopEndRadius: 20,
     borderTopLeftRadius: 20,
     display: "flex",
@@ -161,8 +115,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     marginLeft: 17,
-    marginTop: 13,
+    marginTop: 17,
     resizeMode:"contain",
-    
   },
 });
