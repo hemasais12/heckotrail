@@ -56,6 +56,13 @@ public class UserDetailsImpl implements UserDetails {
 		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPhone(), user.getPassword(), authorities);
 	}
 	
+	public static UserDetailsImpl buildForMobileLogin(User user) {
+		List<GrantedAuthority> authorities = user.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+		
+		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPhone(), user.getMobilePassword(), authorities);
+	}
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,6 +74,7 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	public String getEmail() {
+		logger.info("UserDetailsImpl: -------getEmail-----------------> " +email);
 		return email;
 	}
 	
@@ -76,6 +84,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
+		logger.info("UserDetailsImpl: -------password-----------------> " +password);
 		return password;
 	}
 
@@ -111,6 +120,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getUsername() {
+		logger.info("UserDetailsImpl: -------getUsername-----------------> " );
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -48,9 +48,6 @@ public class User extends DateAudit  {
 	@Size(max = 120)
 	private String password;
 	
-	private String otp;
-	
-	private Instant otpValidTill;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -59,6 +56,9 @@ public class User extends DateAudit  {
 	private Boolean isVerified;
 	
 	private Boolean isBlocked;
+	
+	@Size(max = 120)
+	private String mobilePassword;
 	
 	public User(String phone) {
 		this.phone = phone;

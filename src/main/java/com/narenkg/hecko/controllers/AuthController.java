@@ -125,16 +125,8 @@ public class AuthController {
 
 				User user = userService.findByPhone(phoneLoginRequest.getPhoneNumber());
 
-				String username = user.getEmail();
-				String password = user.getEmail();
-
-				if (username == null || username.isBlank()) {
-					username = phoneLoginRequest.getPhoneNumber();
-					password = phoneLoginRequest.getPhoneNumber();
-				}
-
 				Authentication authentication = authenticationManager
-						.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+						.authenticate(new UsernamePasswordAuthenticationToken(phoneLoginRequest.getPhoneNumber(), phoneLoginRequest.getPhoneNumber()));
 
 				logger.info("authenticateByPhone: --------------2----------> " + phoneLoginRequest.getPhoneNumber());
 
@@ -239,8 +231,8 @@ public class AuthController {
 		User user = new User(signUpRequest.getPhone());
 		user.setIsBlocked(false);
 		user.setIsVerified(true);
-		user.setEmail(signUpRequest.getPhone());
-		user.setPassword(encoder.encode(signUpRequest.getPhone()));
+		
+		user.setMobilePassword(encoder.encode(signUpRequest.getPhone()));
 
 		userService.save(user);
 		

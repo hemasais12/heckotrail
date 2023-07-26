@@ -1,5 +1,7 @@
 package com.narenkg.hecko.security.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,16 +23,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		logger.info("loadUserByUsername:username: ------------------------> " + username);
 
 		User user = userRepository.findByEmailOrPhone(username, username);
 
 		if (user == null)
 			throw new UsernameNotFoundException("User Not Found with username: " + username);
 
-		return UserDetailsImpl.build(user);
+		if (GeneralUtil.isEmail(username)) {
+			return UserDetailsImpl.build(user);
+		} else {
+			return UserDetailsImpl.buildForMobileLogin(user);
+		}
 
 	}
 
