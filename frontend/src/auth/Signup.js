@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,7 +12,28 @@ import Btn from "../Btn";
 import { yellow } from "../Constants";
 
 const Signup = (props) => {
-  return (
+const[fullName,setFullName]=useState(null);
+const[phone,setPhone]=useState(null);
+const[email,setEmail]=useState(null);
+const[password,setPassword]=useState(null);
+const[confirmPassword,setConfirmPassword]=useState(null);
+
+const saveData=()=>{
+  fetch(`http://10.226.212.222:5000/api/auth/signup`,{
+    method:"POST",
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body:JSON.stringify({
+      email,
+      phone,
+      password,
+      isVendor:true,
+    })
+  });
+}
+
+return (
     <View>
       <View style={{ paddingLeft: 20, marginTop: 40 }}>
         <View style={styles.headingView}>
@@ -31,23 +52,35 @@ const Signup = (props) => {
           <TextInput
             style={styles.input}
             placeholder="Full Name"
-            keyboardType={"email-address"}
+            value={fullName}
+            onChangeText={text=>setFullName(text)}
           />
           <TextInput
             style={styles.input}
+            value={phone}
             placeholder="Mobile Number"
             keyboardType={"number-pad"}
+            onChangeText={(number)=>setPhone(number)}
           />
-          <TextInput style={styles.input} placeholder="Email Id" />
+          <TextInput 
+           style={styles.input}
+           value={email}
+           placeholder="Email Id"
+           onChangeText={(email)=>setEmail(email)} 
+           />
           <TextInput
             style={styles.input}
+            value={password}
             placeholder="Password"
             secureTextEntry={true}
+            onChangeText={(password)=>setPassword(password)}
           />
           <TextInput
             style={styles.input}
+            value={confirmPassword}
             placeholder="Confirm Password"
             secureTextEntry={true}
+            onChangeText={(password)=>setConfirmPassword(password)}
           />
         </View>
         <View style={styles.buttonView}>
@@ -55,11 +88,8 @@ const Signup = (props) => {
             textColor="white"
             bgColor={yellow}
             btnLabel="Submit ->"
-            Press={() => props.navigation.navigate("OtpScreen")}
-            // Press={() => {
-            //   alert("Accoutn created");
-            //   props.navigation.navigate("Login");
-            // }}
+            // Press={() => props.navigation.navigate("OtpScreen")}
+            onPress={saveData()}
           />
         </View>
 

@@ -3,7 +3,7 @@ import React from "react";
 import Btn from "../Btn";
 import { yellow } from "../Constants";
 
-const BikeService = () => {
+const BikeService = (props) => {
   return (
     <View>
       <View style={styles.mainView}>
@@ -32,10 +32,7 @@ const BikeService = () => {
           textColor="white"
           bgColor={yellow}
           btnLabel="Submit ->"
-          Press={() => {
-            alert("Accoutn created");
-            //   props.navigation.navigate("Login");
-          }}
+          Press={() => {props.navigation.navigate("VendorHomeScreen")}}
         />
       </View>
     </View>

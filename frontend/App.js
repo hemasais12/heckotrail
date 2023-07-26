@@ -14,6 +14,10 @@ import ForgotPassword from "./src/forgotpassword/ForgotPassword";
 import EmailOtp from "./src/forgotpassword/EmailOtp";
 import ResetPassword from "./src/forgotpassword/ResetPassword";
 import CustomerBikeService from "./src/customerScreens/CustomerBikeService";
+import ProfileDetailsScreen from "./src/customerScreens/ProfileDetailsScreen";
+import VendorHomeScreen from "./src/vendorServiceScreens/VendorHomeScreen";
+import VendorProfileMenu from "./src/vendorServiceScreens/VendorProfileMenu";
+import BikeServicesTypes from "./src/vendorServiceScreens/BikeServicesTypes";
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -32,6 +36,10 @@ function App() {
         <Stack.Screen name="EmailOtp" component={EmailOtp} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="CustomerBikeService" component={CustomerBikeService} />
+        <Stack.Screen name="ProfileDetailsScreen" component={ProfileDetailsScreen} />
+        <Stack.Screen name="VendorHomeScreen" component={VendorHomeScreen} />
+        <Stack.Screen name="VendorProfileMenu" component={VendorProfileMenu} />
+        <Stack.Screen name="BikeServicesTypes" component={BikeServicesTypes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
