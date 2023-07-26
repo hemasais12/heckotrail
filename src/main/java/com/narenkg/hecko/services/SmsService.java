@@ -33,7 +33,7 @@ public class SmsService {
 		if (canSend) {
 			Twilio.init("AC8f0d527729b58bf1eded8c5c8e22a778", "8c5b6926e2b528e053b5d42561937356");
 
-			Message.creator(new PhoneNumber("+919108912233"), new PhoneNumber(IConstants.APP_SENDER_PHONE), content).create();
+			Message.creator(new PhoneNumber("+919108912233"), new PhoneNumber(IConstants.APP_SENDER_MOBILENUMBER), content).create();
 		} else {
 			EmailData emailData = new EmailData();
 			emailData.setSubject("Hecko OTP");

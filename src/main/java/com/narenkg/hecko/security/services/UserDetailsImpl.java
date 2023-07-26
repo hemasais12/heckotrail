@@ -23,7 +23,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String email;
 	
-	private String phone;
+	private String mobileNumber;
 
 	@JsonIgnore
 	private String password;
@@ -34,17 +34,17 @@ public class UserDetailsImpl implements UserDetails {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public UserDetailsImpl(Long id, String email, String phone, String password,
+	public UserDetailsImpl(Long id, String email, String mobileNumber, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		
 		logger.info("UserDetailsImpl: ------------------------> " +email);
-		logger.info("UserDetailsImpl: ------------------------> " +phone);
+		logger.info("UserDetailsImpl: ------------------------> " +mobileNumber);
 		logger.info("UserDetailsImpl: ------------------------> " +password);
 		logger.info("UserDetailsImpl: ------------------------> " +authorities);
 		
 		this.id = id;
 		this.email = email;
-		this.phone = phone;
+		this.mobileNumber = mobileNumber;
 		this.password = password;
 		this.authorities = authorities;
 	}
@@ -53,14 +53,14 @@ public class UserDetailsImpl implements UserDetails {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 		
-		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPhone(), user.getPassword(), authorities);
+		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getMobileNumber(), user.getPassword(), authorities);
 	}
 	
 	public static UserDetailsImpl buildForMobileLogin(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 		
-		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPhone(), user.getMobilePassword(), authorities);
+		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getMobileNumber(), user.getMobilePassword(), authorities);
 	}
 	
 
@@ -78,8 +78,8 @@ public class UserDetailsImpl implements UserDetails {
 		return email;
 	}
 	
-	public String getPhone() {
-		return phone;
+	public String getMobileNumber() {
+		return mobileNumber;
 	}
 
 	@Override

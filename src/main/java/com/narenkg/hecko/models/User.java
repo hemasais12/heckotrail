@@ -31,7 +31,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "email"), @UniqueConstraint(columnNames = "phone") })
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = "email"), @UniqueConstraint(columnNames = "mobileNumber") })
 
 public class User extends DateAudit  {
 	
@@ -43,7 +43,7 @@ public class User extends DateAudit  {
 	private String email;
 
 	@Size(max = 15)
-	private String phone;
+	private String mobileNumber;
 
 	@Size(max = 120)
 	private String password;
@@ -60,8 +60,8 @@ public class User extends DateAudit  {
 	@Size(max = 120)
 	private String mobilePassword;
 	
-	public User(String phone) {
-		this.phone = phone;
+	public User(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
 	public User(String email, String password) {

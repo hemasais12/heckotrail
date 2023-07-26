@@ -36,7 +36,7 @@ public class OtpService {
 		});
 	}
 
-	public String generateOTP(String phoneNo) throws Exception {
+	public String generateOTP(String mobileNumber) throws Exception {
 		int length = IConstants.OTP_LENGTH;
 		String numbers = "1234567890";
 		Random random = new Random();
@@ -46,10 +46,10 @@ public class OtpService {
 			otp[i] = numbers.charAt(random.nextInt(numbers.length()));
 		}
 		String strOtp = new String(otp);
-		otpCache.put(phoneNo, strOtp);
+		otpCache.put(mobileNumber, strOtp);
 
 		SmsData smsData = new SmsData();
-		smsData.setTo(phoneNo);
+		smsData.setTo(mobileNumber);
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("otp", strOtp);
 		smsData.setModel(model);

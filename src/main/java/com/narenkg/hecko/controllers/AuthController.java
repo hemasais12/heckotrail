@@ -23,8 +23,8 @@ import com.narenkg.hecko.models.User;
 import com.narenkg.hecko.payload.request.EmailOrMobileNumberInput;
 import com.narenkg.hecko.payload.request.EmailSignupRequest;
 import com.narenkg.hecko.payload.request.LoginRequest;
-import com.narenkg.hecko.payload.request.PhoneLoginRequest;
-import com.narenkg.hecko.payload.request.PhoneSignupRequest;
+import com.narenkg.hecko.payload.request.MobileLoginRequest;
+import com.narenkg.hecko.payload.request.MobileSignupRequest;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.JwtResponse;
 import com.narenkg.hecko.payload.response.UserProfile;
@@ -65,21 +65,21 @@ public class AuthController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@PostMapping("/signin/verifyemailorphone")
-	public ResponseEntity<?> verifyEmailOrPhone(@Valid @RequestBody EmailOrMobileNumberInput emailOrPhoneInput) {
+	@PostMapping("/signin/verifyemailormobilenumber")
+	public ResponseEntity<?> verifyEmailOrMobileNumber(@Valid @RequestBody EmailOrMobileNumberInput emailOrMobileNumberInput) {
 
-		String emailOrPhone = emailOrPhoneInput.getEmailOrMobileNumber();
+		String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
 
-		logger.info("registerEmailOrPhone: ------------------------> " + emailOrPhone);
+		logger.info("registerEmailOrMobileNumber: ------------------------> " + emailOrMobileNumber);
 
-		if (GeneralUtil.isEmail(emailOrPhone) || GeneralUtil.isMobileNumber(emailOrPhone)) {
+		if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 			try {
 
-				if (userService.existsByEmailOrPhone(emailOrPhone)) {
+				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
 
-					if (!GeneralUtil.isEmail(emailOrPhone)) {
-						otpService.generateOTP(emailOrPhone);
+					if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
+						otpService.generateOTP(emailOrMobileNumber);
 					}
 					return ResponseEntity.ok(
 							new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
@@ -95,7 +95,7 @@ public class AuthController {
 
 		} else {
 			return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-					messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_PHONE)));
+					messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER)));
 		}
 
 	}
@@ -103,37 +103,37 @@ public class AuthController {
 	@PostMapping("/signin/byemail")
 	public ResponseEntity<?> authenticateByEmail(@Valid @RequestBody LoginRequest loginRequest) {
 
-		String username = loginRequest.getUsername();
+		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
 
 		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+				.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 
-		return userService.verifyUserForLogin(loginRequest.getUsername(), jwt);
+		return userService.verifyUserForLogin(loginRequest.getEmail(), jwt);
 	}
 
-	@PostMapping("/signin/byphone")
-	public ResponseEntity<?> authenticateByPhone(@Valid @RequestBody PhoneLoginRequest phoneLoginRequest) {
+	@PostMapping("/signin/bymobileNumber")
+	public ResponseEntity<?> authenticateByMobileNumber(@Valid @RequestBody MobileLoginRequest mobileNumberLoginRequest) {
 
 		try {
-			if (phoneLoginRequest.getOtp().equals(otpService.getCacheOtp(phoneLoginRequest.getPhoneNumber()))) {
+			if (mobileNumberLoginRequest.getOtp().equals(otpService.getCacheOtp(mobileNumberLoginRequest.getMobileNumber()))) {
 
-				logger.info("authenticateByPhone: ----------------1--------> " + phoneLoginRequest.getPhoneNumber());
+				logger.info("authenticateByMobileNumber: ----------------1--------> " + mobileNumberLoginRequest.getMobileNumber());
 
-				User user = userService.findByPhone(phoneLoginRequest.getPhoneNumber());
+				User user = userService.findByMobileNumber(mobileNumberLoginRequest.getMobileNumber());
 
 				Authentication authentication = authenticationManager
-						.authenticate(new UsernamePasswordAuthenticationToken(phoneLoginRequest.getPhoneNumber(), phoneLoginRequest.getPhoneNumber()));
+						.authenticate(new UsernamePasswordAuthenticationToken(mobileNumberLoginRequest.getMobileNumber(), mobileNumberLoginRequest.getMobileNumber()));
 
-				logger.info("authenticateByPhone: --------------2----------> " + phoneLoginRequest.getPhoneNumber());
+				logger.info("authenticateByMobileNumber: --------------2----------> " + mobileNumberLoginRequest.getMobileNumber());
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				String jwt = jwtUtils.generateJwtToken(authentication);
 
-				return userService.verifyUserForLogin(phoneLoginRequest.getPhoneNumber(), jwt);
+				return userService.verifyUserForLogin(mobileNumberLoginRequest.getMobileNumber(), jwt);
 
 			} else {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
@@ -149,26 +149,26 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/signup/registeremailorphone")
-	public ResponseEntity<?> registerEmailOrPhone(@Valid @RequestBody EmailOrMobileNumberInput emailOrPhoneInput) {
+	@PostMapping("/signup/registeremailormobileNumber")
+	public ResponseEntity<?> registerEmailOrMobileNumber(@Valid @RequestBody EmailOrMobileNumberInput emailOrMobileNumberInput) {
 
-		String emailOrPhone = emailOrPhoneInput.getEmailOrMobileNumber();
+		String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
 
-		logger.info("registerEmailOrPhone: ------------------------> " + emailOrPhone);
+		logger.info("registerEmailOrMobileNumber: ------------------------> " + emailOrMobileNumber);
 
-		if (GeneralUtil.isEmail(emailOrPhone) || GeneralUtil.isMobileNumber(emailOrPhone)) {
+		if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
-			if (userService.existsByEmailOrPhone(emailOrPhone)) {
+			if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 						messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 
 			}
 			try {
 
-				if (!GeneralUtil.isEmail(emailOrPhone)) {
-					otpService.generateOTP(emailOrPhone);
+				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
+					otpService.generateOTP(emailOrMobileNumber);
 				} else {
-					otpService.generateEmailOTP(emailOrPhone);
+					otpService.generateEmailOTP(emailOrMobileNumber);
 				}
 				return ResponseEntity
 						.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
@@ -180,7 +180,7 @@ public class AuthController {
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		} else {
 			return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-					messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_PHONE)));
+					messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER)));
 		}
 	}
 
@@ -217,28 +217,60 @@ public class AuthController {
 
 	}
 
-	@PostMapping("/signup/byphone")
-	public ResponseEntity<?> registerByPhone(@Valid @RequestBody PhoneSignupRequest signUpRequest) {
-		if (userService.existsByPhone(signUpRequest.getPhone())) {
+	@PostMapping("/signup/bymobileNumber")
+	public ResponseEntity<?> registerByMobileNumber(@Valid @RequestBody MobileSignupRequest signUpRequest) {
+		if (userService.existsByMobileNumber(signUpRequest.getMobileNumber())) {
 			return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 					messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 		}
 
-		if (!signUpRequest.getOtp().equals(otpService.getCacheOtp(signUpRequest.getPhone()))) {
+		if (!signUpRequest.getOtp().equals(otpService.getCacheOtp(signUpRequest.getMobileNumber()))) {
 			return ResponseEntity.badRequest().body(
 					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.OTP_EXPIRED_OR_WRONG)));
 		}
-		User user = new User(signUpRequest.getPhone());
+		User user = new User(signUpRequest.getMobileNumber());
 		user.setIsBlocked(false);
 		user.setIsVerified(true);
 		
-		user.setMobilePassword(encoder.encode(signUpRequest.getPhone()));
+		user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
 
 		userService.save(user);
 		
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(signUpRequest.getPhone(), signUpRequest.getPhone()));
+				new UsernamePasswordAuthenticationToken(signUpRequest.getMobileNumber(), signUpRequest.getMobileNumber()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
+
+		return userService.doFirstLogin(user, jwt);
+
+		// Create new user's account
+
+	}
+	
+	@PostMapping("/signup/setroles")
+	public ResponseEntity<?> setUserRoles(@Valid @RequestBody MobileSignupRequest signUpRequest) {
+		if (userService.existsByMobileNumber(signUpRequest.getMobileNumber())) {
+			return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
+					messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
+		}
+
+		if (!signUpRequest.getOtp().equals(otpService.getCacheOtp(signUpRequest.getMobileNumber()))) {
+			return ResponseEntity.badRequest().body(
+					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.OTP_EXPIRED_OR_WRONG)));
+		}
+		User user = new User(signUpRequest.getMobileNumber());
+		user.setIsBlocked(false);
+		user.setIsVerified(true);
+		
+		user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
+
+		userService.save(user);
+		
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(signUpRequest.getMobileNumber(), signUpRequest.getMobileNumber()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);

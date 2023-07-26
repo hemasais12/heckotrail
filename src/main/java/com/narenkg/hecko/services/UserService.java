@@ -32,16 +32,16 @@ public class UserService {
 		return userRepository.existsByEmail(email);
 	}
 
-	public Boolean existsByPhone(String phone) {
-		return userRepository.existsByPhone(phone);
+	public Boolean existsByMobileNumber(String mobileNumber) {
+		return userRepository.existsByMobileNumber(mobileNumber);
 	}
 
-	public Boolean existsByEmailOrPhone(String email, String phone) {
-		return userRepository.existsByEmailOrPhone(email, phone);
+	public Boolean existsByEmailOrMobileNumber(String email, String mobileNumber) {
+		return userRepository.existsByEmailOrMobileNumber(email, mobileNumber);
 	}
 
-	public Boolean existsByEmailOrPhone(String emailOrPhone) {
-		return existsByEmailOrPhone(emailOrPhone, emailOrPhone);
+	public Boolean existsByEmailOrMobileNumber(String emailOrMobileNumber) {
+		return existsByEmailOrMobileNumber(emailOrMobileNumber, emailOrMobileNumber);
 	}
 	
 	public User findByEmail(String email) {
@@ -50,20 +50,20 @@ public class UserService {
 		return user;
 	}
 	
-	public User findByPhone(String phone) {
+	public User findByMobileNumber(String mobileNumber) {
 
-		User user = userRepository.findByPhone(phone);
+		User user = userRepository.findByMobileNumber(mobileNumber);
 		return user;
 	}
 
-	public User findByEmailOrPhone(String email, String phone) {
+	public User findByEmailOrMobileNumber(String email, String mobileNumber) {
 
-		User user = userRepository.findByEmailOrPhone(email, phone);
+		User user = userRepository.findByEmailOrMobileNumber(email, mobileNumber);
 		return user;
 	}
 
-	public User findByEmailOrPhone(String emailOrPhone) {
-		return findByEmailOrPhone(emailOrPhone, emailOrPhone);
+	public User findByEmailOrMobileNumber(String emailOrMobileNumber) {
+		return findByEmailOrMobileNumber(emailOrMobileNumber, emailOrMobileNumber);
 	}
 
 	public User findById(Long userId) {
@@ -78,8 +78,8 @@ public class UserService {
 		return userDetailsServiceImpl.loadUserFromContext();
 	}
 
-	public ResponseEntity<?> verifyUserForLogin(String username, String jwt) {
-		User user = findByEmailOrPhone(username);
+	public ResponseEntity<?> verifyUserForLogin(String emailOrMobileNumber, String jwt) {
+		User user = findByEmailOrMobileNumber(emailOrMobileNumber);
 
 		if (user != null) {
 			if (user.getIsVerified() != null && user.getIsVerified()) {
@@ -88,7 +88,7 @@ public class UserService {
 
 					UserProfile userProfile = new UserProfile();
 					userProfile.setEmail(user.getEmail());
-					userProfile.setPhone(user.getPhone());
+					userProfile.setMobileNumber(user.getMobileNumber());
 					userProfile.setIsVerified(user.getIsVerified());
 					userProfile.setIsBlocked(user.getIsBlocked());
 					userProfile.setUserDetail(user.getUserDetail());
@@ -119,7 +119,7 @@ public class UserService {
 
 			UserProfile userProfile = new UserProfile();
 			userProfile.setEmail(user.getEmail());
-			userProfile.setPhone(user.getPhone());
+			userProfile.setMobileNumber(user.getMobileNumber());
 			userProfile.setIsVerified(user.getIsVerified());
 			userProfile.setIsBlocked(user.getIsBlocked());
 			userProfile.setUserDetail(user.getUserDetail());

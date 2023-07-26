@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserProfile {
 	private String email;
-	private String phone;
+	private String mobileNumber;
 	private Set<Role> roles = new HashSet<>();
 	private Boolean isVerified;
 	private Boolean isBlocked;

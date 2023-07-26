@@ -11,10 +11,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhoneSignupRequest {
+public class MobileSignupRequest {
 	@NotBlank
 	@Size(min = 3, max = 20)
-	private String phone;
+	private String mobileNumber;
 
 	@NotBlank
 	@Size(min = 6, max = 10)

@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class MobileLoginRequest {
 	@NotBlank
-	private String email;
+	private String mobileNumber;
 
 	@NotBlank
-	private String password;
+	private String otp;
 }

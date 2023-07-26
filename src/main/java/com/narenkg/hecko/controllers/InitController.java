@@ -162,11 +162,11 @@ public class InitController {
 
 		messageList.add(new Message(errorColor, EMessage.SIGNUP_USER_ALREADY_EXISTS.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Email/Phone is already registered. Please try to login.",
-				"Email/Phone is already registered. Please try to login."));
+				"Email/MobileNumber is already registered. Please try to login.",
+				"Email/MobileNumber is already registered. Please try to login."));
 
 		messageList.add(new Message(errorColor, EMessage.USER_NOT_FOUND.name(), mapCategories.get(EMessageType.ERROR.name()),
-				EMessageType.ERROR.name(), "Could not find Email/Phone.", "Could not find Email/Phone."));
+				EMessageType.ERROR.name(), "Could not find Email/MobileNumber.", "Could not find Email/MobileNumber."));
 
 		messageList.add(new Message(successColor, EMessage.SIGNUP_USER_SUCCESS.name(),
 				mapCategories.get(EMessageType.SUCCESS.name()), EMessageType.SUCCESS.name(),
@@ -178,8 +178,8 @@ public class InitController {
 
 		messageList.add(new Message(errorColor, EMessage.SIGNIN_EMAIL_NOTVERIFIED.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Email/Phone not verified. Please verify by OTP/Email.",
-				"Email/Phone not verified. Please verify by OTP/Email."));
+				"Email/MobileNumber not verified. Please verify by OTP/Email.",
+				"Email/MobileNumber not verified. Please verify by OTP/Email."));
 
 		messageList.add(
 				new Message(errorColor, EMessage.SIGNIN_ACCOUNT_BLOCKED.name(), mapCategories.get(EMessageType.ERROR.name()),
@@ -188,7 +188,7 @@ public class InitController {
 
 		messageList.add(new Message(errorColor, EMessage.SIGNIN_USER_NOTFOUND.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Email/Phone is not registered. Please register.", "Email/Phone is not registered. Please register."));
+				"Email/MobileNumber is not registered. Please register.", "Email/MobileNumber is not registered. Please register."));
 
 		messageList
 				.add(new Message(successColor, EMessage.SIGNIN_SUCCESS.name(), mapCategories.get(EMessageType.SUCCESS.name()),
@@ -223,7 +223,7 @@ public class InitController {
 				EMessageType.SUCCESS.name(), "Good to go next step.", "Good to go next step."));
 		
 		messageList
-		.add(new Message(errorColor, EMessage.NOT_VALID_EMAIL_OR_PHONE.name(), mapCategories.get(EMessageType.ERROR.name()),
+		.add(new Message(errorColor, EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER.name(), mapCategories.get(EMessageType.ERROR.name()),
 				EMessageType.ERROR.name(), "Not a valid email or mobile number.", "Not a valid email or mobile number."));
 		
 		messageList

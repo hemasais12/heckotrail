@@ -27,16 +27,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String emailOrMobileNumber) throws UsernameNotFoundException {
 
-		logger.info("loadUserByUsername:username: ------------------------> " + username);
+		logger.info("loadUserByUsername:username: ------------------------> " + emailOrMobileNumber);
 
-		User user = userRepository.findByEmailOrPhone(username, username);
+		User user = userRepository.findByEmailOrMobileNumber(emailOrMobileNumber, emailOrMobileNumber);
 
 		if (user == null)
-			throw new UsernameNotFoundException("User Not Found with username: " + username);
+			throw new UsernameNotFoundException("User Not Found with username: " + emailOrMobileNumber);
 
-		if (GeneralUtil.isEmail(username)) {
+		if (GeneralUtil.isEmail(emailOrMobileNumber)) {
 			return UserDetailsImpl.build(user);
 		} else {
 			return UserDetailsImpl.buildForMobileLogin(user);
