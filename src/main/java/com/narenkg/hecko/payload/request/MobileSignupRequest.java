@@ -11,12 +11,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MobileSignupRequest {
+public class MobileSignupRequest extends SignupRequest {
 	@NotBlank
 	@Size(min = 3, max = 20)
 	private String mobileNumber;
-
-	@NotBlank
-	@Size(min = 6, max = 10)
-	private String otp;
 }

@@ -3,6 +3,8 @@ package com.narenkg.hecko.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,6 +35,7 @@ import com.narenkg.hecko.payload.response.enums.EApiResponseType;
 import com.narenkg.hecko.security.jwt.JwtUtils;
 import com.narenkg.hecko.services.MessageService;
 import com.narenkg.hecko.services.OtpService;
+import com.narenkg.hecko.services.ReferralService;
 import com.narenkg.hecko.services.RoleService;
 import com.narenkg.hecko.services.UserService;
 import com.narenkg.hecko.util.GeneralUtil;
@@ -64,6 +67,9 @@ public class AuthController {
 	@Autowired
 	private OtpService otpService;
 
+	@Autowired
+	private ReferralService referralService;
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@PostMapping("/signin/verifyemailormobilenumber")
@@ -72,8 +78,6 @@ public class AuthController {
 
 		try {
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
-
-			logger.info("registerEmailOrMobileNumber: ------------------------> " + emailOrMobileNumber);
 
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
@@ -130,17 +134,9 @@ public class AuthController {
 			if (mobileNumberLoginRequest.getOtp()
 					.equals(otpService.getCacheOtp(mobileNumberLoginRequest.getMobileNumber()))) {
 
-				logger.info("authenticateByMobileNumber: ----------------1--------> "
-						+ mobileNumberLoginRequest.getMobileNumber());
-
-				User user = userService.findByMobileNumber(mobileNumberLoginRequest.getMobileNumber());
-
 				Authentication authentication = authenticationManager.authenticate(
 						new UsernamePasswordAuthenticationToken(mobileNumberLoginRequest.getMobileNumber(),
 								mobileNumberLoginRequest.getMobileNumber()));
-
-				logger.info("authenticateByMobileNumber: --------------2----------> "
-						+ mobileNumberLoginRequest.getMobileNumber());
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				String jwt = jwtUtils.generateJwtToken(authentication);
@@ -167,14 +163,11 @@ public class AuthController {
 
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
 
-			logger.info("registerEmailOrMobileNumber: ------------------------> " + emailOrMobileNumber);
-
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
 					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 							messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
-
 				}
 
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
@@ -214,12 +207,28 @@ public class AuthController {
 						messageService.getMessage(EMessage.OTP_EXPIRED_OR_WRONG)));
 			}
 
+			if (signUpRequest.getReferralCode() != null) {
+				String strReferralCode = signUpRequest.getReferralCode().trim();
+				if (!strReferralCode.isBlank()) {
+					ResponseEntity<?> responseEntity = referralService.verifyReferralCode(strReferralCode);
+					if (responseEntity.getStatusCode() != HttpStatus.OK) {
+						return responseEntity;
+					}
+				}
+			}
+
 			// Create new user's account
 			User user = new User(signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
 			user.setIsBlocked(false);
 			user.setIsVerified(true);
 
 			userService.save(user);
+
+			referralService.generateReferralCode(user);
+
+			if (signUpRequest.getReferralCode() != null && !signUpRequest.getReferralCode().trim().isBlank()) {
+				referralService.registerSignupViaReferral(user, signUpRequest.getReferralCode().trim());
+			}
 
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(signUpRequest.getEmail(), signUpRequest.getPassword()));
@@ -247,6 +256,17 @@ public class AuthController {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 						messageService.getMessage(EMessage.OTP_EXPIRED_OR_WRONG)));
 			}
+
+			if (signUpRequest.getReferralCode() != null) {
+				String strReferralCode = signUpRequest.getReferralCode().trim();
+				if (!strReferralCode.isBlank()) {
+					ResponseEntity<?> responseEntity = referralService.verifyReferralCode(strReferralCode);
+					if (responseEntity.getStatusCode() != HttpStatus.OK) {
+						return responseEntity;
+					}
+				}
+			}
+
 			User user = new User(signUpRequest.getMobileNumber());
 			user.setIsBlocked(false);
 			user.setIsVerified(true);
@@ -254,6 +274,12 @@ public class AuthController {
 			user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
 
 			userService.save(user);
+
+			referralService.generateReferralCode(user);
+
+			if (signUpRequest.getReferralCode() != null && !signUpRequest.getReferralCode().trim().isBlank()) {
+				referralService.registerSignupViaReferral(user, signUpRequest.getReferralCode().trim());
+			}
 
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					signUpRequest.getMobileNumber(), signUpRequest.getMobileNumber()));
@@ -267,9 +293,6 @@ public class AuthController {
 			return ResponseEntity.badRequest()
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
-
-		// Create new user's account
-
 	}
 
 }

@@ -11,16 +11,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailSignupRequest extends SignupRequest {
-	@NotBlank
-	@Size(min = 3, max = 50)
-	private String email;
-	
+public class SignupRequest {
+
 	@NotBlank
 	@Size(min = 6, max = 120)
-	private String password;
+	private String otp;
 	
-	@NotBlank
-	@Size(min = 6, max = 120)
-	private String confirmPassword;
+	@Size(min = 6, max = 10)
+	private String referralCode;
 }

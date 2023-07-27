@@ -63,4 +63,17 @@ public class UserController {
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
 	}
+	
+	@PostMapping("/info/update")
+	public ResponseEntity<?> updateUserInfo(@Valid @RequestBody SetRolesRequest rolesRequest) {
+		try {
+			User user = userService.getCurrentUser();
+			return ResponseEntity.ok(
+					new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ResponseEntity.badRequest()
+					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
+		}
+	}
 }
