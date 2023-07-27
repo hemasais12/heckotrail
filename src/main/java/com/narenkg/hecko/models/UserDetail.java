@@ -1,5 +1,6 @@
 package com.narenkg.hecko.models;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -38,7 +39,4 @@ public class UserDetail extends UserDateAudit  {
 	
 	@OneToMany
     private Set<UserLanguage> languages;
-	
-	@OneToMany
-	private Address address;
 }
