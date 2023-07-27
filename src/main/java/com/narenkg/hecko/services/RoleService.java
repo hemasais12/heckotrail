@@ -28,7 +28,7 @@ public class RoleService {
 	}
 
 	public Set<Role> getUserRoles() {
-		return Collections.singleton(roleRepository.findByName(ERole.ROLE_USER));
+		return Collections.singleton(roleRepository.findByName(ERole.ROLE_CLIENT));
 	}
 
 	public Set<Role> getAdminRoles() {
