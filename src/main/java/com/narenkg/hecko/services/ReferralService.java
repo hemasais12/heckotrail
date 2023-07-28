@@ -56,11 +56,12 @@ public class ReferralService {
 					String code = null;
 					while (!codeFound) {
 						code = GeneralUtil.createAlphaNumbericRandomCode(IConstants.REFERRAL_CODE_LENGTH);
-						referralCode = referralCodeRepository.findByCode(code);
-						if (referralCode == null)
+						// changed by hemasai
+						ReferralCode referralCode1 = referralCodeRepository.findByCode(code);
+						if (referralCode1 == null)
+							// upto this
 							codeFound = true;
 					}
-
 					referralCode.setCode(code);
 					referralCodeRepository.save(referralCode);
 

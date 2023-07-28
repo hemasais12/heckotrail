@@ -2,38 +2,42 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
   StyleSheet,
   TextInput,
   Image,
 } from "react-native";
-import Btn from "../Btn";
-import { yellow } from "../Constants";
+import Btn from "../common/Btn";
+import { yellow } from "../common/Constants";
 
 const Signup = (props) => {
-const[fullName,setFullName]=useState(null);
-const[phone,setPhone]=useState(null);
-const[email,setEmail]=useState(null);
-const[password,setPassword]=useState(null);
-const[confirmPassword,setConfirmPassword]=useState(null);
+  const [emailOrPhone,setEmailOrPhone]=useState(null);
 
-const saveData=()=>{
-  fetch(`http://10.226.212.222:5000/api/auth/signup`,{
-    method:"POST",
-    headers:{
-      'Content-Type':'application/json'
-    },
-    body:JSON.stringify({
-      email,
-      phone,
-      password,
-      isVendor:true,
-    })
-  });
-}
+  const saveData = () => {
+    fetch(
+      `http://10.226.212.101:5000/api/auth/signup/registeremailormobileNumber`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailOrMobileNumber: emailOrPhone,
+        }),
+      }
+    ).then((response) => {
+      if (response.ok == true) {
+        if(emailOrPhone.slice(-3)=="com"){
+          props.navigation.navigate("SignupPassword",{email:emailOrPhone,})
+        }
+        else{
+          props.navigation.navigate("SignupOtpScreen",{phoneNumber:emailOrPhone,})
+        }
+      }
+    });
+  };
 
-return (
+  return (
     <View>
       <View style={{ paddingLeft: 20, marginTop: 40 }}>
         <View style={styles.headingView}>
@@ -51,45 +55,17 @@ return (
           <Text style={styles.bodySubHeader}>Please sign up to continue</Text>
           <TextInput
             style={styles.input}
-            placeholder="Full Name"
-            value={fullName}
-            onChangeText={text=>setFullName(text)}
-          />
-          <TextInput
-            style={styles.input}
-            value={phone}
-            placeholder="Mobile Number"
-            keyboardType={"number-pad"}
-            onChangeText={(number)=>setPhone(number)}
-          />
-          <TextInput 
-           style={styles.input}
-           value={email}
-           placeholder="Email Id"
-           onChangeText={(email)=>setEmail(email)} 
-           />
-          <TextInput
-            style={styles.input}
-            value={password}
-            placeholder="Password"
-            secureTextEntry={true}
-            onChangeText={(password)=>setPassword(password)}
-          />
-          <TextInput
-            style={styles.input}
-            value={confirmPassword}
-            placeholder="Confirm Password"
-            secureTextEntry={true}
-            onChangeText={(password)=>setConfirmPassword(password)}
+            placeholder="Email Id / mobile number"
+            onChangeText={(value) => setEmailOrPhone(value)}
           />
         </View>
         <View style={styles.buttonView}>
           <Btn
             textColor="white"
-            bgColor={yellow}
             btnLabel="Submit ->"
-            // Press={() => props.navigation.navigate("OtpScreen")}
-            onPress={saveData()}
+            bgColor={yellow}
+            Press={saveData}
+            //Press={() => props.navigation.navigate("SignupOtpScreen")}
           />
         </View>
 
@@ -144,23 +120,23 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 30,
     paddingLeft: 120,
-    marginTop: -30,
+    marginTop: -10,
   },
   bodySubHeader: {
     color: "black",
     fontSize: 15,
-    marginBottom: 20,
+    marginBottom: 100,
     paddingLeft: 80,
   },
   buttonView: {
     paddingLeft: 190,
-    marginTop: -30,
+    marginTop: -20,
   },
   bottomView: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 80,
+    marginTop: 200,
   },
   bottontext1: {
     fontSize: 16,

@@ -1,16 +1,39 @@
 import {
     View,
     Text,
+    Touchable,
     TouchableOpacity,
     TextInput,
     StyleSheet,
     Image,
   } from "react-native";
-  import React from "react";
+  import React, { useState } from "react";
   import Btn from "../common/Btn";
   import { yellow } from "../common/Constants";
   
-  const ForgotPassword = (props) => {
+  const LoginOtpScreen = (props) => {
+    const [otp, setOtp] = useState(null);
+    const mobileNumber = props.route.params.phoneNumber;
+  
+    const sendData = () => {
+      fetch(`http://10.226.212.101:5000/api/auth/signin/bymobileNumber`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          mobileNumber: mobileNumber,
+          otp: otp,
+        }),
+      }).then((response) => {
+        if (response.ok == true) {
+          props.navigation.navigate("Home");
+        } else {
+          alert("Check Otp");
+        }
+      });
+    };
+  
     return (
       <View style={{ marginTop: 40 }}>
         <View style={{ marginHorizontal: 30 }}>
@@ -24,27 +47,28 @@ import {
           <Text style={styles.subHeading}>Services At Your Response</Text>
         </View>
         <View style={styles.contentView}>
-          <Text style={styles.text1}>Reset Password</Text>
-          <Text style={styles.subtext1}>Please enter old and new password to</Text>
-          <Text style={styles.subtext2}>to continue</Text>
+          <Text style={styles.text1}>OTP</Text>
+          <Text style={styles.subtext1}>Please enter Otp to login</Text>
           <View>
-            <TextInput style={styles.input} placeholder="Old Password" />
-            <TextInput style={styles.input} placeholder="New Password" />
-            <TextInput style={styles.input} placeholder="Confirm New Password" />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Otp to login"
+              onChangeText={(value) => setOtp(value)}
+            />
             <View style={styles.buttonView}>
               <Btn
                 textColor="white"
                 bgColor={yellow}
-                btnLabel="Submit ->"
-                Press={() => props.navigation.navigate("Login")}
+                btnLabel="Login ->"
+                Press={sendData}
               />
             </View>
             <View style={styles.bottomView}>
-              <Text style={styles.text2}>Don't have an account ? </Text>
+              <Text style={styles.text2}>Already have an account ? ? </Text>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate("Signup")}
+                onPress={() => props.navigation.navigate("Login")}
               >
-                <Text style={styles.text3}>Signup</Text>
+                <Text style={styles.text3}>Login</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -53,12 +77,12 @@ import {
     );
   };
   
-  export default ForgotPassword;
+  export default LoginOtpScreen;
   
   const styles = StyleSheet.create({
     input: {
       height: 40,
-      margin: 5,
+      margin: 12,
       borderBottomWidth: 1,
       padding: 10,
     },
@@ -77,6 +101,7 @@ import {
     subHeading: {
       color: "black",
       fontSize: 15,
+      marginBottom: 30,
     },
     contentView: {
       marginHorizontal: 30,
@@ -85,28 +110,23 @@ import {
     text1: {
       color: "black",
       fontSize: 30,
-      marginBottom:10,
     },
     subtext1: {
       color: "black",
       fontSize: 15,
+      marginBottom: 40,
     },
-    subtext2: {
-        color: "black",
-        fontSize: 15,
-        marginBottom:20,
-      },
     buttonView: {
       width: "78%",
-      marginBottom: 100,
+      marginBottom: 180,
       marginTop: 10,
-      paddingLeft: 170,
+      paddingLeft: 150,
     },
     bottomView: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
-      marginVertical: 50,
+      marginVertical: 40,
     },
     text2: {
       fontSize: 16,
@@ -117,12 +137,5 @@ import {
       fontWeight: "bold",
       fontSize: 16,
     },
-    forgotPassword:{
-      color: yellow,
-      fontWeight: "bold",
-      fontSize: 16,
-      marginLeft:190,
-      marginBottom:20,
-    }
   });
   

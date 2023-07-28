@@ -1,9 +1,7 @@
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
-  TextInput,
   StyleSheet,
   Image,
 } from "react-native";
@@ -15,7 +13,7 @@ const Home = (props) => {
       <View style={{ marginHorizontal: 30 }}>
         <View style={styles.headingView}>
           <Image
-            source={require("./assets/logo1.png")}
+            source={require("../assets/logo1.png")}
             style={styles.imageView}
           />
           <Text style={styles.heading}>Hecko</Text>
@@ -35,7 +33,7 @@ const Home = (props) => {
                 onPress={() => props.navigation.navigate("Vendor")}
               >
                 <Image
-                  source={require("./assets/vendor.png")}
+                  source={require("../assets/vendor.png")}
                   style={styles.boximageView}
                 />
                 <Text style={styles.imageText}>Vendor</Text>
@@ -47,7 +45,7 @@ const Home = (props) => {
                 onPress={() => props.navigation.navigate("Customer")}
               >
                 <Image
-                  source={require("./assets/customer.png")}
+                  source={require("../assets/customer.png")}
                   style={styles.boximageView}
                 />
                 <Text style={styles.imageText}>Customer</Text>

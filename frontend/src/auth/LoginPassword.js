@@ -7,11 +7,37 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import React from "react";
-import Btn from "../Btn";
-import { yellow } from "../Constants";
+import React, { useState } from "react";
+import Btn from "../common/Btn";
+import { yellow } from "../common/Constants";
 
 const Password = (props) => {
+  const [password, setPassword] = useState(null);
+  const email=props.route.params.email;
+
+  const sendData = () => {
+    fetch(
+      `http://10.226.212.101:5000/api/auth/signin/byemail`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email:email,
+            password:password,
+        }),
+      }
+    ).then((response) => {
+      if (response.ok == true) {
+        props.navigation.navigate("Home")
+      }
+      else{
+        alert("Please Enter Correct Password")
+      }
+    });
+  };
+
   return (
     <View style={{ marginTop: 40 }}>
       <View style={{ marginHorizontal: 30 }}>
@@ -28,7 +54,12 @@ const Password = (props) => {
         <Text style={styles.text1}>Password</Text>
         <Text style={styles.subtext1}>Please enter password to login</Text>
         <View>
-          <TextInput style={styles.input} placeholder="Enter Your Password" />
+          <TextInput
+           style={styles.input}
+            placeholder="Enter Your Password"
+            secureTextEntry={true}
+            onChangeText={(value)=>setPassword(value)}
+            />
           <TouchableOpacity
               onPress={() => props.navigation.navigate("ForgotPassword")}
             >
@@ -39,7 +70,7 @@ const Password = (props) => {
               textColor="white"
               bgColor={yellow}
               btnLabel="Login ->"
-              Press={() => props.navigation.navigate("Home")}
+              Press={sendData}
             />
           </View>
           <View style={styles.bottomView}>

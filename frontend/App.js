@@ -1,12 +1,10 @@
 import * as React from "react";
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/auth/Login";
 import Signup from "./src/auth/Signup";
-import Password from "./src/auth/Password";
-import OtpScreen from "./src/auth/OtpScreen";
-import Home from "./src/Home";
+import LoginPassword from "./src/auth/LoginPassword";
+import Home from "./src/common/Home";
 import Vendor from "./src/screens/Vendor";
 import Customer from "./src/screens/Customer";
 import BikeService from "./src/vendorServiceScreens/BikeService";
@@ -18,6 +16,9 @@ import ProfileDetailsScreen from "./src/customerScreens/ProfileDetailsScreen";
 import VendorHomeScreen from "./src/vendorServiceScreens/VendorHomeScreen";
 import VendorProfileMenu from "./src/vendorServiceScreens/VendorProfileMenu";
 import BikeServicesTypes from "./src/vendorServiceScreens/BikeServicesTypes";
+import SignupPassword from "./src/auth/SignupPassword";
+import LoginOtpScreen from "./src/auth/LoginOtpScreen";
+import SignupOtpScreen from "./src/auth/SignupOtpScreen";
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -26,8 +27,8 @@ function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Password" component={Password} />
-        <Stack.Screen name="OtpScreen" component={OtpScreen} />
+        <Stack.Screen name="LoginPassword" component={LoginPassword} />
+        <Stack.Screen name="SignupOtpScreen" component={SignupOtpScreen} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Vendor" component={Vendor} />
         <Stack.Screen name="Customer" component={Customer} />
@@ -40,6 +41,8 @@ function App() {
         <Stack.Screen name="VendorHomeScreen" component={VendorHomeScreen} />
         <Stack.Screen name="VendorProfileMenu" component={VendorProfileMenu} />
         <Stack.Screen name="BikeServicesTypes" component={BikeServicesTypes} />
+        <Stack.Screen name="SignupPassword" component={SignupPassword} />
+        <Stack.Screen name="LoginOtpScreen" component={LoginOtpScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
