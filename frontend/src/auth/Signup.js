@@ -9,30 +9,26 @@ import {
 } from "react-native";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const Signup = (props) => {
-  const [emailOrPhone,setEmailOrPhone]=useState(null);
+  const [emailOrPhone, setEmailOrPhone] = useState(null);
 
   const saveData = () => {
-    fetch(
-      `http://10.226.212.101:5000/api/auth/signup/registeremailormobileNumber`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emailOrMobileNumber: emailOrPhone,
-        }),
-      }
-    ).then((response) => {
-      if (response.ok == true) {
-        if(emailOrPhone.slice(-3)=="com"){
-          props.navigation.navigate("SignupPassword",{email:emailOrPhone,})
+    const signupRequest = {
+      emailOrMobileNumber: emailOrPhone,
+    };
+    AuthService.signup(signupRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        if (emailOrPhone.slice(-3) == "com") {
+          props.navigation.navigate("SignupPassword", { email: emailOrPhone });
+        } else {
+          props.navigation.navigate("SignupOtpScreen", {
+            phoneNumber: emailOrPhone,
+          });
         }
-        else{
-          props.navigation.navigate("SignupOtpScreen",{phoneNumber:emailOrPhone,})
-        }
+      } else {
+        alert("Check email/mobile number");
       }
     });
   };

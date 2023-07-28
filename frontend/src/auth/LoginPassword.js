@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
   TextInput,
   StyleSheet,
@@ -10,30 +9,22 @@ import {
 import React, { useState } from "react";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const Password = (props) => {
   const [password, setPassword] = useState(null);
-  const email=props.route.params.email;
+  const email = props.route.params.email;
 
   const sendData = () => {
-    fetch(
-      `http://10.226.212.101:5000/api/auth/signin/byemail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email:email,
-            password:password,
-        }),
-      }
-    ).then((response) => {
-      if (response.ok == true) {
-        props.navigation.navigate("Home")
-      }
-      else{
-        alert("Please Enter Correct Password")
+    const loginRequest = {
+      email: email,
+      password: password,
+    };
+    AuthService.loginWithPassword(loginRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        props.navigation.navigate("Home");
+      } else {
+        alert("Please check your password");
       }
     });
   };
@@ -55,16 +46,16 @@ const Password = (props) => {
         <Text style={styles.subtext1}>Please enter password to login</Text>
         <View>
           <TextInput
-           style={styles.input}
+            style={styles.input}
             placeholder="Enter Your Password"
             secureTextEntry={true}
-            onChangeText={(value)=>setPassword(value)}
-            />
+            onChangeText={(value) => setPassword(value)}
+          />
           <TouchableOpacity
-              onPress={() => props.navigation.navigate("ForgotPassword")}
-            >
-              <Text style={styles.forgotPassword}>Forgot Password</Text>
-            </TouchableOpacity>
+            onPress={() => props.navigation.navigate("ForgotPassword")}
+          >
+            <Text style={styles.forgotPassword}>Forgot Password</Text>
+          </TouchableOpacity>
           <View style={styles.buttonView}>
             <Btn
               textColor="white"
@@ -146,11 +137,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  forgotPassword:{
+  forgotPassword: {
     color: yellow,
     fontWeight: "bold",
     fontSize: 16,
-    marginLeft:190,
-    marginBottom:20,
-  }
+    marginLeft: 190,
+    marginBottom: 20,
+  },
 });

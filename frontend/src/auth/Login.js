@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
   TextInput,
   StyleSheet,
@@ -10,24 +9,17 @@ import {
 import React, { useState } from "react";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const Login = (props) => {
   const [emailorphone, setEmailorphone] = useState(null);
 
   const saveData = () => {
-    fetch(
-      `http://10.226.212.101:5000/api/auth/signin/verifyemailormobilenumber`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emailOrMobileNumber: emailorphone,
-        }),
-      }
-    ).then((response) => {
-      if (response.ok == true) {
+    const loginRequest = {
+      emailOrMobileNumber: emailorphone,
+    };
+    AuthService.login(loginRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
         if (emailorphone.slice(-3) == "com") {
           props.navigation.navigate("LoginPassword", { email: emailorphone });
         } else {
@@ -35,7 +27,9 @@ const Login = (props) => {
             phoneNumber: emailorphone,
           });
         }
-      } else alert("User not found");
+      } else {
+        alert("User not found");
+      }
     });
   };
 

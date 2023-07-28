@@ -9,36 +9,28 @@ import {
 import React, { useState } from "react";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const SignupPassword = (props) => {
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [otp, setOtp] = useState(null);
-  const [referralCode,setReferralCode]=useState(null);
-  const email=props.route.params.email;
+  const [referralCode, setReferralCode] = useState(null);
+  const email = props.route.params.email;
 
   const sendData = () => {
-    fetch(
-      `http://10.226.212.101:5000/api/auth/signup/byemail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            email:email,
-            password:password,
-            confirmPassword:confirmPassword,
-            otp:otp,
-            referralCode:referralCode,
-        }),
-      }
-    ).then((response) => {
-      if (response.ok == true) {
-        props.navigation.navigate("Login")
-      }
-      else{
-        console.warn("Please Provide Correct Details")
+    const signupRequest = {
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      otp: otp,
+      referralCode: referralCode,
+    };
+    AuthService.signupWithPassword(signupRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        props.navigation.navigate("Login");
+      } else {
+        alert("Please Provide Correct Details");
       }
     });
   };
@@ -78,12 +70,12 @@ const SignupPassword = (props) => {
             onChangeText={(value) => setOtp(value)}
           />
           <View style={styles.referralView}>
-          <Text style={styles.referralText}>Have any referral code?</Text>
-          <TextInput
-            style={styles.referralInput}
-            placeholder="Referral Code"
-            onChangeText={(value) => setReferralCode(value)}
-          />
+            <Text style={styles.referralText}>Have any referral code?</Text>
+            <TextInput
+              style={styles.referralInput}
+              placeholder="Referral Code"
+              onChangeText={(value) => setReferralCode(value)}
+            />
           </View>
           <View style={styles.buttonView}>
             <Btn
@@ -116,23 +108,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 10,
   },
-  referralInput:{
+  referralInput: {
     height: 40,
-    width:150,
-    borderWidth:0.6,
-    paddingLeft:10,
+    width: 150,
+    borderWidth: 0.6,
+    paddingLeft: 10,
   },
-  referralText:{
-    height:40,
-    width:150,
-    marginRight:20,
-    paddingTop:8,
+  referralText: {
+    height: 40,
+    width: 150,
+    marginRight: 20,
+    paddingTop: 8,
   },
   referralView: {
     display: "flex",
     flexDirection: "row",
-    marginTop:20,
-    marginLeft:10
+    marginTop: 20,
+    marginLeft: 10,
   },
   headingView: {
     display: "flex",

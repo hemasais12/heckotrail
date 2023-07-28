@@ -9,25 +9,21 @@ import {
 import React, { useState } from "react";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const OtpScreen = (props) => {
   const [otp, setOtp] = useState(null);
-  const [referralCode,setReferralCode]=useState(0);
+  const [referralCode, setReferralCode] = useState(null);
   const mobileNumber = props.route.params.phoneNumber;
 
   const sendData = () => {
-    fetch(`http://10.226.212.101:5000/api/auth/signup/bymobileNumber`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        mobileNumber: mobileNumber,
-        otp: otp,
-        referralCode:referralCode,
-      }),
-    }).then((response) => {
-      if (response.ok == true) {
+    const signupRequest = {
+      mobileNumber: mobileNumber,
+      otp: otp,
+      referralCode: referralCode,
+    };
+    AuthService.signupWithOtp(signupRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
         props.navigation.navigate("Home");
       } else {
         alert("Check Otp");
@@ -56,13 +52,13 @@ const OtpScreen = (props) => {
             placeholder="Enter Otp to login"
             onChangeText={(value) => setOtp(value)}
           />
-           <View style={styles.referralView}>
-          <Text style={styles.referralText}>Have any referral code?</Text>
-          <TextInput
-            style={styles.referralInput}
-            placeholder="Referral Code"
-            onChangeText={(value) => setReferralCode(value)}
-          />
+          <View style={styles.referralView}>
+            <Text style={styles.referralText}>Have any referral code?</Text>
+            <TextInput
+              style={styles.referralInput}
+              placeholder="Referral Code"
+              onChangeText={(value) => setReferralCode(value)}
+            />
           </View>
           <View style={styles.buttonView}>
             <Btn
@@ -119,13 +115,13 @@ const styles = StyleSheet.create({
   text1: {
     color: "black",
     fontSize: 30,
-    marginLeft:10,
+    marginLeft: 10,
   },
   subtext1: {
     color: "black",
     fontSize: 15,
     marginBottom: 40,
-    marginLeft:10,
+    marginLeft: 10,
   },
   buttonView: {
     width: "78%",
@@ -147,22 +143,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  referralInput:{
+  referralInput: {
     height: 40,
-    width:140,
-    borderWidth:0.6,
-    paddingLeft:10,
+    width: 140,
+    borderWidth: 0.6,
+    paddingLeft: 10,
   },
-  referralText:{
-    height:40,
-    width:150,
-    marginRight:20,
-    paddingTop:8,
+  referralText: {
+    height: 40,
+    width: 150,
+    marginRight: 20,
+    paddingTop: 8,
   },
   referralView: {
     display: "flex",
     flexDirection: "row",
-    marginTop:20,
-    marginLeft:10
+    marginTop: 20,
+    marginLeft: 10,
   },
 });
