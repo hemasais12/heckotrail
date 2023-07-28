@@ -7,8 +7,8 @@ import {
     Image,
   } from "react-native";
   import React from "react";
-  import Btn from "../Btn";
-  import { yellow } from "../Constants";
+  import Btn from "../common/Btn";
+  import { yellow } from "../common/Constants";
   
   const ForgotPassword = (props) => {
     return (

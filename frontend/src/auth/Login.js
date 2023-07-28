@@ -1,17 +1,38 @@
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
   TextInput,
   StyleSheet,
   Image,
 } from "react-native";
-import React from "react";
-import Btn from "../Btn";
-import { yellow } from "../Constants";
+import React, { useState } from "react";
+import Btn from "../common/Btn";
+import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const Login = (props) => {
+  const [emailorphone, setEmailorphone] = useState(null);
+
+  const saveData = () => {
+    const loginRequest = {
+      emailOrMobileNumber: emailorphone,
+    };
+    AuthService.login(loginRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        if (emailorphone.slice(-3) == "com") {
+          props.navigation.navigate("LoginPassword", { email: emailorphone });
+        } else {
+          props.navigation.navigate("LoginOtpScreen", {
+            phoneNumber: emailorphone,
+          });
+        }
+      } else {
+        alert("User not found");
+      }
+    });
+  };
+
   return (
     <View style={{ marginTop: 40 }}>
       <View style={{ marginHorizontal: 30 }}>
@@ -24,30 +45,29 @@ const Login = (props) => {
         </View>
         <Text style={styles.subHeading}>Services At Your Response</Text>
       </View>
-      <View style={styles.contentView}>
-        <Text style={styles.text1}>Login</Text>
-        <Text style={styles.subtext1}>Please sign in to continue</Text>
-        <View>
+      <View style={styles.bodyView}>
+        <View style={styles.bodyInnerView}>
+          <Text style={styles.text1}>Login</Text>
+          <Text style={styles.subtext1}>Please sign in to continue</Text>
           <TextInput
             style={styles.input}
             placeholder="Email Id / mobile number"
+            onChangeText={(value) => setEmailorphone(value)}
           />
-          <View style={styles.buttonView}>
-            <Btn
-              textColor="white"
-              bgColor={yellow}
-              btnLabel="Submit ->"
-              Press={() => props.navigation.navigate("Password")}
-            />
-          </View>
-          <View style={styles.bottomView}>
-            <Text style={styles.text2}>Don't have an account ? </Text>
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Signup")}
-            >
-              <Text style={styles.text3}>Signup</Text>
-            </TouchableOpacity>
-          </View>
+        </View>
+        <View style={styles.buttonView}>
+          <Btn
+            textColor="white"
+            bgColor={yellow}
+            btnLabel="Submit ->"
+            Press={saveData}
+          />
+        </View>
+        <View style={styles.bottomView}>
+          <Text style={styles.text2}>Don't have an account ? </Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Signup")}>
+            <Text style={styles.text3}>Signup</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -78,31 +98,39 @@ const styles = StyleSheet.create({
   subHeading: {
     color: "black",
     fontSize: 15,
+    marginBottom: 30,
   },
-  contentView: {
+  bodyView: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 130,
+    width: "100%",
+    height: "100%",
+  },
+  bodyInnerView: {
     marginHorizontal: 30,
-    marginVertical: 100,
+    marginVertical: 50,
   },
   text1: {
     color: "black",
     fontSize: 30,
+    paddingLeft: 135,
+    marginTop: -10,
   },
   subtext1: {
     color: "black",
     fontSize: 15,
-    marginBottom: 40,
+    marginBottom: 100,
+    paddingLeft: 80,
   },
   buttonView: {
-    width: "78%",
-    marginBottom: 180,
-    marginTop: 10,
-    paddingLeft: 150,
+    paddingLeft: 190,
+    marginTop: -20,
   },
   bottomView: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 60,
+    marginTop: 200,
   },
   text2: {
     fontSize: 16,

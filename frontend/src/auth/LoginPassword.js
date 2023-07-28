@@ -1,17 +1,34 @@
 import {
   View,
   Text,
-  Touchable,
   TouchableOpacity,
   TextInput,
   StyleSheet,
   Image,
 } from "react-native";
-import React from "react";
-import Btn from "../Btn";
-import { yellow } from "../Constants";
+import React, { useState } from "react";
+import Btn from "../common/Btn";
+import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
 const Password = (props) => {
+  const [password, setPassword] = useState(null);
+  const email = props.route.params.email;
+
+  const sendData = () => {
+    const loginRequest = {
+      email: email,
+      password: password,
+    };
+    AuthService.loginWithPassword(loginRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        props.navigation.navigate("Home");
+      } else {
+        alert("Please check your password");
+      }
+    });
+  };
+
   return (
     <View style={{ marginTop: 40 }}>
       <View style={{ marginHorizontal: 30 }}>
@@ -28,18 +45,23 @@ const Password = (props) => {
         <Text style={styles.text1}>Password</Text>
         <Text style={styles.subtext1}>Please enter password to login</Text>
         <View>
-          <TextInput style={styles.input} placeholder="Enter Your Password" />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Your Password"
+            secureTextEntry={true}
+            onChangeText={(value) => setPassword(value)}
+          />
           <TouchableOpacity
-              onPress={() => props.navigation.navigate("ForgotPassword")}
-            >
-              <Text style={styles.forgotPassword}>Forgot Password</Text>
-            </TouchableOpacity>
+            onPress={() => props.navigation.navigate("ForgotPassword")}
+          >
+            <Text style={styles.forgotPassword}>Forgot Password</Text>
+          </TouchableOpacity>
           <View style={styles.buttonView}>
             <Btn
               textColor="white"
               bgColor={yellow}
               btnLabel="Login ->"
-              Press={() => props.navigation.navigate("Home")}
+              Press={sendData}
             />
           </View>
           <View style={styles.bottomView}>
@@ -115,11 +137,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  forgotPassword:{
+  forgotPassword: {
     color: yellow,
     fontWeight: "bold",
     fontSize: 16,
-    marginLeft:190,
-    marginBottom:20,
-  }
+    marginLeft: 190,
+    marginBottom: 20,
+  },
 });

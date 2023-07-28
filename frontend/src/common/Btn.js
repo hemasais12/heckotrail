@@ -1,9 +1,9 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Pressable } from 'react-native';
 import React from "react";
 
 export default function Btn({bgColor, btnLabel, textColor, Press}) {
   return (
-    <TouchableOpacity
+    <Pressable 
     onPress={Press}
       style={{
         backgroundColor: bgColor,
@@ -17,6 +17,6 @@ export default function Btn({bgColor, btnLabel, textColor, Press}) {
       <Text style={{color: textColor, fontSize: 20, fontWeight: 'bold'}}>
         {btnLabel}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }

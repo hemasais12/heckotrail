@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
-import { lightskyblue } from "../Constants";
+import { lightskyblue } from "../common/Constants";
 
 const ProfileDetailsScreen = () => {
   return (

@@ -7,11 +7,30 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import React from "react";
-import Btn from "../Btn";
-import { yellow } from "../Constants";
+import React, { useState } from "react";
+import Btn from "../common/Btn";
+import { yellow } from "../common/Constants";
+import AuthService from "../services/auth.service";
 
-const OtpScreen = (props) => {
+const LoginOtpScreen = (props) => {
+  const [otp, setOtp] = useState(null);
+  const mobileNumber = props.route.params.phoneNumber;
+
+  const sendData = () => {
+    const loginRequest = {
+      mobileNumber: mobileNumber,
+      otp: otp,
+    };
+
+    AuthService.loginWithOtp(loginRequest).then((response) => {
+      if (response.responseType == "SUCCESS") {
+        props.navigation.navigate("Home");
+      } else {
+        alert("Check Otp");
+      }
+    });
+  };
+
   return (
     <View style={{ marginTop: 40 }}>
       <View style={{ marginHorizontal: 30 }}>
@@ -28,21 +47,25 @@ const OtpScreen = (props) => {
         <Text style={styles.text1}>OTP</Text>
         <Text style={styles.subtext1}>Please enter Otp to login</Text>
         <View>
-          <TextInput style={styles.input} placeholder="Enter Otp to login" />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Otp to login"
+            onChangeText={(value) => setOtp(value)}
+          />
           <View style={styles.buttonView}>
             <Btn
               textColor="white"
               bgColor={yellow}
               btnLabel="Login ->"
-              Press={() => alert("Logged In")}
+              Press={sendData}
             />
           </View>
           <View style={styles.bottomView}>
-            <Text style={styles.text2}>Don't have an account ? </Text>
+            <Text style={styles.text2}>Already have an account ? ? </Text>
             <TouchableOpacity
-              onPress={() => props.navigation.navigate("Signup")}
+              onPress={() => props.navigation.navigate("Login")}
             >
-              <Text style={styles.text3}>Signup</Text>
+              <Text style={styles.text3}>Login</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -51,7 +74,7 @@ const OtpScreen = (props) => {
   );
 };
 
-export default OtpScreen;
+export default LoginOtpScreen;
 
 const styles = StyleSheet.create({
   input: {

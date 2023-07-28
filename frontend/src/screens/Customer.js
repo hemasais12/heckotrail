@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
-import { lightgreen } from "../Constants";
+import { lightgreen } from "../common/Constants";
 
 const Customer = (props) => {
   return (

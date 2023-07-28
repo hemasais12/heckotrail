@@ -1,14 +1,11 @@
 import {
-  FlatList,
   StyleSheet,
   Text,
   View,
   ScrollView,
   Image,
-  TouchableOpacity,
 } from "react-native";
 import React from "react";
-import { lightskyblue } from "../Constants";
 
 const BikeServicesTypes = () => {
   return (
