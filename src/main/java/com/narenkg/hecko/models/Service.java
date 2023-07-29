@@ -36,6 +36,9 @@ public class Service extends UserDateAudit {
 	@Size(max = 120)
 	private String name;
 	
+	@Size(max = 120)
+	private String shortName;
+	
 	@NotBlank
 	@Size(max = 120)
 	private String identifier;

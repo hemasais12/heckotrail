@@ -1,12 +1,22 @@
 package com.narenkg.hecko.models;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.narenkg.hecko.models.audit.UserDateAudit;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,25 +29,26 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServiceGroup extends UserDateAudit {
+public class VendorPackage extends UserDateAudit {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@OneToOne
+	private User user;
+	
+	private String packageName;
 
-	@NotBlank
-	@Size(max = 120)
-	private String name;
+	private String packageShortName;
 	
-	@Size(max = 120)
-	private String shortName;
+	@OneToMany
+	private List<VendorService> vendorService;
 	
-	@NotBlank
-	@Size(max = 120)
-	private String identifier;
+	private Boolean isDiscountinued;
 	
-	@ManyToOne
-	private ServiceCategory serviceCategory;
+	private Boolean isAvailable;
 	
-	private Boolean isActive;
+	private Boolean isPickDropAvailable;
+
 }

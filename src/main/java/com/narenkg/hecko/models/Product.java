@@ -31,6 +31,10 @@ public class Product extends UserDateAudit {
 	@Size(max = 120)
 	private String brand; // Brand Name
 	
+	@NotBlank
+	@Size(max = 120)
+	private String shortBrand; // short Brand Name
+	
 	@ManyToOne
 	private Category productCategory; // Car, Bike etc
 	
@@ -53,9 +57,9 @@ public class Product extends UserDateAudit {
 	@Size(max = 120)
 	private String detail; // description
 	
-	private Double mrp; // MRP
-	
 	private Date releaseDate; // product release date
+	
+	private Double mrp; // MRP
 	
 	@ManyToOne
 	private Currency currency; // INR, $ etc

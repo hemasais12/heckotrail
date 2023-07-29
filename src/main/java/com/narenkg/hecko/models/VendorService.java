@@ -1,6 +1,7 @@
 package com.narenkg.hecko.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.narenkg.hecko.models.audit.UserDateAudit;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,6 +40,9 @@ public class VendorService extends UserDateAudit {
 	
 	@OneToOne
 	private Service service;
+	
+	@OneToMany
+	private List<VendorProduct> vendorProducts;
 
 	private Double vendorPrice; 
 	
@@ -49,4 +54,5 @@ public class VendorService extends UserDateAudit {
 	private Boolean isAvailable;
 	
 	private Boolean isDiscontinued;
+	
 }
