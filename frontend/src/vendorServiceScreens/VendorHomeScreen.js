@@ -5,7 +5,7 @@ const VendorHomeScreen = (props) => {
   return (
     <View>
       <View style={styles.mainView}>
-        <Text style={styles.header}>Registered Services</Text>
+        {/* <Text style={styles.header}>Registered Services</Text> */}
         <View style={styles.bodyView}>
           <View style={styles.innerBodyView}>
             <Image
@@ -45,7 +45,7 @@ const VendorHomeScreen = (props) => {
         </View>
         <View style={styles.bottomImgView}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("VendorProfileMenu")}
+            onPress={() => props.navigation.navigate("Account Details")}
           >
             <Image
               source={require("../assets/Human.png")}
@@ -63,14 +63,14 @@ export default VendorHomeScreen;
 const styles = StyleSheet.create({
   mainView: {
     marginHorizontal: 20,
-    marginVertical: 40,
+    marginVertical: 20,
   },
   header: {
     fontSize: 30,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   bodyView: {
-    height: 550,
+    height: 569,
     width: 350,
   },
   bottomView: {

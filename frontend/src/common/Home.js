@@ -30,7 +30,7 @@ const Home = (props) => {
           <View style={styles.boxes}>
             <View style={styles.boxesView}>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate("Vendor")}
+                onPress={() => props.navigation.navigate("Services")}
               >
                 <Image
                   source={require("../assets/vendor.png")}

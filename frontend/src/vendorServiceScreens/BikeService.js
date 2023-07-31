@@ -27,12 +27,12 @@ const BikeService = (props) => {
           keyboardType="number-pad"
         />
       </View>
-      <View style={{ paddingLeft: 190, marginTop: 100 }}>
+      <View style={{ paddingLeft: 190, marginTop: 50 }}>
         <Btn
           textColor="white"
           bgColor={yellow}
           btnLabel="Submit ->"
-          Press={() => {props.navigation.navigate("VendorHomeScreen")}}
+          Press={() => {props.navigation.navigate("Registered Services")}}
         />
       </View>
     </View>
@@ -44,11 +44,11 @@ export default BikeService;
 const styles = StyleSheet.create({
   mainView: {
     marginHorizontal: 30,
-    marginVertical: 100,
+    marginVertical: 40,
   },
   headingText: {
     fontSize: 35,
-    marginBottom: 40,
+    marginBottom: 10,
   },
   subtext: {
     fontSize: 17,
@@ -61,6 +61,5 @@ const styles = StyleSheet.create({
   },
   form: {
     marginHorizontal: 30,
-    marginVertical: -70,
   },
 });

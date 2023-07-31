@@ -10,7 +10,7 @@ import React from "react";
 const BikeServicesTypes = () => {
   return (
     <View style={styles.mainView}>
-      <Text style={styles.headingText}>Service Types</Text>
+      {/* <Text style={styles.headingText}>Service Types</Text> */}
       <ScrollView horizontal={true} style={styles.container}>
         <View style={[styles.card, styles.cardElevated]}>
           <Text style={styles.bodyHeadText}>Engine Oils</Text>
@@ -70,7 +70,7 @@ export default BikeServicesTypes;
 const styles = StyleSheet.create({
   mainView: {
     marginHorizontal: 10,
-    marginVertical: 40,
+    marginVertical: 20,
   },
   headingText: {
     fontSize: 24,
