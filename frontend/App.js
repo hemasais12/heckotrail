@@ -24,13 +24,15 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="LoginPassword" component={LoginPassword} />
-        <Stack.Screen name="SignupOtpScreen" component={SignupOtpScreen} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Vendor" component={Vendor} />
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login}  options={{headerShown:false}}/>
+        <Stack.Screen name="Signup" component={Signup}  options={{headerShown:false}}/>
+        <Stack.Screen name="LoginPassword" component={LoginPassword}  options={{headerShown:false}}/>
+        <Stack.Screen name="SignupOtpScreen" component={SignupOtpScreen}  options={{headerShown:false}}/>
+        <Stack.Screen name="Home" component={Home} 
+          options={{headerShown:false}}
+        />
+        <Stack.Screen name="Services" component={Vendor} />
         <Stack.Screen name="Customer" component={Customer} />
         <Stack.Screen name="BikeService" component={BikeService} />
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
@@ -38,14 +40,17 @@ function App() {
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="CustomerBikeService" component={CustomerBikeService} />
         <Stack.Screen name="ProfileDetailsScreen" component={ProfileDetailsScreen} />
-        <Stack.Screen name="VendorHomeScreen" component={VendorHomeScreen} />
-        <Stack.Screen name="VendorProfileMenu" component={VendorProfileMenu} />
-        <Stack.Screen name="BikeServicesTypes" component={BikeServicesTypes} />
-        <Stack.Screen name="SignupPassword" component={SignupPassword} />
-        <Stack.Screen name="LoginOtpScreen" component={LoginOtpScreen} />
+        <Stack.Screen name="Registered Services" component={VendorHomeScreen} />
+        <Stack.Screen name="Account Details" component={VendorProfileMenu} />
+        <Stack.Screen name="Bike Services Types" component={BikeServicesTypes} />
+        <Stack.Screen name="SignupPassword" component={SignupPassword}  options={{headerShown:false}}/>
+        <Stack.Screen name="LoginOtpScreen" component={LoginOtpScreen}  options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default App;
+
+
+// screenOptions={{ headerShown: false }}

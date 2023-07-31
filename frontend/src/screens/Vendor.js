@@ -13,14 +13,7 @@ const Vendor = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("BikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: "lightblue",
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/bike.png")}
                 style={styles.imageSize}
@@ -33,14 +26,7 @@ const Vendor = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("BikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: "lightblue",
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/car.png")}
                 style={styles.imageSize}
@@ -53,14 +39,7 @@ const Vendor = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("BikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: "lightblue",
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/setting.png")}
                 style={styles.imageSize}
@@ -79,16 +58,16 @@ export default Vendor;
 const styles = StyleSheet.create({
   mainView: {
     marginHorizontal: 30,
-    marginVertical: 100,
+    marginVertical: 20,
   },
   headingText: {
     fontSize: 35,
-    marginBottom: 40,
+    marginBottom: 10,
   },
   servicesIcons: {
     display: "flex",
     flexDirection: "row",
-    marginTop: -40,
+    marginTop:10,
     marginLeft: 20,
   },
   subtext: {
@@ -109,5 +88,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginTop: 5,
+  },
+  serviceView:{
+    width: 90,
+    height: 90,
+    backgroundColor: "lightblue",
+    borderRadius: 20,
   },
 });

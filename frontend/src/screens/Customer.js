@@ -15,14 +15,7 @@ const Customer = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("CustomerBikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: lightgreen,
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/bike.png")}
                 style={styles.imageSize}
@@ -35,14 +28,7 @@ const Customer = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("CustomerBikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: lightgreen,
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/car.png")}
                 style={styles.imageSize}
@@ -55,14 +41,7 @@ const Customer = (props) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate("CustomerBikeService")}
           >
-            <View
-              style={{
-                width: 90,
-                height: 90,
-                backgroundColor: lightgreen,
-                borderRadius: 20,
-              }}
-            >
+            <View style={styles.serviceView}>
               <Image
                 source={require("../assets/setting.png")}
                 style={styles.imageSize}
@@ -111,5 +90,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginTop: 5,
+  },
+  serviceView:{
+    width: 90,
+    height: 90,
+    backgroundColor: lightgreen,
+    borderRadius: 20,
   },
 });
