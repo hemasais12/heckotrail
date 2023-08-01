@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import RoundedButton from "./src/controls/buttons/RoundedButton";
+import SearchTextBox from "./src/controls/searchBar/SearchTextBox";
 import ServiceOrder from "./src/views/ServiceOrder";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <SearchTextBox></SearchTextBox>
       <ServiceOrder orderDetail={orderDetail}></ServiceOrder>
       <RoundedButton>Login</RoundedButton>
       <StatusBar style="auto" />
