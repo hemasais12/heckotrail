@@ -3,23 +3,25 @@ import { GlobalColors } from "../common/colors";
 import { GlobalSizes } from "../common/sizes";
 import { FlatList } from "react-native";
 import PercentageBar from "../controls/progressbars/PercentageBar";
+import ServiceOrderImage from "../controls/images/ServiceOrderImage";
+import BoxTitleText from "../controls/texts/BoxTitleText";
+import BoxText from "../controls/texts/BoxText";
 
 function ServiceOrder({ children, onPress, orderDetail }) {
   function renderOrderDetailItem(itemData) {
-    return <Text>{itemData.item.name}</Text>;
+    return <BoxText>{itemData.item.name}</BoxText>;
   }
 
   return (
     <View style={styles.container}>
-      <Image
+      <ServiceOrderImage
         source={{
           uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg",
         }}
-        style={styles.image}
       />
 
       <View style={styles.orderDetail}>
-        <Text style={styles.orderTitle}>{orderDetail.title}</Text>
+        <BoxTitleText>{orderDetail.title}</BoxTitleText>
 
         <FlatList
           data={orderDetail.highlights}
@@ -48,17 +50,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 4,
   },
-  orderTitle: {
-    fontWeight: "bold",
-  },
   pressed: {
     opacity: GlobalSizes.primaryButton.pressedOpacity,
     backgroundColor: GlobalColors.primaryButton.pressed,
     borderRadius: GlobalSizes.primaryButton.radius,
-  },
-  image: {
-    width: GlobalSizes.orderView.height,
-    height: "100%",
-    borderRadius: GlobalSizes.orderView.radius - 1,
   },
 });

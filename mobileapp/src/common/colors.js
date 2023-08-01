@@ -22,7 +22,7 @@ export const GlobalColors = {
   },
   progressBar: {
     backgroundColor: "#ffffff",
-    filledColor: "#fe8800",
-    borderColor: "#fdcf46",
+    filledColor: "#ffebd4",
+    borderColor: "#ffe8a3",
   },
 };

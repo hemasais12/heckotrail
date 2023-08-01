@@ -5,18 +5,14 @@ import { GlobalFonts } from "../../common/fonts";
 import { LinearGradient } from "expo-linear-gradient";
 import ButtonPressable from "./ButtonPressable";
 import ButtonHzLinearGradient from "../gradients/ButtonHzLinearGradient";
+import PrimaryButtonText from "../texts/PrimaryButtonText";
 
 function RoundedButton({ children, onPress }) {
   return (
     <View>
       <ButtonPressable onPress={onPress}>
         <ButtonHzLinearGradient>
-          <View style={styles.textcontainer}>
-            <Text style={styles.buttonText}>
-              {children} {"     "}
-            </Text>
-            <Text style={styles.buttonArrow}> →</Text>
-          </View>
+          <PrimaryButtonText>{children}</PrimaryButtonText>
         </ButtonHzLinearGradient>
       </ButtonPressable>
     </View>
@@ -24,20 +20,3 @@ function RoundedButton({ children, onPress }) {
 }
 
 export default RoundedButton;
-
-const styles = StyleSheet.create({
-  textcontainer: {
-    flexDirection: "row",
-  },
-
-  buttonText: {
-    color: GlobalColors.primaryButton.text,
-    textAlign: "center",
-    fontWeight: GlobalFonts.primaryButton.fontWeight,
-  },
-
-  buttonArrow: {
-    color: GlobalColors.primaryButton.text,
-    textAlign: "left",
-  },
-});
