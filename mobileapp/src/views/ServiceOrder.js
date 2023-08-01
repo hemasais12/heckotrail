@@ -28,7 +28,7 @@ function ServiceOrder({ children, onPress, orderDetail }) {
           keyExtractor={(item) => item.id}
           renderItem={renderOrderDetailItem}
         />
-        <PercentageBar bgcolor="blue" completed={5} />
+        <PercentageBar bgcolor="blue" completed={"5%"} />
       </View>
     </View>
   );

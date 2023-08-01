@@ -12,5 +12,8 @@ export const GlobalSizes = {
     height: 100,
     width: "100%",
     progressBar: 5,
+    percentageText: 11,
+    titleFontSize: 14,
+    NormalTextFont: 12,
   },
 };

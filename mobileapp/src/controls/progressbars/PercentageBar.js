@@ -1,34 +1,42 @@
 import React, { useState } from "react";
+import { GlobalSizes } from "../../common/sizes";
 import { GlobalColors } from "../../common/colors";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import BoxPercentageText from "../texts/BoxPercentageText";
 
 const PercentageBar = ({ bgcolor, completed }) => {
   return (
-    <View style={styles.containerStyles}>
-      <View style={styles.fillerStyles}></View>
+    <View>
+      <BoxPercentageText>{completed}</BoxPercentageText>
+      <View style={styles.overallProgressBar}>
+        <View style={styles.completedBar}></View>
+      </View>
     </View>
   );
 };
 export default PercentageBar;
 
 const styles = StyleSheet.create({
-  containerStyles: {
-    height: 10,
+  container: {
+    height: 6,
     width: "100%",
     backgroundColor: GlobalColors.progressBar.backgroundColor,
     borderRadius: 3,
     borderColor: GlobalColors.progressBar.borderColor,
     borderWidth: 1,
   },
-  fillerStyles: {
+  overallProgressBar: {
+    height: 6,
+    width: "100%",
+    backgroundColor: GlobalColors.progressBar.backgroundColor,
+    borderRadius: 3,
+    borderColor: GlobalColors.progressBar.borderColor,
+    borderWidth: 1,
+  },
+  completedBar: {
     height: "100%",
     width: "50%",
     backgroundColor: GlobalColors.progressBar.filledColor,
     borderRadius: 2,
-  },
-  labelStyles: {
-    padding: 5,
-    color: "white",
-    fontWeight: "bold",
   },
 });
