@@ -9,6 +9,7 @@ export default function App() {
     highlights: [
       { id: 1, name: "Package / Service Type" },
       { id: 2, name: "Estimated Value: ????" },
+      { id: 3, name: "Some other info 1111" },
     ],
   };
 
