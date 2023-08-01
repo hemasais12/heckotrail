@@ -7,4 +7,9 @@ export const GlobalSizes = {
     paddingLeft: 16,
     paddingVertical: 8,
   },
+  orderView: {
+    radius: 5,
+    height: 100,
+    width: "100%",
+  },
 };

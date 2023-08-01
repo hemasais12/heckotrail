@@ -12,7 +12,7 @@ export const GlobalColors = {
     progressColor: "#f8921d",
     imageBgColor: "#c3e8f8",
     starFilledColor: "#fdc17d",
-    ratingColor: "##00B0F0",
+    ratingColor: "#00B0F0",
   },
   primaryButton: {
     light: "#fdcf46",
