@@ -11,5 +11,6 @@ export const GlobalSizes = {
     radius: 5,
     height: 100,
     width: "100%",
+    progressBar: 5,
   },
 };

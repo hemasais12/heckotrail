@@ -2,10 +2,11 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { GlobalColors } from "../common/colors";
 import { GlobalSizes } from "../common/sizes";
 import { FlatList } from "react-native";
+import PercentageBar from "../controls/progressbars/PercentageBar";
 
 function ServiceOrder({ children, onPress, orderDetail }) {
   function renderOrderDetailItem(itemData) {
-    return <Text>{itemData}</Text>;
+    return <Text>{itemData.item.name}</Text>;
   }
 
   return (
@@ -16,16 +17,17 @@ function ServiceOrder({ children, onPress, orderDetail }) {
         }}
         style={styles.image}
       />
-      {/*
-      <>
-        
+
+      <View style={styles.orderDetail}>
         <Text style={styles.orderTitle}>{orderDetail.title}</Text>
+
         <FlatList
           data={orderDetail.highlights}
           keyExtractor={(item) => item.id}
           renderItem={renderOrderDetailItem}
         />
-      </>*/}
+        <PercentageBar bgcolor="blue" completed={5} />
+      </View>
     </View>
   );
 }
@@ -34,7 +36,7 @@ export default ServiceOrder;
 
 const styles = StyleSheet.create({
   container: {
-    width: GlobalSizes.orderView.width,
+    width: "100%",
     height: GlobalSizes.orderView.height,
     borderRadius: GlobalSizes.orderView.radius,
     borderColor: GlobalColors.primaryButton.dark,
@@ -42,9 +44,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     flexDirection: "row",
   },
+  orderDetail: {
+    flex: 1,
+    padding: 4,
+  },
   orderTitle: {
-    paddingLeft: 8,
-    paddingTop: 4,
     fontWeight: "bold",
   },
   pressed: {
@@ -53,7 +57,8 @@ const styles = StyleSheet.create({
     borderRadius: GlobalSizes.primaryButton.radius,
   },
   image: {
-    width: "30%",
+    width: GlobalSizes.orderView.height,
     height: "100%",
+    borderRadius: GlobalSizes.orderView.radius - 1,
   },
 });

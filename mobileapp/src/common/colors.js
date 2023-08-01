@@ -20,4 +20,9 @@ export const GlobalColors = {
     pressed: "#0d0701",
     text: "#ffffff",
   },
+  progressBar: {
+    backgroundColor: "#ffffff",
+    filledColor: "#fe8800",
+    borderColor: "#fdcf46",
+  },
 };

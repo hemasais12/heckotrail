@@ -7,8 +7,8 @@ export default function App() {
   let orderDetail = {
     title: "Owner Name (Bike Number)",
     highlights: [
-      { id: 1, name: "1" },
-      { id: 2, title: "asdasdsad" },
+      { id: 1, name: "Package / Service Type" },
+      { id: 2, name: "Estimated Value: ????" },
     ],
   };
 
