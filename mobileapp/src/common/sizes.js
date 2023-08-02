@@ -15,5 +15,6 @@ export const GlobalSizes = {
     percentageText: 11,
     titleFontSize: 14,
     NormalTextFont: 12,
+    pickAndDropImg: 20,
   },
 };

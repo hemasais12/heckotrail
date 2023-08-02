@@ -3,7 +3,11 @@ import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 
 function BoxText({ children }) {
-  return <Text style={styles.container}>{children}</Text>;
+  return (
+    <Text ellipsizeMode="tail" numberOfLines={1} style={styles.container}>
+      {children}
+    </Text>
+  );
 }
 
 export default BoxText;

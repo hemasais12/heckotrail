@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import RoundedButton from "./src/controls/buttons/RoundedButton";
 import ServiceOrder from "./src/views/ServiceOrder";
+import { FlatList } from "react-native";
 
 export default function App() {
   let orderDetail = {
@@ -13,9 +14,21 @@ export default function App() {
     ],
   };
 
+  let serviceOrderList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  function renderOrderDetailItem({ item, index }) {
+    return (
+      <ServiceOrder orderDetail={orderDetail} index={index}></ServiceOrder>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <ServiceOrder orderDetail={orderDetail}></ServiceOrder>
+      <FlatList
+        data={serviceOrderList}
+        renderItem={renderOrderDetailItem}
+        style={styles.flexContainer}
+      />
       <RoundedButton>Login</RoundedButton>
       <StatusBar style="auto" />
     </View>
@@ -28,6 +41,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffFFFf",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 10,
+  },
+  flexContainer: {
+    flex: 1,
+    width: "100%",
+    padding: 8,
   },
 });

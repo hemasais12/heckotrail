@@ -1,17 +1,27 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
+import BikeImage from "../../assets/images/tempImages/bike1.png";
 
-function ServiceOrderImage({ children, source }) {
-  return <Image source={source} style={styles.image} />;
+function ServiceOrderImage({ children, image }) {
+  return (
+    <View style={styles.container}>
+      <Image source={image} style={styles.imageStyle} />
+    </View>
+  );
 }
 
 export default ServiceOrderImage;
 
 const styles = StyleSheet.create({
-  image: {
+  container: {
+    justifyContent: "center",
+    backgroundColor: GlobalColors.boxbar.imageBgColor,
+  },
+  imageStyle: {
     width: GlobalSizes.orderView.height,
-    height: "100%",
+    resizeMode: "contain",
     borderRadius: GlobalSizes.orderView.radius - 1,
+    borderColor: "black",
   },
 });

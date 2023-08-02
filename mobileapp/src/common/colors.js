@@ -10,9 +10,23 @@ export const GlobalColors = {
     textColor: "#6a6a6a",
     highlightColor: "#f8921d",
     progressColor: "#f8921d",
-    imageBgColor: "#c3e8f8",
+    imageBgColor: "#fce9d4",
     starFilledColor: "#fdc17d",
     ratingColor: "#00B0F0",
+    randomBgColors: [
+      "#ffeef9",
+      "#f5feec",
+      "#fffeee", //good
+      "#fff6eb", // good
+      "#ffeffd",
+      "#ffedf8",
+      "#f0fced",
+      "#fffbf1",
+      "#f9fff3",
+      "#ffebf6", //good
+      "#fff9f2", // good
+      "#ffeff2",
+    ],
   },
   primaryButton: {
     light: "#fdcf46",
