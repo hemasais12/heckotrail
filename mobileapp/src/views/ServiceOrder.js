@@ -8,6 +8,7 @@ import BoxText from "../controls/texts/BoxText";
 import BikeImage from "../assets/images/tempImages/bike1.png";
 import ServiceOrderImage from "../controls/images/ServiceOrderImage";
 import { getRandomNumber } from "../utils/NumberUtil";
+import ButtonPressable from "../controls/buttons/ButtonPressable";
 
 function ServiceOrder({ children, onPress, orderDetail, index }) {
   function renderOrderDetailItem(itemData) {
@@ -21,7 +22,7 @@ function ServiceOrder({ children, onPress, orderDetail, index }) {
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <ButtonPressable onPress={onPress}>
       <View style={styles.container}>
         <ServiceOrderImage image={BikeImage} />
         <View
@@ -37,19 +38,16 @@ function ServiceOrder({ children, onPress, orderDetail, index }) {
             keyExtractor={(item) => item.id}
             renderItem={renderOrderDetailItem}
           />
-          <PercentageBar bgcolor="blue" completed={"5%"} />
+          <PercentageBar completed={"5%"} />
         </View>
       </View>
-    </View>
+    </ButtonPressable>
   );
 }
 
 export default ServiceOrder;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: "100%",
-  },
   container: {
     width: "100%",
     height: GlobalSizes.orderView.height,
@@ -63,12 +61,5 @@ const styles = StyleSheet.create({
   orderDetail: {
     flex: 1,
     padding: 4,
-    // backgroundColor: GlobalColors.boxbar.randomBgColors[0],
-    //backgroundColor: "#ffcded",
-  },
-  pressed: {
-    opacity: GlobalSizes.primaryButton.pressedOpacity,
-    backgroundColor: GlobalColors.primaryButton.pressed,
-    borderRadius: GlobalSizes.primaryButton.radius,
   },
 });

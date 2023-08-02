@@ -31,7 +31,7 @@ export const GlobalColors = {
   primaryButton: {
     light: "#fdcf46",
     dark: "#f8921d",
-    pressed: "#0d0701",
+    pressed: "#ffffff",
     text: "#ffffff",
   },
   progressBar: {

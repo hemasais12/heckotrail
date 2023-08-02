@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffFFFf",
     alignItems: "center",
     justifyContent: "center",
+    padding: 8,
   },
   flexContainer: {
     flex: 1,
     width: "100%",
-    padding: 8,
   },
 });
