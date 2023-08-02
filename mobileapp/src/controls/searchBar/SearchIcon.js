@@ -1,23 +1,18 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 import { Feather } from "@expo/vector-icons";
+import CustomerPressable from "../commons/CustomPressable";
 
-const SearchIcon = ({ children, onPress }) => {
+function SearchIcon({ children, onPress }) {
   return (
     <View style={styles.searchIcon}>
-      <TouchableOpacity onPress={onPress}>
+      <CustomerPressable onPress={onPress}>
         <Feather name="search" size={24} />
-      </TouchableOpacity>
+      </CustomerPressable>
     </View>
   );
-};
+}
 
 export default SearchIcon;
 

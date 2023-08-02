@@ -6,15 +6,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import ButtonPressable from "./ButtonPressable";
 import ButtonHzLinearGradient from "../gradients/ButtonHzLinearGradient";
 import PrimaryButtonText from "../texts/PrimaryButtonText";
+import CustomerPressable from "../commons/CustomPressable";
 
 function RoundedButton({ children, onPress }) {
   return (
     <View>
-      <ButtonPressable onPress={onPress}>
+      <CustomerPressable onPress={onPress}>
         <ButtonHzLinearGradient>
           <PrimaryButtonText>{children}</PrimaryButtonText>
         </ButtonHzLinearGradient>
-      </ButtonPressable>
+      </CustomerPressable>
     </View>
   );
 }
