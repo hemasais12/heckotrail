@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import RoundedButton from "./src/controls/buttons/RoundedButton";
-import SearchTextBox from "./src/controls/searchBar/SearchTextBox";
+import SearchTextBox from "./src/views/SearchTextBox";
 import ServiceOrder from "./src/views/ServiceOrder";
 import { FlatList } from "react-native";
 
