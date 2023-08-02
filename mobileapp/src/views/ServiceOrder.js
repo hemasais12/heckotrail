@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     borderWidth: GlobalSizes.primaryButton.borderWidth,
     marginBottom: 8,
     flexDirection: "row",
-    marginTop: 8,
+    marginTop: 4,
   },
   orderDetail: {
     flex: 1,

@@ -6,7 +6,7 @@ import BoxPercentageText from "../texts/BoxPercentageText";
 
 const PercentageBar = ({ bgcolor, completed }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <BoxPercentageText>{completed}</BoxPercentageText>
       <View style={styles.overallProgressBar}>
         <View style={styles.completedBar}></View>
@@ -18,12 +18,7 @@ export default PercentageBar;
 
 const styles = StyleSheet.create({
   container: {
-    height: 6,
-    width: "100%",
-    backgroundColor: GlobalColors.progressBar.backgroundColor,
-    borderRadius: 3,
-    borderColor: GlobalColors.progressBar.borderColor,
-    borderWidth: 1,
+    marginBottom: 8,
   },
   overallProgressBar: {
     height: 6,
@@ -32,6 +27,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderColor: GlobalColors.progressBar.borderColor,
     borderWidth: 1,
+    marginBottom: 18,
   },
   completedBar: {
     height: "100%",
