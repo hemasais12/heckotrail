@@ -17,4 +17,14 @@ export const GlobalSizes = {
     NormalTextFont: 12,
     pickAndDropImg: 20,
   },
+  searchText: {
+    borderWidth: 1,
+    borderRadius: 16,
+    height: 50,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    marginRight: 12,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+  },
 };
