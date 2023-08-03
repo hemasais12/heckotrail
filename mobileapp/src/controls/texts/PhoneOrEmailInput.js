@@ -10,7 +10,6 @@ import { GlobalSizes } from "../../common/sizes";
 function PhoneOrEmailInput({ children }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.inputLabel}>Name</Text>
       <TextInput
         style={styles.inputText}
         onPressIn={() => {}}
@@ -28,12 +27,6 @@ const styles = StyleSheet.create({
     borderColor: GlobalColors.input.borderColor,
     borderWidth: 1,
     borderRadius: 5,
-    padding: adjustPadding(4),
-  },
-  inputLabel: {
-    marginTop: adjustPadding(-14),
-    backgroundColor: "white",
-    alignSelf: "flex-start",
     paddingHorizontal: 8,
   },
   inputText: {
