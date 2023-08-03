@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalColors.boxbar.imageBgColor,
   },
   imageStyle: {
-    width: GlobalSizes.orderView.height,
+    flex: 1,
     resizeMode: "contain",
     borderRadius: GlobalSizes.orderView.radius - 1,
-    borderColor: "black",
   },
 });

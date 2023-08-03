@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
   container: {
     color: GlobalColors.boxbar.textColor,
     fontSize: GlobalSizes.orderView.NormalTextFont,
-    paddingTop: 3,
+    paddingVertical: 2,
   },
 });

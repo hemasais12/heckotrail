@@ -25,28 +25,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={serviceOrderList}
-        renderItem={renderOrderDetailItem}
-        style={styles.flexContainer}
-      />
+      <StatusBar style="auto" />
       <SearchTextBox></SearchTextBox>
       <RoundedButton>Login</RoundedButton>
-      <StatusBar style="auto" />
+      <FlatList data={serviceOrderList} renderItem={renderOrderDetailItem} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#ffFFFf",
-    alignItems: "center",
-    justifyContent: "center",
+    marginTop: 24,
     padding: 8,
-  },
-  flexContainer: {
-    flex: 1,
-    width: "100%",
   },
 });

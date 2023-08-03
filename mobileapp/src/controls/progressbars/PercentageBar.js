@@ -18,7 +18,8 @@ export default PercentageBar;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 8,
+    paddingBottom: 2,
+    marginTop: -12,
   },
   overallProgressBar: {
     height: 6,
@@ -27,7 +28,6 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderColor: GlobalColors.progressBar.borderColor,
     borderWidth: 1,
-    marginBottom: 18,
   },
   completedBar: {
     height: "100%",

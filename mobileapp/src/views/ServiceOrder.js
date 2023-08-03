@@ -50,16 +50,15 @@ export default ServiceOrder;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: GlobalSizes.orderView.height,
     borderRadius: GlobalSizes.orderView.radius,
     borderColor: GlobalColors.primaryButton.dark,
     borderWidth: GlobalSizes.primaryButton.borderWidth,
-    marginBottom: 8,
+    marginVertical: 8,
     flexDirection: "row",
-    marginTop: 4,
   },
   orderDetail: {
     flex: 1,
-    padding: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
   },
 });

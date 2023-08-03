@@ -7,10 +7,11 @@ import ButtonPressable from "./ButtonPressable";
 import ButtonHzLinearGradient from "../gradients/ButtonHzLinearGradient";
 import PrimaryButtonText from "../texts/PrimaryButtonText";
 import CustomerPressable from "../commons/CustomPressable";
+import { adjustFont, adjustWidth } from "../../common/AdjustSize";
 
 function RoundedButton({ children, onPress }) {
   return (
-    <View>
+    <View style={styles.container}>
       <CustomerPressable onPress={onPress}>
         <ButtonHzLinearGradient>
           <PrimaryButtonText>{children}</PrimaryButtonText>
@@ -21,3 +22,9 @@ function RoundedButton({ children, onPress }) {
 }
 
 export default RoundedButton;
+
+const styles = StyleSheet.create({
+  container: {
+    width: 100,
+  },
+});

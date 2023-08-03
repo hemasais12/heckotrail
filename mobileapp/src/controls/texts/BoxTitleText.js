@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   boxTitle: {
     flex: 1,
     fontWeight: "bold",
-
     fontSize: GlobalSizes.orderView.titleFontSize,
   },
 });
