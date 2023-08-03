@@ -4,7 +4,7 @@ import { GlobalSizes } from "../../common/sizes";
 
 function ButtonPressable({ children, onPress }) {
   return (
-    <View>
+    <View style={styles.container}>
       <Pressable
         onPress={onPress}
         style={({ pressed }) => pressed && styles.pressed}
@@ -23,4 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalColors.primaryButton.pressed,
     borderRadius: GlobalSizes.primaryButton.radius,
   },
+  container:{
+    marginHorizontal:6,
+  }
 });

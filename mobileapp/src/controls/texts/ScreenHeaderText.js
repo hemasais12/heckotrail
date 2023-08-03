@@ -1,7 +1,14 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 function ScreenHeaderText({ children }) {
-  return <Text>{children}</Text>;
+  return <Text style={styles.header}>{children}</Text>;
 }
 
 export default ScreenHeaderText;
+
+const styles = StyleSheet.create({
+  header:{
+    fontSize:20,
+    fontWeight: "bold",
+  }  
+})

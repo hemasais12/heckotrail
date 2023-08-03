@@ -27,4 +27,17 @@ export const GlobalSizes = {
     borderRadius: 12,
     paddingHorizontal: 12,
   },
+  vendorProfile:{
+    paddingHorizontal:5,
+    width:"100%",
+    marginVertical: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderRadius: 7,
+    height: 25,
+    contactWidth:110,
+    ContactpaddingVertical:2,
+    bookingMarginVertical:4,
+    bookingHeight:33,
+  }
 };

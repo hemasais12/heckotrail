@@ -43,4 +43,13 @@ export const GlobalColors = {
   input: {
     borderColor: "#b8b7b7",
   },
+  vendorProfile:{
+    backgroundColor:"#e8f8fa",
+    bordercolor:"#4287f5",
+    violetcolor:"#c171f0",
+    skyblue:"#88eef7",
+    orange:"#fab97d",
+    text:"#ffffff",
+    bookingBackground:"#211c8a"
+  }
 };
