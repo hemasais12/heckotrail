@@ -5,11 +5,8 @@ import SearchTextBox from "./src/views/SearchTextBox";
 import ServiceOrder from "./src/views/ServiceOrder";
 import { FlatList } from "react-native";
 import PhoneOrEmailInput from "./src/controls/texts/PhoneOrEmailInput";
-import { GlobalCountries } from "./src/common/countries";
 
 export default function App() {
-  const [selected, setSelected] = useState(undefined);
-
   let orderDetail = {
     title: "Owner Name (Bike Number)",
     highlights: [
@@ -26,28 +23,6 @@ export default function App() {
       <ServiceOrder orderDetail={orderDetail} index={index}></ServiceOrder>
     );
   }
-
-  function getCountries() {
-    GlobalCountries.list.map((country) => {
-      console.log(
-        country.name +
-          "," +
-          country.dialCode +
-          "," +
-          country.isoCode +
-          "," +
-          country.flag
-      );
-    });
-  }
-
-  const data = [
-    { label: "One", value: "1" },
-    { label: "Two", value: "2" },
-    { label: "Three", value: "3" },
-    { label: "Four", value: "4" },
-    { label: "Five", value: "5" },
-  ];
 
   return (
     <View style={styles.container}>
