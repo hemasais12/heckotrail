@@ -40,4 +40,7 @@ export const GlobalColors = {
     borderColor: "#e8c662",
     percentageColor: "#6c6c6c",
   },
+  input: {
+    borderColor: "#b8b7b7",
+  },
 };

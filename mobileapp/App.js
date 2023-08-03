@@ -4,6 +4,7 @@ import RoundedButton from "./src/controls/buttons/RoundedButton";
 import SearchTextBox from "./src/views/SearchTextBox";
 import ServiceOrder from "./src/views/ServiceOrder";
 import { FlatList } from "react-native";
+import PhoneOrEmailInput from "./src/controls/texts/PhoneOrEmailInput";
 
 export default function App() {
   let orderDetail = {
@@ -27,6 +28,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <SearchTextBox></SearchTextBox>
+      <PhoneOrEmailInput />
       <RoundedButton>Login</RoundedButton>
       <FlatList data={serviceOrderList} renderItem={renderOrderDetailItem} />
     </View>
