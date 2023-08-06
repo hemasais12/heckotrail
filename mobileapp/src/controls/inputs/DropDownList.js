@@ -4,6 +4,7 @@ import { useState } from "react";
 import CustomPressable from "../commons/CustomPressable";
 import SearchTextBox from "../../views/SearchTextBox";
 import { GlobalColors } from "../../common/colors";
+import { useEffect } from "react";
 
 function DropDownList({
   data,
@@ -12,11 +13,17 @@ function DropDownList({
   onBackPress,
   onSelectItem,
 }) {
-  const [originalData, setOriginalData] = useState(data);
-  const [filteredData, setFilteredData] = useState(data);
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setOriginalData(data);
+    setFilteredData(data);
+  }, []);
 
   function selectItem(item) {
     if (onSelectItem) onSelectItem(item);
+    setFilteredData(data);
     goBack();
   }
 
@@ -30,7 +37,7 @@ function DropDownList({
         <View style={styles.optionItem}>
           <Image source={item.flag} style={styles.flagIcon}></Image>
           <Text style={styles.countryName}> {item.name}</Text>
-          <Text style={styles.dialCode}> {item.dialCode}</Text>
+          <Text style={styles.value}> {item.value}</Text>
         </View>
       </CustomPressable>
     );
@@ -42,9 +49,8 @@ function DropDownList({
         return (
           countryObj.name.toLowerCase().indexOf(searchText.toLowerCase()) >
             -1 ||
-          countryObj.dialCode.indexOf(searchText) > -1 ||
-          countryObj.isoCode.toLowerCase().indexOf(searchText.toLowerCase()) >
-            -1
+          countryObj.value.indexOf(searchText) > -1 ||
+          countryObj.key.toLowerCase().indexOf(searchText.toLowerCase()) > -1
         );
       });
       setFilteredData(newList);
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
 
-  dialCode: {
+  value: {
     color: GlobalColors.page.textColor,
   },
 });
