@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
     flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "center",
+    flex: 1,
+    paddingBottom: 200,
   },
   input: {
     flexDirection: "row",
