@@ -3,12 +3,16 @@ import React from "react";
 import SearchIcon from "../controls/searchBar/SearchIcon";
 import SearchText from "../controls/searchBar/SearchText";
 import { GlobalSizes } from "../common/sizes";
+import { GlobalColors } from "../common/colors";
 
-function SearchTextBox({ children, onPress }) {
+function SearchTextBox({ children, onPress, placeholder, searchTextHandler }) {
   return (
     <View style={styles.searchContainer}>
       <SearchIcon onPress={onPress} />
-      <SearchText />
+      <SearchText
+        placeholder={placeholder}
+        searchTextHandler={searchTextHandler}
+      />
     </View>
   );
 }
@@ -17,12 +21,12 @@ export default SearchTextBox;
 
 const styles = StyleSheet.create({
   searchContainer: {
+    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignContent: "center",
     borderWidth: GlobalSizes.searchText.borderWidth,
     borderRadius: GlobalSizes.searchText.borderRadius,
-    marginVertical: GlobalSizes.searchText.marginVertical,
-    height: GlobalSizes.searchText.height,
+    borderColor: GlobalColors.search.borderColor,
   },
 });

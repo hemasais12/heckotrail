@@ -8,7 +8,11 @@ function SearchIcon({ children, onPress }) {
   return (
     <View style={styles.searchIcon}>
       <CustomerPressable onPress={onPress}>
-        <Feather name="search" size={24} />
+        <Feather
+          name="search"
+          size={16}
+          color={GlobalColors.search.borderColor}
+        />
       </CustomerPressable>
     </View>
   );
@@ -20,5 +24,6 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginHorizontal: GlobalSizes.searchText.marginHorizontal,
     marginVertical: GlobalSizes.searchText.marginVertical,
+    justifyContent: "center",
   },
 });

@@ -1,14 +1,24 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { GlobalSizes } from "../../common/sizes";
+import { useState } from "react";
 
-function SearchText() {
+function SearchText({ placeholder, searchTextHandler }) {
+  const [text, setText] = useState("");
+
+  function onSearchTextChange(newText) {
+    setText(newText);
+    if (searchTextHandler) searchTextHandler(newText);
+  }
+
   return (
     <View style={styles.searchWrapper}>
       <TextInput
         style={styles.searchInput}
         onPressIn={() => {}}
-        placeholder="Search for Brand/Number/Owner Name"
+        placeholder={placeholder}
+        onChangeText={(newText) => onSearchTextChange(newText)}
+        defaultValue={text}
       />
     </View>
   );
@@ -19,12 +29,9 @@ export default SearchText;
 const styles = StyleSheet.create({
   searchWrapper: {
     flex: 1,
-    marginRight: GlobalSizes.searchText.marginRight,
     borderRadius: GlobalSizes.searchText.borderRadius,
   },
   searchInput: {
-    width: "100%",
-    height: "100%",
-    paddingHorizontal: GlobalSizes.searchText.paddingHorizontal,
+    padding: GlobalSizes.searchText.padding,
   },
 });

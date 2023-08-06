@@ -1,5 +1,8 @@
 export const GlobalColors = {
-  app: { bgcolor: "#FFFFFF", titleColor: "#000000" },
+  app: {
+    bgcolor: "#FFFFFF",
+    titleColor: "#000000",
+  },
   page: {
     titleColor: "#000000",
     textColor: "#6a6a6a",
@@ -40,16 +43,24 @@ export const GlobalColors = {
     borderColor: "#e8c662",
     percentageColor: "#6c6c6c",
   },
+
+  search: {},
+  vendorProfile: {
+    backgroundColor: "#e8f8fa",
+    bordercolor: "#4287f5",
+    violetcolor: "#c171f0",
+    skyblue: "#88eef7",
+    orange: "#fab97d",
+    text: "#ffffff",
+    bookingBackground: "#211c8a",
+  },
   input: {
+    labelColor: "#6a6a6a",
+    labelErrorColor: "#c63c1d",
+    textColor: "#6a6a6a",
+    textBGColor: "#ffffff",
+    textErrorColor: "#c63c1d",
+    textErrorBGColor: "#ceada5",
     borderColor: "#b8b7b7",
   },
-  vendorProfile:{
-    backgroundColor:"#e8f8fa",
-    bordercolor:"#4287f5",
-    violetcolor:"#c171f0",
-    skyblue:"#88eef7",
-    orange:"#fab97d",
-    text:"#ffffff",
-    bookingBackground:"#211c8a"
-  }
 };
