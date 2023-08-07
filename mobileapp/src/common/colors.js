@@ -2,6 +2,7 @@ export const GlobalColors = {
   app: {
     bgcolor: "#FFFFFF",
     titleColor: "#000000",
+    linkColor: "#0070E0",
   },
   page: {
     titleColor: "#000000",

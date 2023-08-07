@@ -6,7 +6,7 @@ function PrimaryButtonText({ children }) {
   return (
     <View style={styles.textcontainer}>
       <Text style={styles.buttonText}>
-        {children} {"    "}
+        {children} {"  "}
       </Text>
       <Text style={styles.buttonArrow}> →</Text>
     </View>

@@ -15,6 +15,7 @@ import WelcomeScreen from "../screens/common/WelcomeScreen";
 
 import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
+import { GlobalSizes } from "../common/sizes";
 
 const Stack = createNativeStackNavigator();
 
@@ -122,6 +123,6 @@ export default AppView;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: GlobalSizes.app.padding,
   },
 });
