@@ -7,7 +7,13 @@ import { GlobalCountries } from "../../common/countries";
 import { useEffect } from "react";
 import CustomPressable from "../commons/CustomPressable";
 
-function DropDown({ data, onSelectItem, selectedKey, isOptionsVisible }) {
+function DropDown({
+  data,
+  onSelectItem,
+  selectedKey,
+  isOptionsVisible,
+  renderView,
+}) {
   const [optionListIsVisible, setOptionListIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState([]);
 
@@ -47,6 +53,7 @@ function DropDown({ data, onSelectItem, selectedKey, isOptionsVisible }) {
           isVisible={optionListIsVisible}
           onBackPress={stopShowingOptions}
           onSelectItem={itemSelectionHandler}
+          renderView={renderView}
         ></DropDownList>
       </View>
     </CustomPressable>

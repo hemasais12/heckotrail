@@ -1,4 +1,7 @@
 export const GlobalSizes = {
+  app: {
+    padding: 8,
+  },
   primaryButton: {
     radius: 20,
     borderWidth: 2,

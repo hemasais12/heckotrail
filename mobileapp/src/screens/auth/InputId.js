@@ -1,7 +1,5 @@
-import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
-import { GlobalCountries } from "../../common/countries";
-import Input from "../../controls/inputs/Input";
-import CountryDropDown from "../../controls/inputs/CountryDropDown";
+import { StyleSheet, View } from "react-native";
+import { GlobalSizes } from "../../common/sizes";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
 
 function InputId() {
@@ -16,7 +14,7 @@ export default InputId;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: GlobalSizes.app.padding,
     flexDirection: "row",
     alignItems: "center",
     flex: 1,

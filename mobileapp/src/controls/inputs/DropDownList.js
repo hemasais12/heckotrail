@@ -35,8 +35,6 @@ function DropDownList({
         }}
       >
         <View style={styles.optionItem}>
-          <Image source={item.flag} style={styles.flagIcon}></Image>
-          <Text style={styles.countryName}> {item.name}</Text>
           <Text style={styles.value}> {item.value}</Text>
         </View>
       </CustomPressable>
@@ -110,15 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     marginBottom: 8,
-  },
-  flagIcon: {
-    width: 25,
-    height: 25,
-  },
-
-  countryName: {
-    marginLeft: 12,
-    marginRight: 6,
   },
 
   value: {

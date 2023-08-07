@@ -1,18 +1,34 @@
-import { View, Text, TextInput, StyleSheet, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { GlobalColors } from "../../common/colors";
-import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import DropDownList from "./DropDownList";
-import { GlobalCountries } from "../../common/countries";
 import CountryDropDown from "./CountryDropDown";
 import Input from "./Input";
+import { isNumber } from "../../utils/NumberUtil";
+import { Zocial } from "@expo/vector-icons";
 
 function PhoneOrEmailInput() {
+  const [isEmailEntered, setIsEmailEntered] = useState(false);
+  const [inputId, setInputId] = useState("");
+
+  function inputChangeHandler(text) {
+    setInputId(text);
+    if (isNumber(text)) {
+      setIsEmailEntered(false);
+    } else {
+      setIsEmailEntered(true);
+    }
+  }
+
+  function EmailView() {
+    return <Zocial name="email" size={24} color={GlobalColors.icons.color} />;
+  }
+
   return (
     <View style={styles.container}>
-      <CountryDropDown />
+      {isEmailEntered ? <EmailView /> : <CountryDropDown />}
+
       <View style={styles.input}>
-        <Input />
+        <Input onUpdateValue={inputChangeHandler} />
       </View>
     </View>
   );

@@ -63,4 +63,7 @@ export const GlobalColors = {
     textErrorBGColor: "#ceada5",
     borderColor: "#b8b7b7",
   },
+  icons: {
+    color: "#f8921d",
+  },
 };

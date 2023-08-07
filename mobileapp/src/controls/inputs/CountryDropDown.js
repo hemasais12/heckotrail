@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalCountries } from "../../common/countries";
 import DropDown from "./DropDown";
@@ -14,14 +14,23 @@ function CountryDropDown() {
     setIsOptionsVisible(true);
   }
 
-  function onSelectCountry(country) {
+  function changeCountryHandler(country) {
     setIsOptionsVisible(false);
     setSelectedCountry(country);
   }
 
   function getMyCountryCode() {
-    console.log("checking.....");
     return "IN";
+  }
+
+  function itemRenderHandler({ item, index }) {
+    return (
+      <View style={styles.optionItem}>
+        <Image source={item.flag} style={styles.flagIcon}></Image>
+        <Text style={styles.countryName}> {item.name}</Text>
+        <Text style={styles.value}> {item.value}</Text>
+      </View>
+    );
   }
 
   return (
@@ -41,7 +50,8 @@ function CountryDropDown() {
           data={GlobalCountries.list}
           selectedKey={getMyCountryCode()}
           isOptionsVisible={isOptionsVisible}
-          onSelectItem={onSelectCountry}
+          onSelectItem={changeCountryHandler}
+          renderView={itemRenderHandler}
         />
       </View>
     </CustomPressable>
@@ -70,5 +80,23 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 24,
     width: 24,
+  },
+
+  optionItem: {
+    flexDirection: "row",
+    flex: 1,
+    marginBottom: 8,
+  },
+  countryName: {
+    marginLeft: 12,
+    marginRight: 6,
+  },
+
+  value: {
+    color: GlobalColors.page.textColor,
+  },
+  flagIcon: {
+    width: 25,
+    height: 25,
   },
 });
