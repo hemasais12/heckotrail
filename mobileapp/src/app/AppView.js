@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import InputId from "../screens/auth/InputId";
+import LoginId from "../screens/auth/LoginId";
 import LoginByPassword from "../screens/auth/LoginByPassword";
 
 import ConfirmOTP from "../screens/auth/ConfirmOTP";
@@ -30,8 +30,8 @@ function AuthStack() {
       }}
     >
       <Stack.Screen
-        name="InputId"
-        component={InputId}
+        name="LoginId"
+        component={LoginId}
         options={{ title: "" }}
       />
       <Stack.Screen

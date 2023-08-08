@@ -3,8 +3,7 @@ export const GlobalColors = {
     bgcolor: "#FFFFFF",
     titleColor: "#000000",
     linkColor: "#0070E0",
-    partialColor: "#e7e7e7",
-    bgColor2: "#efeded",
+    partialColor: "#ffe5c7",
   },
   page: {
     titleColor: "#000000",

@@ -9,7 +9,7 @@ import TextLink from "../../views/TextLink";
 
 const screen = Dimensions.get("screen");
 
-function InputId() {
+function LoginId() {
   let isSignup = false;
 
   function signupClickHandler() {}
@@ -46,12 +46,13 @@ function InputId() {
   );
 }
 
-export default InputId;
+export default LoginId;
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     padding: GlobalSizes.app.padding,
+    backgroundColor: GlobalColors.app.bgcolor,
   },
 
   logoContainer: {
@@ -91,12 +92,11 @@ const styles = StyleSheet.create({
   },
   partialGreyBG: {
     backgroundColor: GlobalColors.app.partialColor,
-    height: screen.height * 2,
+    height: screen.width * 2,
     width: screen.width * 2,
-    borderRadius: screen.width,
+    borderRadius: screen.width * 2,
     position: "absolute",
-    top: screen.height / 8,
-    alignItems: "center",
-    marginLeft: (-1 * screen.width) / 8,
+    bottom: screen.height * 0.72,
+    marginLeft: -1.2 * screen.width,
   },
 });
