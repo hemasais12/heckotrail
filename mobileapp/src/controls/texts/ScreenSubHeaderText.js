@@ -9,9 +9,7 @@ export default ScreenSubHeaderText;
 
 const styles = StyleSheet.create({
   subHeader: {
-    fontSize: 12,
     color: GlobalColors.page.textColor,
-    marginLeft: 8,
     marginTop: 8,
   },
 });

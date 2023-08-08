@@ -36,7 +36,6 @@ export default Input;
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    marginVertical: 0,
   },
   label: {
     color: GlobalColors.input.labelColor,
@@ -49,10 +48,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: GlobalColors.input.textBGColor,
     borderRadius: GlobalSizes.input.borderRadius,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    flex: 1,
     borderColor: GlobalColors.input.borderColor,
     borderWidth: 1,
+    paddingHorizontal: 8,
   },
   inputInvalid: {
     backgroundColor: GlobalColors.input.textErrorBGColor,

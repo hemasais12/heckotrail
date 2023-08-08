@@ -8,7 +8,7 @@ export const GlobalSizes = {
     pressedOpacity: 0.6,
     paddingRight: 18,
     paddingLeft: 16,
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
   orderView: {
     radius: 5,

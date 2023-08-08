@@ -10,5 +10,6 @@ export default Link;
 const styles = StyleSheet.create({
   link: {
     color: GlobalColors.app.linkColor,
+    fontWeight: "bold",
   },
 });

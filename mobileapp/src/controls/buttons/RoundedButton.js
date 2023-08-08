@@ -24,7 +24,5 @@ function RoundedButton({ children, onPress }) {
 export default RoundedButton;
 
 const styles = StyleSheet.create({
-  container: {
-    width: 90,
-  },
+  container: {},
 });

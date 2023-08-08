@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View, Dimensions } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -16,19 +16,24 @@ import WelcomeScreen from "../screens/common/WelcomeScreen";
 import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
+import { GlobalColors } from "../common/colors";
 
 const Stack = createNativeStackNavigator();
+
+const screen = Dimensions.get("screen");
 
 function AuthStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: "black",
-        headerTintColor: "blue",
-        contentStyle: "blue",
+        headerShown: false,
       }}
     >
-      <Stack.Screen name="InputId" component={InputId} />
+      <Stack.Screen
+        name="InputId"
+        component={InputId}
+        options={{ title: "" }}
+      />
       <Stack.Screen name="LoginByPassword" component={LoginByPassword} />
       <Stack.Screen name="ConfirmOTP" component={ConfirmOTP} />
       <Stack.Screen
@@ -43,13 +48,7 @@ function AuthStack() {
 function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: "red" },
-        headerTintColor: "blue",
-        contentStyle: { backgroundColor: "red" },
-      }}
-    >
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
         name="WelcomeScreen"
         component={WelcomeScreen}
@@ -111,18 +110,19 @@ function Root() {
 
 function AppView() {
   return (
-    <>
+    <View style={styles.container}>
       <StatusBar style="dark" />
+
       <AuthContextProvider>
         <Root />
       </AuthContextProvider>
-    </>
+    </View>
   );
 }
 export default AppView;
 
 const styles = StyleSheet.create({
   container: {
-    padding: GlobalSizes.app.padding,
+    flex: 1,
   },
 });

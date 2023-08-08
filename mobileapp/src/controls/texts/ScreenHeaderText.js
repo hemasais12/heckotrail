@@ -9,7 +9,7 @@ export default ScreenHeaderText;
 
 const styles = StyleSheet.create({
   header: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
     color: GlobalColors.page.titleColor,
   },
