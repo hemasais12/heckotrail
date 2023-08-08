@@ -12,7 +12,7 @@ function DropDown({
   onSelectItem,
   selectedKey,
   isOptionsVisible,
-  renderView,
+  RenderView,
 }) {
   const [optionListIsVisible, setOptionListIsVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState([]);
@@ -53,7 +53,7 @@ function DropDown({
           isVisible={optionListIsVisible}
           onBackPress={stopShowingOptions}
           onSelectItem={itemSelectionHandler}
-          renderView={renderView}
+          RenderView={RenderView}
         ></DropDownList>
       </View>
     </CustomPressable>

@@ -19,7 +19,7 @@ const screen = Dimensions.get("screen");
 function DropDownList({
   data,
   isVisible,
-  renderView,
+  RenderView,
   onBackPress,
   onSelectItem,
 }) {
@@ -44,9 +44,15 @@ function DropDownList({
           selectItem(item);
         }}
       >
-        <View style={styles.optionItem}>
-          <Text style={styles.value}> {item.value}</Text>
-        </View>
+        {RenderView ? (
+          <>
+            <RenderView item={item} index={index} />
+          </>
+        ) : (
+          <View style={styles.optionItem}>
+            <Text style={styles.value}> {item.value}</Text>
+          </View>
+        )}
       </CustomPressable>
     );
   }
@@ -94,8 +100,10 @@ function DropDownList({
 
           <FlatList
             data={filteredData}
-            renderItem={renderView ? renderView : defaultRenderItem}
+            renderItem={defaultRenderItem}
             alwaysBounceVertical={true}
+            maxToRenderPerBatch={10}
+            keyExtractor={(item) => item.key}
           />
         </View>
       </SafeAreaView>

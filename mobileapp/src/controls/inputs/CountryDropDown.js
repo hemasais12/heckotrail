@@ -23,7 +23,7 @@ function CountryDropDown() {
     return "IN";
   }
 
-  function itemRenderHandler({ item, index }) {
+  function CountryRenderItem({ item, index }) {
     return (
       <View style={styles.optionItem}>
         <Image source={item.flag} style={styles.flagIcon}></Image>
@@ -51,7 +51,7 @@ function CountryDropDown() {
           selectedKey={getMyCountryCode()}
           isOptionsVisible={isOptionsVisible}
           onSelectItem={changeCountryHandler}
-          renderView={itemRenderHandler}
+          RenderView={CountryRenderItem}
         />
       </View>
     </CustomPressable>
