@@ -1,10 +1,20 @@
-import { StyleSheet, Text, View, Image, Modal, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  FlatList,
+  Dimensions,
+  SafeAreaView,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import CustomPressable from "../commons/CustomPressable";
 import SearchTextBox from "../../views/SearchTextBox";
 import { GlobalColors } from "../../common/colors";
 import { useEffect } from "react";
+
+const screen = Dimensions.get("screen");
 
 function DropDownList({
   data,
@@ -58,31 +68,37 @@ function DropDownList({
   }
 
   function goBack() {
-    console.log("trying to go back");
+    console.log("trying to go back111");
     isVisible = false;
     if (onBackPress) onBackPress();
   }
 
   return (
-    <Modal visible={isVisible} animationType="slide">
-      <View style={styles.container}>
-        <View style={styles.topPart}>
-          <Ionicons name="arrow-back" size={20} onPress={goBack} />
-          <View style={styles.searchTextBox}>
-            <SearchTextBox
-              onPress={filterList}
-              placeholder="search with country name or dial code"
-              searchTextHandler={filterList}
-            />
+    <Modal
+      visible={isVisible}
+      animationType="slide"
+      onRequestClose={this.closeModal}
+    >
+      <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
+        <View style={styles.container}>
+          <View style={styles.topPart}>
+            <Ionicons name="arrow-back" size={20} onPress={goBack} />
+            <View style={styles.searchTextBox}>
+              <SearchTextBox
+                onPress={filterList}
+                placeholder="search with country name or dial code"
+                searchTextHandler={filterList}
+              />
+            </View>
           </View>
-        </View>
 
-        <FlatList
-          data={filteredData}
-          renderItem={renderView ? renderView : defaultRenderItem}
-          alwaysBounceVertical={true}
-        />
-      </View>
+          <FlatList
+            data={filteredData}
+            renderItem={renderView ? renderView : defaultRenderItem}
+            alwaysBounceVertical={true}
+          />
+        </View>
+      </SafeAreaView>
     </Modal>
   );
 }

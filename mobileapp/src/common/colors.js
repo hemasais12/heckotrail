@@ -47,7 +47,9 @@ export const GlobalColors = {
     percentageColor: "#6c6c6c",
   },
 
-  search: {},
+  search: {
+    borderColor: "#b8b7b7",
+  },
   vendorProfile: {
     backgroundColor: "#e8f8fa",
     bordercolor: "#4287f5",

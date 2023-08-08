@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
   searchWrapper: {
     flex: 1,
     borderRadius: GlobalSizes.searchText.borderRadius,
+    justifyContent: "center",
   },
   searchInput: {
     padding: GlobalSizes.searchText.padding,

@@ -34,13 +34,26 @@ function AuthStack() {
         component={InputId}
         options={{ title: "" }}
       />
-      <Stack.Screen name="LoginByPassword" component={LoginByPassword} />
-      <Stack.Screen name="ConfirmOTP" component={ConfirmOTP} />
+      <Stack.Screen
+        name="LoginByPassword"
+        component={LoginByPassword}
+        options={{ title: "" }}
+      />
+      <Stack.Screen
+        name="ConfirmOTP"
+        component={ConfirmOTP}
+        options={{ title: "" }}
+      />
       <Stack.Screen
         name="SignupPasswordAndOTP"
         component={SignupPasswordAndOTP}
+        options={{ title: "" }}
       />
-      <Stack.Screen name="SelectRole" component={SelectRole} />
+      <Stack.Screen
+        name="SelectRole"
+        component={SelectRole}
+        options={{ title: "" }}
+      />
     </Stack.Navigator>
   );
 }
