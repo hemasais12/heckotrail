@@ -3,16 +3,27 @@ import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
+import NormalText from "../../controls/texts/NormalText";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
-import ScreenSubHeaderText from "../../controls/texts/ScreenSubHeaderText";
 import TextLink from "../../views/TextLink";
 
 const screen = Dimensions.get("screen");
 
-function LoginId() {
-  let isSignup = false;
+function LoginId({ route, navigation }) {
+  let isSignup = route.params ? route.params.isSignup : false;
 
-  function signupClickHandler() {}
+  function signupClickHandler() {
+    console.log("signupClickHandler");
+    if (!isSignup) {
+      navigation.replace("LoginId", {
+        isSignup: true,
+      });
+    } else {
+      navigation.replace("LoginId", {
+        isSignup: false,
+      });
+    }
+  }
 
   return (
     <View style={styles.mainContainer}>
@@ -24,23 +35,34 @@ function LoginId() {
           source={require("../../assets/logo/logo.png")}
         />
       </View>
+      <View style={styles.tagLineContainer}>
+        <ScreenHeaderText headerLevel={3}>
+          Expert Services at your tips
+        </ScreenHeaderText>
+        <ScreenHeaderText headerLevel={5}>
+          Affordable as No commission
+        </ScreenHeaderText>
+        <NormalText>{"Search   •   Review   •   Use"}</NormalText>
+      </View>
       <View style={styles.headers}>
-        <ScreenHeaderText>{isSignup ? "Signup" : "Login"}</ScreenHeaderText>
-        <ScreenSubHeaderText>
-          Please enter mobile number or email:
-        </ScreenSubHeaderText>
+        <ScreenHeaderText>{isSignup ? "Sign up" : "Sign In"}</ScreenHeaderText>
+        <NormalText>Please enter mobile number or email:</NormalText>
       </View>
 
       <View style={styles.phoneEmailContainer}>
         <PhoneOrEmailInput />
         <View style={styles.submitButton}>
-          <RoundedButton>Login</RoundedButton>
+          <RoundedButton>{isSignup ? "Sign up" : "Sign In"}</RoundedButton>
         </View>
-        <View style={styles.link}>
-          <TextLink linkText="Sign up" onLinkClick={signupClickHandler}>
-            Don't have an account?
-          </TextLink>
-        </View>
+      </View>
+
+      <View style={styles.link}>
+        <TextLink
+          linkText={isSignup ? "Sign In" : "Sign Up"}
+          onLinkClick={signupClickHandler}
+        >
+          {isSignup ? "Already have an account?" : "Don't have an account?"}
+        </TextLink>
       </View>
     </View>
   );
@@ -73,7 +95,11 @@ const styles = StyleSheet.create({
 
   phoneEmailContainer: {
     alignItems: "flex-start",
-    flex: 2,
+  },
+  tagLineContainer: {
+    alignItems: "flex-start",
+    alignItems: "center",
+    marginTop: 30,
   },
 
   submitButton: {

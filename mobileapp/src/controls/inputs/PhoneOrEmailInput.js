@@ -28,7 +28,10 @@ function PhoneOrEmailInput() {
       {isEmailEntered ? <EmailView /> : <CountryDropDown />}
 
       <View style={styles.input}>
-        <Input onUpdateValue={inputChangeHandler} />
+        <Input
+          onUpdateValue={inputChangeHandler}
+          placeHolder="Mobile number or Email"
+        />
       </View>
     </View>
   );

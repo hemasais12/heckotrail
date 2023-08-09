@@ -1,8 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalColors } from "../../common/colors";
+import CustomPressable from "../commons/CustomPressable";
 
-function Link({ children }) {
-  return <Text style={styles.link}>{children}</Text>;
+function Link({ children, onLinkClick }) {
+  return (
+    <CustomPressable onPress={onLinkClick}>
+      <Text style={styles.link}>{children}</Text>
+    </CustomPressable>
+  );
 }
 
 export default Link;

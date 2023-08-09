@@ -7,7 +7,7 @@ function TextLink({ children, linkText, onLinkClick }) {
     <View style={styles.mainContainer}>
       <NormalText>{children}</NormalText>
       <View style={styles.linkText}>
-        <Link>{linkText}</Link>
+        <Link onLinkClick={onLinkClick}>{linkText}</Link>
       </View>
     </View>
   );
@@ -21,5 +21,6 @@ const styles = StyleSheet.create({
   },
   linkText: {
     marginLeft: 4,
+    justifyContent: "flex-end",
   },
 });

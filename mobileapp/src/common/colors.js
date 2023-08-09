@@ -7,6 +7,7 @@ export const GlobalColors = {
   },
   page: {
     titleColor: "#000000",
+    titleColor2: "#545454",
     textColor: "#6a6a6a",
     highlightColor: "#f8921d",
   },
