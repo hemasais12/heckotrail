@@ -26,8 +26,10 @@ function CountryDropDown() {
   function CountryRenderItem({ item, index }) {
     return (
       <View style={styles.optionItem}>
+      <View style={styles.subOptionItem}>
         <Image source={item.flag} style={styles.flagIcon}></Image>
         <Text style={styles.countryName}> {item.name}</Text>
+        </View>
         <Text style={styles.value}> {item.value}</Text>
       </View>
     );
@@ -84,8 +86,13 @@ const styles = StyleSheet.create({
 
   optionItem: {
     flexDirection: "row",
+    justifyContent:"space-between",
     flex: 1,
-    marginBottom: 8,
+    marginBottom: 18,
+    borderBottomWidth:0.2,
+  },
+  subOptionItem:{
+    flexDirection: "row",
   },
   countryName: {
     marginLeft: 12,
@@ -98,5 +105,7 @@ const styles = StyleSheet.create({
   flagIcon: {
     width: 25,
     height: 25,
+    marginTop:-2,
+    resizeMode:"contain",
   },
 });

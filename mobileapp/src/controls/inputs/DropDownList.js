@@ -102,7 +102,8 @@ function DropDownList({
             data={filteredData}
             renderItem={defaultRenderItem}
             alwaysBounceVertical={true}
-            maxToRenderPerBatch={10}
+            initialNumToRender={30}
+            maxToRenderPerBatch={20}
             keyExtractor={(item) => item.key}
           />
         </View>
