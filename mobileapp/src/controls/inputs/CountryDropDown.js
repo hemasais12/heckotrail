@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
 
   value: {
     color: GlobalColors.page.textColor,
+    paddingRight:13,
   },
   flagIcon: {
     width: 25,

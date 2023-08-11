@@ -47,5 +47,7 @@ export const GlobalSizes = {
   input: {
     borderRadius: 4,
     borderWidth: 1,
+    paddingRight:10,
+    paddingLeft:10,
   },
 };
