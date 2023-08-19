@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { Text, StyleSheet, View, Dimensions } from "react-native";
+import { Text, StyleSheet, View, Dimensions, SafeAreaView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -24,15 +24,11 @@ const screen = Dimensions.get("screen");
 
 function AuthStack() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
+    <Stack.Navigator>
       <Stack.Screen
         name="LoginId"
         component={LoginId}
-        options={{ title: "" }}
+        options={{ title: "", headerShown: false }}
       />
       <Stack.Screen
         name="LoginByPassword"
@@ -40,6 +36,7 @@ function AuthStack() {
         options={{ title: "" }}
       />
       <Stack.Screen
+        screenOptions={{ headerShown: true }}
         name="ConfirmOTP"
         component={ConfirmOTP}
         options={{ title: "" }}
@@ -137,5 +134,9 @@ export default AppView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  droidSafeArea: {
+    flex: 1,
+    backgroundColor: "white",
   },
 });

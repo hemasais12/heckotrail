@@ -1,4 +1,11 @@
-import { StyleSheet, View, StatusBar, Image, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Image,
+  Dimensions,
+  KeyboardAvoidingView,
+} from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 import RoundedButton from "../../controls/buttons/RoundedButton";
@@ -12,8 +19,7 @@ const screen = Dimensions.get("screen");
 function LoginId({ route, navigation }) {
   let isSignup = route.params ? route.params.isSignup : false;
 
-  function signupClickHandler() {
-    console.log("signupClickHandler");
+  function signInUpLinkClickHandler() {
     if (!isSignup) {
       navigation.replace("LoginId", {
         isSignup: true,
@@ -25,52 +31,69 @@ function LoginId({ route, navigation }) {
     }
   }
 
-  return (
-    <View style={styles.mainContainer}>
-      <StatusBar hidden />
-      <View style={styles.partialGreyBG}></View>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          source={require("../../assets/logo/logo.png")}
-        />
-      </View>
-      <View style={styles.tagLineContainer}>
-        <ScreenHeaderText headerLevel={3}>
-          Expert Services at your tips
-        </ScreenHeaderText>
-        <ScreenHeaderText headerLevel={5}>
-          Affordable as No commission
-        </ScreenHeaderText>
-        <NormalText>{"Search   •   Review   •   Use"}</NormalText>
-      </View>
-      <View style={styles.headers}>
-        <ScreenHeaderText>{isSignup ? "Sign up" : "Sign In"}</ScreenHeaderText>
-        <NormalText>Please enter mobile number or email:</NormalText>
-      </View>
+  function submitHandler() {
+    console.log("I am here");
+    navigation.navigate("ConfirmOTP", { name: "Jane" });
+  }
 
-      <View style={styles.phoneEmailContainer}>
-        <PhoneOrEmailInput />
-        <View style={styles.submitButton}>
-          <RoundedButton>{isSignup ? "Sign up" : "Sign In"}</RoundedButton>
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <View style={styles.mainContainer}>
+        <StatusBar hidden />
+        <View style={styles.partialGreyBG}></View>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={require("../../assets/logo/logo.png")}
+          />
+        </View>
+        <View style={styles.tagLineContainer}>
+          <ScreenHeaderText headerLevel={3}>
+            Expert Services at your tips
+          </ScreenHeaderText>
+          <ScreenHeaderText headerLevel={5}>
+            Affordable as No commission
+          </ScreenHeaderText>
+          <NormalText>{"Search   •   Review   •   Use"}</NormalText>
+        </View>
+        <View style={styles.headers}>
+          <ScreenHeaderText>
+            {isSignup ? "Sign up" : "Sign In"}
+          </ScreenHeaderText>
+          <NormalText>Please enter mobile number or email:</NormalText>
+        </View>
+
+        <View style={styles.phoneEmailContainer}>
+          <PhoneOrEmailInput />
+          <View style={styles.submitButton}>
+            <RoundedButton onPress={submitHandler}>
+              {isSignup ? "Sign up" : "Sign In"}
+            </RoundedButton>
+          </View>
+        </View>
+
+        <View style={styles.link}>
+          <TextLink
+            linkText={isSignup ? "Sign In" : "Sign Up"}
+            onLinkClick={signInUpLinkClickHandler}
+          >
+            {isSignup ? "Already have an account?" : "Don't have an account?"}
+          </TextLink>
         </View>
       </View>
-
-      <View style={styles.link}>
-        <TextLink
-          linkText={isSignup ? "Sign In" : "Sign Up"}
-          onLinkClick={signupClickHandler}
-        >
-          {isSignup ? "Already have an account?" : "Don't have an account?"}
-        </TextLink>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 export default LoginId;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   mainContainer: {
     flex: 1,
     padding: GlobalSizes.app.padding,
