@@ -4,14 +4,27 @@ import { OTP_LENGTH } from "../../common/constants";
 import OtpBox from "./OtpBox";
 import RoundedButton from "../buttons/RoundedButton";
 
-function OtpBoxes({ children }) {
+function OtpBoxes({ onSubmit }) {
+  const otpBoxesArr = [];
+
+  function submitHandler() {
+    onSubmit(makeOtp());
+  }
+
+  function makeOtp() {
+    let otp = "";
+    for (let i = 0; i < OTP_LENGTH; i++) {
+      otp = otp + otpBoxesArr[i].value.trim();
+    }
+    return otp;
+  }
+
   function otpChangeHandler(newInput, index, nextOtpBoxRef) {
+    otpBoxesArr[index].value = newInput;
     if (nextOtpBoxRef && newInput.length > 0) nextOtpBoxRef.current.focus();
   }
 
   function OTPBoxes() {
-    let initialArr = [];
-
     let otpBoxRef = useRef();
     let nextOtpBoxRef = null;
     for (let i = 0; i < OTP_LENGTH; i++) {
@@ -20,20 +33,21 @@ function OtpBoxes({ children }) {
       } else {
         nextOtpBoxRef = null;
       }
-      initialArr.push({
+      otpBoxesArr.push({
         index: i,
+        value: "",
         otpBoxRef: otpBoxRef,
         nextOtpBoxRef: nextOtpBoxRef,
       });
       otpBoxRef = nextOtpBoxRef;
     }
-    let boxesArr = initialArr.map((info) => (
+    let boxesArr = otpBoxesArr.map((boxInfo) => (
       <OtpBox
-        key={info.index}
-        index={info.index}
+        key={boxInfo.index}
+        index={boxInfo.index}
         onPress={otpChangeHandler}
-        otpBoxRef={info.otpBoxRef}
-        nextOtpBoxRef={info.nextOtpBoxRef}
+        otpBoxRef={boxInfo.otpBoxRef}
+        nextOtpBoxRef={boxInfo.nextOtpBoxRef}
       />
     ));
     return boxesArr;
@@ -45,7 +59,7 @@ function OtpBoxes({ children }) {
         <OTPBoxes />
       </View>
       <View style={styles.submitButton}>
-        <RoundedButton>Submit</RoundedButton>
+        <RoundedButton onPress={submitHandler}>Submit</RoundedButton>
       </View>
     </View>
   );

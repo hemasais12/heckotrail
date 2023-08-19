@@ -40,6 +40,12 @@ export const GlobalColors = {
     pressed: "#ffffff",
     text: "#ffffff",
   },
+  disabledButton: {
+    light: "#a5a5a3",
+    dark: "#585756",
+    pressed: "#ffffff",
+    text: "#ffffff",
+  },
   progressBar: {
     backgroundColor: "#ffffff",
     filledColor: "#ffebd4",

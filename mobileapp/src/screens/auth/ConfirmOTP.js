@@ -15,20 +15,17 @@ import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import OtpBoxes from "../../controls/inputs/OtpBoxes";
 
 function ConfirmOTP({ navigation, route }) {
-  const otpBoxRef2 = useRef();
-  const otpBoxRef3 = useRef();
-  const otpBoxRef4 = useRef();
+  const { isSignup } = route.params;
 
-  function onSubmit() {
-    navigation.goBack();
+  function moveToSignUpAsScreen() {}
+
+  function moveToSignInAsScreen() {}
+
+  function submitHandler(otp) {
+    if (isSignup) moveToSignUpAsScreen();
+    else moveToSignInAsScreen();
   }
 
-  function onChangeNumber(newInput, isLastBox, nextOtpBoxRef) {
-    console.log(newInput);
-    if (!isLastBox && newInput.length === 1) {
-      nextOtpBoxRef.current.focus();
-    }
-  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -45,7 +42,7 @@ function ConfirmOTP({ navigation, route }) {
           </ScreenHeaderText>
         </View>
 
-        <OtpBoxes />
+        <OtpBoxes onSubmit={submitHandler} />
       </View>
     </KeyboardAvoidingView>
   );

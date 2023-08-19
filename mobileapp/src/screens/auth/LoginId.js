@@ -33,7 +33,7 @@ function LoginId({ route, navigation }) {
 
   function submitHandler() {
     console.log("I am here");
-    navigation.navigate("ConfirmOTP", { name: "Jane" });
+    navigation.navigate("ConfirmOTP", { isSignup: isSignup });
   }
 
   return (
