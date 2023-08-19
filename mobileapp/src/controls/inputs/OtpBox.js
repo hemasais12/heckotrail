@@ -10,6 +10,7 @@ function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef }) {
       style={styles.otpBox}
       maxLength={1}
       ref={otpBoxRef}
+      keyboardType="numeric"
       onChangeText={(text) => onChangeNumber(text, index, nextOtpBoxRef)}
     />
   );

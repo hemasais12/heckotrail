@@ -46,10 +46,6 @@ function ConfirmOTP({ navigation, route }) {
         </View>
 
         <OtpBoxes />
-
-        <View style={styles.submitButton}>
-          <Button title="Back" onPress={onSubmit}></Button>
-        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -60,10 +56,11 @@ export default ConfirmOTP;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 8,
+    backgroundColor: "white",
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: "white",
     alignItems: "center",
     paddingTop: 20,
   },

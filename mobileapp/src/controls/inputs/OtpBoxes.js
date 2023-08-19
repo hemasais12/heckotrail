@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View, Button } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import { OTP_LENGTH } from "../../common/constants";
 import OtpBox from "./OtpBox";
+import RoundedButton from "../buttons/RoundedButton";
 
 function OtpBoxes({ children }) {
   function otpChangeHandler(newInput, index, nextOtpBoxRef) {
@@ -39,8 +40,13 @@ function OtpBoxes({ children }) {
   }
 
   return (
-    <View style={styles.otpBoxes}>
-      <OTPBoxes />
+    <View style={styles.container}>
+      <View style={styles.otpBoxes}>
+        <OTPBoxes />
+      </View>
+      <View style={styles.submitButton}>
+        <RoundedButton>Submit</RoundedButton>
+      </View>
     </View>
   );
 }
@@ -48,11 +54,19 @@ function OtpBoxes({ children }) {
 export default OtpBoxes;
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+  },
   otpBoxes: {
     flexDirection: "row",
-    width: "100%",
     marginTop: 20,
     paddingHorizontal: 8,
     justifyContent: "center",
+  },
+  submitButton: {
+    flexDirection: "row",
+    marginTop: 24,
+    justifyContent: "flex-end",
+    marginRight: 18,
   },
 });
