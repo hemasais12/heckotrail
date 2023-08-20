@@ -54,7 +54,7 @@ function OtpBoxes({ onSubmit, errorText }) {
         key={boxInfo.index}
         index={boxInfo.index}
         onPress={otpChangeHandler}
-        value={boxInfo.value}
+        //  value={boxInfo.value}
         otpBoxRef={boxInfo.otpBoxRef}
         nextOtpBoxRef={boxInfo.nextOtpBoxRef}
       />
