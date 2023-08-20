@@ -18,6 +18,7 @@ const screen = Dimensions.get("screen");
 
 function LoginId({ route, navigation }) {
   let isSignup = route.params ? route.params.isSignup : false;
+  console.log("isSignup:" + isSignup);
 
   function signInUpLinkClickHandler() {
     if (!isSignup) {

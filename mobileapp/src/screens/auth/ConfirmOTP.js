@@ -17,6 +17,7 @@ import { OTP_LENGTH } from "../../common/constants";
 
 function ConfirmOTP({ navigation, route }) {
   const { isSignup } = route.params;
+  console.log("isSignup:" + isSignup);
 
   function moveToSignUpAsScreen() {
     navigation.navigate("SelectRole", { isSignup: isSignup });
