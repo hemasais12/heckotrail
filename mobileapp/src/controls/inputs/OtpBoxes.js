@@ -7,6 +7,7 @@ import ErrorText from "../texts/ErrorText";
 
 function OtpBoxes({ onSubmit, errorText }) {
   const [showError, setShowError] = useState(false);
+
   const otpBoxesArr = [];
 
   function submitHandler() {

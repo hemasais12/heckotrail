@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
+import { GlobalColors } from "../../common/colors";
 
 function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef, value }) {
   console.log(index + ":" + value);
@@ -29,5 +30,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginHorizontal: 8,
     minWidth: 50,
+    borderColor: GlobalColors.app.borderColor,
   },
 });

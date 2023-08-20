@@ -6,17 +6,19 @@ import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LoginId from "../screens/auth/LoginId";
+import Empty from "../screens/auth/Empty";
 import LoginByPassword from "../screens/auth/LoginByPassword";
 
 import ConfirmOTP from "../screens/auth/ConfirmOTP";
 import SignupPasswordAndOTP from "../screens/auth/SignupPasswordAndOTP";
-import SelectRole from "../screens/auth/SelectRole";
+import SelectRole from "../screens/common/SelectRole";
 import WelcomeScreen from "../screens/common/WelcomeScreen";
 
 import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
+import { ROLE_CLIENT, ROLE_VENDOR } from "../common/constants";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,10 +38,13 @@ function AuthStack() {
         options={{ title: "" }}
       />
       <Stack.Screen
-        screenOptions={{ headerShown: true }}
         name="ConfirmOTP"
         component={ConfirmOTP}
-        options={{ title: "" }}
+        options={{
+          title: "",
+          headerShadowVisible: false,
+          headerTransparent: true,
+        }}
       />
       <Stack.Screen
         name="SignupPasswordAndOTP"
@@ -47,15 +52,15 @@ function AuthStack() {
         options={{ title: "" }}
       />
       <Stack.Screen
-        name="SelectRole"
-        component={SelectRole}
-        options={{ title: "" }}
+        name="Empty"
+        component={Empty}
+        options={{ title: "", headerShown: false }}
       />
     </Stack.Navigator>
   );
 }
 
-function AuthenticatedStack() {
+function AuthenticatedClientStack() {
   const authCtx = useContext(AuthContext);
   return (
     <Stack.Navigator screenOptions={{}}>
@@ -73,6 +78,78 @@ function AuthenticatedStack() {
           ),
         }}
       />
+      <Stack.Screen
+        name="SelectRole"
+        component={SelectRole}
+        options={{ title: "" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function UserRoleStack() {
+  const authCtx = useContext(AuthContext);
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name="SelectRole"
+        component={SelectRole}
+        options={{ title: "", headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function VendorSetupStack() {
+  const authCtx = useContext(AuthContext);
+  return (
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="SelectRole"
+        component={SelectRole}
+        options={{ title: "" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AuthenticatedVendorStack() {
+  const authCtx = useContext(AuthContext);
+  return (
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="WelcomeScreen"
+        component={WelcomeScreen}
+        options={{
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="SelectRole"
+        component={SelectRole}
+        options={{ title: "" }}
+      />
     </Stack.Navigator>
   );
 }
@@ -84,7 +161,16 @@ function Navigation() {
   return (
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {authCtx.isAuthenticated && !authCtx.userRole && <UserRoleStack />}
+      {authCtx.isAuthenticated && authCtx.userRole === ROLE_CLIENT && (
+        <AuthenticatedClientStack />
+      )}
+      {authCtx.isAuthenticated &&
+        authCtx.userRole === ROLE_VENDOR &&
+        !authCtx.isVendorSetupDone(<VendorSetupStack />)}
+      {authCtx.isAuthenticated &&
+        authCtx.userRole === ROLE_VENDOR &&
+        authCtx.isVendorSetupDone(<AuthenticatedVendorStack />)}
     </NavigationContainer>
   );
 }
@@ -96,6 +182,7 @@ function Root() {
 
   useEffect(() => {
     async function fetchToken() {
+      authCtx.logout();
       const storedToken = await AsyncStorage.getItem("token");
 
       if (storedToken) {

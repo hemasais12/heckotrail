@@ -10,6 +10,7 @@ import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
+import LogoBackground from "../../controls/layout/LogoBackground";
 import NormalText from "../../controls/texts/NormalText";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import TextLink from "../../views/TextLink";
@@ -18,7 +19,6 @@ const screen = Dimensions.get("screen");
 
 function LoginId({ route, navigation }) {
   let isSignup = route.params ? route.params.isSignup : false;
-  console.log("isSignup:" + isSignup);
 
   function signInUpLinkClickHandler() {
     if (!isSignup) {
@@ -37,54 +37,50 @@ function LoginId({ route, navigation }) {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <View style={styles.mainContainer}>
-        <StatusBar hidden />
-        <View style={styles.partialGreyBG}></View>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require("../../assets/logo/logo.png")}
-          />
-        </View>
-        <View style={styles.tagLineContainer}>
-          <ScreenHeaderText headerLevel={3}>
-            Expert Services at your tips
-          </ScreenHeaderText>
-          <ScreenHeaderText headerLevel={5}>
-            Affordable as No commission
-          </ScreenHeaderText>
-          <NormalText>{"Search   •   Review   •   Use"}</NormalText>
-        </View>
-        <View style={styles.headers}>
-          <ScreenHeaderText>
-            {isSignup ? "Sign up" : "Sign In"}
-          </ScreenHeaderText>
-          <NormalText>Please enter mobile number or email:</NormalText>
-        </View>
-
-        <View style={styles.phoneEmailContainer}>
-          <PhoneOrEmailInput />
-          <View style={styles.submitButton}>
-            <RoundedButton onPress={submitHandler}>
+    <LogoBackground>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <View style={styles.topcontainer}></View>
+        <View style={styles.middlecontainer}>
+          <View style={styles.tagLineContainer}>
+            <ScreenHeaderText headerLevel={3}>
+              Expert Services at your tips
+            </ScreenHeaderText>
+            <ScreenHeaderText headerLevel={5}>
+              Affordable as No commission
+            </ScreenHeaderText>
+            <NormalText>{"Search   •   Review   •   Use"}</NormalText>
+          </View>
+          <View style={styles.headers}>
+            <ScreenHeaderText>
               {isSignup ? "Sign up" : "Sign In"}
-            </RoundedButton>
+            </ScreenHeaderText>
+            <NormalText>Please enter mobile number or email:</NormalText>
+          </View>
+
+          <View style={styles.phoneEmailContainer}>
+            <PhoneOrEmailInput />
+            <View style={styles.submitButton}>
+              <RoundedButton onPress={submitHandler}>
+                {isSignup ? "Sign up" : "Sign In"}
+              </RoundedButton>
+            </View>
           </View>
         </View>
-
-        <View style={styles.link}>
-          <TextLink
-            linkText={isSignup ? "Sign In" : "Sign Up"}
-            onLinkClick={signInUpLinkClickHandler}
-          >
-            {isSignup ? "Already have an account?" : "Don't have an account?"}
-          </TextLink>
+        <View style={styles.bottomcontainer}>
+          <View style={styles.link}>
+            <TextLink
+              linkText={isSignup ? "Sign In" : "Sign Up"}
+              onLinkClick={signInUpLinkClickHandler}
+            >
+              {isSignup ? "Already have an account?" : "Don't have an account?"}
+            </TextLink>
+          </View>
         </View>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </LogoBackground>
   );
 }
 
@@ -93,22 +89,20 @@ export default LoginId;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
   },
-  mainContainer: {
+
+  topcontainer: {
     flex: 1,
-    padding: GlobalSizes.app.padding,
-    backgroundColor: GlobalColors.app.bgcolor,
+    justifyContent: "center",
   },
-
-  logoContainer: {
-    height: 150,
-    width: 150,
+  middlecontainer: {
+    flex: 3,
+    justifyContent: "center",
   },
-
-  logo: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
+  bottomcontainer: {
+    flex: 2,
+    justifyContent: "center",
   },
 
   headers: {
@@ -138,14 +132,5 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     flexDirection: "row",
     width: "100%",
-  },
-  partialGreyBG: {
-    backgroundColor: GlobalColors.app.partialColor,
-    height: screen.width * 2,
-    width: screen.width * 2,
-    borderRadius: screen.width * 2,
-    position: "absolute",
-    bottom: screen.height * 0.72,
-    marginLeft: -1.2 * screen.width,
   },
 });
