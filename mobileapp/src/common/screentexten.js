@@ -22,5 +22,7 @@ export const ScreenTextEn = {
     signUpAs: "Sign Up As",
     signInAsDescription: "Please select how you want to sign in",
     signUpAsDescription: "Please select how you want to sign up",
+    clientTitle: "Client",
+    vendorTitle: "Vendor",
   },
 };

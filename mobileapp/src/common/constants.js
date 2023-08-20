@@ -10,3 +10,6 @@ export const CURRENT_USER_FULLNAME = "fullname";
 export const CURRENT_USER_ROLES = "roles";
 export const TOKEN_EXPIRED = "tokenExpried";
 export const OTP_LENGTH = 4;
+
+export const ROLE_CLIENT = "CLIENT";
+export const ROLE_VENDOR = "VENDOR";

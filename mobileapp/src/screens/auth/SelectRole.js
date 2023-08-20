@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Pressable,
   StyleSheet,
@@ -7,13 +8,20 @@ import {
   Image,
 } from "react-native";
 import { GlobalColors } from "../../common/colors";
+import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
 import { ScreenTextEn } from "../../common/screentexten";
+import RoundedButton from "../../controls/buttons/RoundedButton";
+import RoleView from "../../controls/images/RoleView";
 import BaseLayout from "../../controls/layout/BaseLayout";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 
 function SelectRole({ navigation, route }) {
+  const [selectedRole, setSelectedRole] = useState("");
   const { isSignup } = route.params;
-  console.log("isSignup:" + isSignup);
+
+  function roleSelected(role) {
+    setSelectedRole(role);
+  }
 
   return (
     <BaseLayout>
@@ -32,12 +40,20 @@ function SelectRole({ navigation, route }) {
           </ScreenHeaderText>
         </View>
         <View style={styles.rolesContainer}>
-          <View style={styles.role}>
-            <Image source={require("../../assets/images/roleclient.png")} />
-          </View>
-          <View style={styles.role}>
-            <Image source={require("../../assets/images/rolevendor.png")} />
-          </View>
+          <RoleView
+            role={ROLE_CLIENT}
+            isSelected={selectedRole === ROLE_CLIENT}
+            onPress={roleSelected}
+          />
+          <RoleView
+            role={ROLE_VENDOR}
+            isSelected={selectedRole === ROLE_VENDOR}
+            onPress={roleSelected}
+          />
+        </View>
+
+        <View style={styles.submitButton}>
+          <RoundedButton>Submit</RoundedButton>
         </View>
       </View>
     </BaseLayout>
@@ -59,16 +75,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "center",
-    marginTop: 50,
+    marginTop: 20,
   },
-
-  role: {
-    borderWidth: 1,
-    borderColor: GlobalColors.app.borderColor,
-    marginHorizontal: 32,
-    padding: 8,
-    borderRadius: 8,
+  submitButton: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 20,
   },
-
-  roleStyle: {},
 });
