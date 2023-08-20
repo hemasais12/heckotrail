@@ -13,6 +13,7 @@ import { ScreenTextEn } from "../../common/screentexten";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import RoleView from "../../controls/images/RoleView";
 import BaseLayout from "../../controls/layout/BaseLayout";
+import LogoBackground from "../../controls/layout/LogoBackground";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 
 function SelectRole({ navigation, route }) {
@@ -23,45 +24,61 @@ function SelectRole({ navigation, route }) {
   }
 
   return (
-    <BaseLayout>
-      <View style={styles.mainContainer}>
+    <LogoBackground>
+      <View style={styles.container}>
         <StatusBar hidden={true} />
-        <ScreenHeaderText headerLevel={2}>
-          {ScreenTextEn.General.signInAs}
-        </ScreenHeaderText>
-        <View style={styles.description}>
-          <ScreenHeaderText headerLevel={4}>
-            {ScreenTextEn.General.signInAsDescription}
+        <View style={styles.topcontainer}></View>
+        <View style={styles.middlecontainer}>
+          <ScreenHeaderText headerLevel={2}>
+            {ScreenTextEn.General.signInAs}
           </ScreenHeaderText>
-        </View>
-        <View style={styles.rolesContainer}>
-          <RoleView
-            role={ROLE_CLIENT}
-            isSelected={selectedRole === ROLE_CLIENT}
-            onPress={roleSelected}
-          />
-          <RoleView
-            role={ROLE_VENDOR}
-            isSelected={selectedRole === ROLE_VENDOR}
-            onPress={roleSelected}
-          />
-        </View>
+          <View style={styles.description}>
+            <ScreenHeaderText headerLevel={4}>
+              {ScreenTextEn.General.signInAsDescription}
+            </ScreenHeaderText>
+          </View>
+          <View style={styles.rolesContainer}>
+            <RoleView
+              role={ROLE_CLIENT}
+              isSelected={selectedRole === ROLE_CLIENT}
+              onPress={roleSelected}
+            />
+            <RoleView
+              role={ROLE_VENDOR}
+              isSelected={selectedRole === ROLE_VENDOR}
+              onPress={roleSelected}
+            />
+          </View>
 
-        <View style={styles.submitButton}>
-          <RoundedButton>Submit</RoundedButton>
+          <View style={styles.submitButton}>
+            <RoundedButton>Submit</RoundedButton>
+          </View>
         </View>
+        <View style={styles.bottomcontainer}></View>
       </View>
-    </BaseLayout>
+    </LogoBackground>
   );
 }
 
 export default SelectRole;
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
-    alignItems: "center",
-    paddingTop: 20,
+    justifyContent: "center",
+  },
+
+  topcontainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  middlecontainer: {
+    flex: 3,
+    justifyContent: "center",
+  },
+  bottomcontainer: {
+    flex: 2,
+    justifyContent: "center",
   },
   description: {
     marginTop: 10,
@@ -73,7 +90,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   submitButton: {
-    width: "100%",
     flexDirection: "row",
     justifyContent: "flex-end",
     marginTop: 20,

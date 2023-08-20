@@ -209,7 +209,6 @@ function AppView() {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-
       <AuthContextProvider>
         <Root />
       </AuthContextProvider>
