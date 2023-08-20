@@ -3,12 +3,19 @@ import { useState, useEffect, useRef } from "react";
 import { OTP_LENGTH } from "../../common/constants";
 import OtpBox from "./OtpBox";
 import RoundedButton from "../buttons/RoundedButton";
+import ErrorText from "../texts/ErrorText";
 
-function OtpBoxes({ onSubmit }) {
+function OtpBoxes({ onSubmit, errorText }) {
+  const [showError, setShowError] = useState(false);
   const otpBoxesArr = [];
 
   function submitHandler() {
-    onSubmit(makeOtp());
+    let otp = makeOtp();
+    if (otp.length === OTP_LENGTH) {
+      onSubmit(otp);
+    } else {
+      setShowError(true);
+    }
   }
 
   function makeOtp() {
@@ -20,6 +27,7 @@ function OtpBoxes({ onSubmit }) {
   }
 
   function otpChangeHandler(newInput, index, nextOtpBoxRef) {
+    //setShowError(false);
     otpBoxesArr[index].value = newInput;
     if (nextOtpBoxRef && newInput.length > 0) nextOtpBoxRef.current.focus();
   }
@@ -46,6 +54,7 @@ function OtpBoxes({ onSubmit }) {
         key={boxInfo.index}
         index={boxInfo.index}
         onPress={otpChangeHandler}
+        value={boxInfo.value}
         otpBoxRef={boxInfo.otpBoxRef}
         nextOtpBoxRef={boxInfo.nextOtpBoxRef}
       />
@@ -57,6 +66,9 @@ function OtpBoxes({ onSubmit }) {
     <View style={styles.container}>
       <View style={styles.otpBoxes}>
         <OTPBoxes />
+      </View>
+      <View style={styles.errorMessage}>
+        {showError ? <ErrorText>{errorText}</ErrorText> : <></>}
       </View>
       <View style={styles.submitButton}>
         <RoundedButton onPress={submitHandler}>Submit</RoundedButton>
@@ -79,8 +91,13 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     flexDirection: "row",
-    marginTop: 24,
+    marginTop: 18,
     justifyContent: "flex-end",
     marginRight: 18,
+  },
+  errorMessage: {
+    flexDirection: "row",
+    marginTop: 8,
+    justifyContent: "center",
   },
 });

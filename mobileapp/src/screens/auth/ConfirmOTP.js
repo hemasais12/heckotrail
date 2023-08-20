@@ -13,13 +13,18 @@ import { useState, useEffect, useRef } from "react";
 import { ScreenTextEn } from "../../common/screentexten";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import OtpBoxes from "../../controls/inputs/OtpBoxes";
+import { OTP_LENGTH } from "../../common/constants";
 
 function ConfirmOTP({ navigation, route }) {
   const { isSignup } = route.params;
 
-  function moveToSignUpAsScreen() {}
+  function moveToSignUpAsScreen() {
+    navigation.navigate("SelectRole", { isSignup: isSignup });
+  }
 
-  function moveToSignInAsScreen() {}
+  function moveToSignInAsScreen() {
+    navigation.navigate("SelectRole", { isSignup: isSignup });
+  }
 
   function submitHandler(otp) {
     if (isSignup) moveToSignUpAsScreen();
@@ -42,7 +47,10 @@ function ConfirmOTP({ navigation, route }) {
           </ScreenHeaderText>
         </View>
 
-        <OtpBoxes onSubmit={submitHandler} />
+        <OtpBoxes
+          onSubmit={submitHandler}
+          errorText={ScreenTextEn.AuthConfirmOTP.errorLength}
+        />
       </View>
     </KeyboardAvoidingView>
   );

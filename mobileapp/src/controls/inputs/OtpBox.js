@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 
-function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef }) {
+function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef, value }) {
+  console.log(index + ":" + value);
   function onChangeNumber(newInput, index, otpBoxRef) {
     onPress(newInput, index, otpBoxRef);
   }
@@ -11,6 +12,7 @@ function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef }) {
       maxLength={1}
       ref={otpBoxRef}
       keyboardType="numeric"
+      value={value}
       onChangeText={(text) => onChangeNumber(text, index, nextOtpBoxRef)}
     />
   );

@@ -4,6 +4,7 @@ export const GlobalColors = {
     titleColor: "#000000",
     linkColor: "#0070E0",
     partialColor: "#ffe5c7",
+    errorColor: "#e61616",
   },
   page: {
     titleColor: "#000000",
