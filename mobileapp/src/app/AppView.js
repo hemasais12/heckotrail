@@ -19,7 +19,7 @@ import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../common/constants";
-import VendorProfile from "../screens/vendor/VendorProfile";
+import EditableVendorProfile from "../screens/vendor/EditableVendorProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -108,8 +108,8 @@ function VendorSetupStack() {
   return (
     <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
-        name="Vendor Profile"
-        component={VendorProfile}
+        name="My Profile"
+        component={EditableVendorProfile}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
