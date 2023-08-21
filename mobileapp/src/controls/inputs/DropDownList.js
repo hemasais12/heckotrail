@@ -74,7 +74,6 @@ function DropDownList({
   }
 
   function goBack() {
-    console.log("trying to go back111");
     isVisible = false;
     if (onBackPress) onBackPress();
   }

@@ -19,6 +19,7 @@ import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../common/constants";
+import VendorProfile from "../screens/vendor/VendorProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +36,11 @@ function AuthStack() {
       <Stack.Screen
         name="LoginByPassword"
         component={LoginByPassword}
-        options={{ title: "" }}
+        options={{
+          title: "",
+          headerShadowVisible: false,
+          headerTransparent: true,
+        }}
       />
       <Stack.Screen
         name="ConfirmOTP"
@@ -49,13 +54,13 @@ function AuthStack() {
       <Stack.Screen
         name="SignupPasswordAndOTP"
         component={SignupPasswordAndOTP}
-        options={{ title: "" }}
+        options={{
+          title: "",
+          headerShadowVisible: false,
+          headerTransparent: true,
+        }}
       />
-      <Stack.Screen
-        name="Empty"
-        component={Empty}
-        options={{ title: "", headerShown: false }}
-      />
+      <Stack.Screen name="Empty" component={Empty} options={{ title: "" }} />
     </Stack.Navigator>
   );
 }
@@ -68,6 +73,9 @@ function AuthenticatedClientStack() {
         name="WelcomeScreen"
         component={WelcomeScreen}
         options={{
+          title: "",
+          headerShadowVisible: false,
+          headerTransparent: true,
           headerRight: ({ tintColor }) => (
             <IconButton
               icon="exit"
@@ -77,11 +85,6 @@ function AuthenticatedClientStack() {
             />
           ),
         }}
-      />
-      <Stack.Screen
-        name="SelectRole"
-        component={SelectRole}
-        options={{ title: "" }}
       />
     </Stack.Navigator>
   );
@@ -105,8 +108,8 @@ function VendorSetupStack() {
   return (
     <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
-        name="WelcomeScreen"
-        component={WelcomeScreen}
+        name="Vendor Profile"
+        component={VendorProfile}
         options={{
           headerRight: ({ tintColor }) => (
             <IconButton
@@ -117,11 +120,6 @@ function VendorSetupStack() {
             />
           ),
         }}
-      />
-      <Stack.Screen
-        name="SelectRole"
-        component={SelectRole}
-        options={{ title: "" }}
       />
     </Stack.Navigator>
   );
@@ -145,18 +143,18 @@ function AuthenticatedVendorStack() {
           ),
         }}
       />
-      <Stack.Screen
-        name="SelectRole"
-        component={SelectRole}
-        options={{ title: "" }}
-      />
     </Stack.Navigator>
   );
 }
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
-  console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
+  /*console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
+  console.log("authCtx.userRole not set:" + !authCtx.userRole);
+  console.log("authCtx.userRole:" + authCtx.userRole);
+  console.log(
+    "authCtx.isVendorSetupDone not set:" + !authCtx.isVendorSetupDone
+  );*/
 
   return (
     <NavigationContainer>
@@ -167,10 +165,10 @@ function Navigation() {
       )}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
-        !authCtx.isVendorSetupDone(<VendorSetupStack />)}
+        !authCtx.isVendorSetupDone && <VendorSetupStack />}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
-        authCtx.isVendorSetupDone(<AuthenticatedVendorStack />)}
+        authCtx.isVendorSetupDone && <AuthenticatedVendorStack />}
     </NavigationContainer>
   );
 }
@@ -196,10 +194,10 @@ function Root() {
   }, []);
 
   if (isTryingLogin) {
-    console.log("I am here");
+    //console.log("I am here");
     return <Text>Loading</Text>;
   } else {
-    console.log("I am not here");
+    //console.log("I am not here");
   }
 
   return <Navigation />;

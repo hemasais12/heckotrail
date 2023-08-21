@@ -14,7 +14,6 @@ import LogoBackground from "../../controls/layout/LogoBackground";
 function ConfirmOTP({ navigation, route }) {
   const authCtx = useContext(AuthContext);
   const { isSignup } = route.params;
-  console.log("isSignup:" + isSignup);
 
   function moveToSignUpAsScreen() {
     authCtx.authenticate("token");

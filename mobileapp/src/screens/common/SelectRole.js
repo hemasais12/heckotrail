@@ -1,26 +1,25 @@
-import { useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  Image,
-} from "react-native";
-import { GlobalColors } from "../../common/colors";
+import { useState, useContext } from "react";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
 import { ScreenTextEn } from "../../common/screentexten";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import RoleView from "../../controls/images/RoleView";
-import BaseLayout from "../../controls/layout/BaseLayout";
 import LogoBackground from "../../controls/layout/LogoBackground";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
+import { AuthContext } from "../../store/AuthContextProvider";
 
 function SelectRole({ navigation, route }) {
+  const authCtx = useContext(AuthContext);
   const [selectedRole, setSelectedRole] = useState(ROLE_CLIENT);
 
   function roleSelected(role) {
     setSelectedRole(role);
+  }
+
+  function submitHandler() {
+    if (selectedRole) {
+      authCtx.setUserRole(selectedRole);
+    }
   }
 
   return (
@@ -51,7 +50,7 @@ function SelectRole({ navigation, route }) {
           </View>
 
           <View style={styles.submitButton}>
-            <RoundedButton>Submit</RoundedButton>
+            <RoundedButton onPress={submitHandler}>Submit</RoundedButton>
           </View>
         </View>
         <View style={styles.bottomcontainer}></View>
