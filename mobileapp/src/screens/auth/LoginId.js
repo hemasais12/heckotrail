@@ -58,14 +58,14 @@ function LoginId({ route, navigation }) {
               {isSignup ? "Sign up" : "Sign In"}
             </ScreenHeaderText>
             <NormalText>Please enter mobile number or email:</NormalText>
-          </View>
 
-          <View style={styles.phoneEmailContainer}>
-            <PhoneOrEmailInput />
-            <View style={styles.submitButton}>
-              <RoundedButton onPress={submitHandler}>
-                {isSignup ? "Sign up" : "Sign In"}
-              </RoundedButton>
+            <View style={styles.phoneEmailContainer}>
+              <PhoneOrEmailInput />
+              <View style={styles.submitButton}>
+                <RoundedButton onPress={submitHandler}>
+                  {isSignup ? "Sign up" : "Sign In"}
+                </RoundedButton>
+              </View>
             </View>
           </View>
         </View>
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
 
   phoneEmailContainer: {
     alignItems: "flex-start",
+    marginTop: 24,
   },
   tagLineContainer: {
     alignItems: "flex-start",

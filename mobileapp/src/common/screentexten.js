@@ -30,6 +30,8 @@ export const ScreenTextEn = {
     pinCode: "Pin code",
   },
   VendorProfile: {
+    editScreenTitle:
+      "Please add details about your/shop/services location. This will help you to get service requests from nearby locations.",
     name: "Your or Shop name",
   },
 };

@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 12,
+    marginTop: 16,
   },
   label: {},
   invalid: {},
@@ -101,5 +101,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     borderBottomColor: GlobalColors.input.borderColor,
     borderBottomWidth: 1,
+    paddingVertical: 8,
   },
 });
