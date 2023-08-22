@@ -11,7 +11,7 @@ function SearchIcon({ children, onPress }) {
         <Feather
           name="search"
           size={16}
-          color={GlobalColors.search.borderColor}
+          color={GlobalColors.search.iconColor}
         />
       </CustomerPressable>
     </View>

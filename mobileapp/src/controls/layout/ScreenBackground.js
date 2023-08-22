@@ -14,9 +14,9 @@ import CustomPressable from "../commons/CustomPressable";
 
 const screen = Dimensions.get("screen");
 
-function ScreenBackground({ children }) {
+function ScreenBackground({ children, style }) {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...style }}>
       <StatusBar hidden={false} />
       {children}
     </View>

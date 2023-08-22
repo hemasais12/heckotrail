@@ -20,6 +20,7 @@ import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../common/constants";
 import EditableVendorProfile from "../screens/vendor/EditableVendorProfile";
+import EditVendorNameAndLocation from "../screens/vendor/EditVendorNameAndLocation";
 
 const Stack = createNativeStackNavigator();
 
@@ -93,24 +94,27 @@ function AuthenticatedClientStack() {
 function UserRoleStack() {
   const authCtx = useContext(AuthContext);
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
         name="SelectRole"
         component={SelectRole}
-        options={{ title: "", headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function VendorSetupStack() {
-  const authCtx = useContext(AuthContext);
-  return (
-    <Stack.Navigator screenOptions={{}}>
-      <Stack.Screen
-        name="My Profile"
-        component={EditableVendorProfile}
         options={{
+          title: "Confirm role",
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="exit"
+              color={tintColor}
+              size={24}
+              onPress={authCtx.logout}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="EditVendorNameAndLocation"
+        component={EditVendorNameAndLocation}
+        options={{
+          title: "Vendor/Shop details",
           headerRight: ({ tintColor }) => (
             <IconButton
               icon="exit"
@@ -165,7 +169,7 @@ function Navigation() {
       )}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
-        !authCtx.isVendorSetupDone && <VendorSetupStack />}
+        !authCtx.isVendorSetupDone && <UserRoleStack />}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
         authCtx.isVendorSetupDone && <AuthenticatedVendorStack />}
@@ -180,7 +184,7 @@ function Root() {
 
   useEffect(() => {
     async function fetchToken() {
-      authCtx.logout();
+      //authCtx.logout();
       const storedToken = await AsyncStorage.getItem("token");
 
       if (storedToken) {

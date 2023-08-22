@@ -57,6 +57,7 @@ export const GlobalColors = {
 
   search: {
     borderColor: "#b8b7b7",
+    iconColor: "#f8921d",
   },
   vendorProfile: {
     backgroundColor: "#e8f8fa",

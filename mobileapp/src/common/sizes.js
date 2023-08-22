@@ -22,12 +22,11 @@ export const GlobalSizes = {
   },
   searchText: {
     borderWidth: 1,
-    borderRadius: 16,
     height: 50,
     marginHorizontal: 6,
     marginVertical: 10,
     marginRight: 12,
-    borderRadius: 12,
+    borderRadius: 4,
     paddingHorizontal: 12,
     padding: 4,
   },
@@ -47,7 +46,7 @@ export const GlobalSizes = {
   input: {
     borderRadius: 4,
     borderWidth: 1,
-    paddingRight:10,
-    paddingLeft:10,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
 };
