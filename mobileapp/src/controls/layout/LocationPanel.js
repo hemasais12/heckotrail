@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import LocationText from "../texts/location/LocationText";
 import LocationIcon from "../icons/LocationIcon";
 import LocationButton from "../buttons/LocationButton";
+import { getLocationTitle, getLocationArea } from "../../utils/LocationUtils";
 
 function LocationPanel({ children, location }) {
   return (
@@ -10,20 +11,8 @@ function LocationPanel({ children, location }) {
       <View style={styles.location}>
         <LocationIcon style={{ marginTop: 2 }} />
         <LocationText
-          title={
-            location
-              ? location.street
-                ? location.street
-                : location.district
-              : ""
-          }
-          area={
-            location
-              ? location.district
-                ? location.district + ", "
-                : "" + location.city + ", " + location.postalCode
-              : ""
-          }
+          title={getLocationTitle(location)}
+          area={getLocationArea(location)}
           style={{ marginLeft: 4 }}
         >
           Text

@@ -73,6 +73,7 @@ function EditVendorNameAndLocation() {
       latitude,
       longitude,
     });
+    console.log(response[0]);
     setAddress(response[0]);
   }
 
