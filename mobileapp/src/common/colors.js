@@ -6,12 +6,19 @@ export const GlobalColors = {
     partialColor: "#ffe5c7",
     errorColor: "#e61616",
     borderColor: "#e8c662",
+    iconColor: "#f8921d",
   },
   page: {
     titleColor: "#000000",
     titleColor2: "#545454",
     textColor: "#6a6a6a",
     highlightColor: "#f8921d",
+  },
+  location: {
+    title: "#343434",
+    area: "#545454",
+    icon: "#f8921d",
+    pin: "#fa8908",
   },
   boxbar: {
     titleColor: "#000000",
