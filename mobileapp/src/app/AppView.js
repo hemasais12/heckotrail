@@ -18,7 +18,7 @@ import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
-import { ROLE_CLIENT, ROLE_VENDOR } from "../common/constants";
+import { ROLE_CLIENT, ROLE_VENDOR, STORAGE_TOKEN } from "../common/constants";
 import EditableVendorProfile from "../screens/vendor/EditableVendorProfile";
 import EditVendorNameAndLocation from "../screens/vendor/EditVendorNameAndLocation";
 
@@ -185,7 +185,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       //authCtx.logout();
-      const storedToken = await AsyncStorage.getItem("token");
+      const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
 
       if (storedToken) {
         authCtx.authenticate(storedToken);

@@ -34,4 +34,14 @@ export const ScreenTextEn = {
       "Please add details about your/shop/services location. This will help you to get service requests from nearby locations.",
     name: "Your or Shop name",
   },
+  Location: {
+    unknownLocation: "Unknown Location",
+    enterCompleteAddress: "Enter Complete Address",
+    separator: ", ",
+    searchPlaceholder: "Search for area, street name...",
+  },
+};
+
+export const TextLang = {
+  en: ScreenTextEn,
 };

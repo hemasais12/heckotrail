@@ -5,10 +5,10 @@ import { GlobalFonts } from "../../common/fonts";
 function PrimaryButtonText({ children }) {
   return (
     <View style={styles.textcontainer}>
-      <Text style={styles.buttonText}>
-        {children} {""}
-      </Text>
-      <Text style={styles.buttonArrow}> →</Text>
+      <Text style={styles.buttonText}>{children}</Text>
+      <View style={styles.buttonArrowContainer}>
+        <Text style={styles.buttonArrow}>→</Text>
+      </View>
     </View>
   );
 }
@@ -21,13 +21,18 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: GlobalColors.primaryButton.text,
-    textAlign: "center",
+    flexDirection: "row",
     fontWeight: GlobalFonts.primaryButton.fontWeight,
+    color: GlobalColors.primaryButton.text,
+  },
+
+  buttonArrowContainer: {
+    alignItems: "flex-end",
+    marginLeft: 8,
   },
 
   buttonArrow: {
+    color: "black",
     color: GlobalColors.primaryButton.text,
-    textAlign: "left",
   },
 });

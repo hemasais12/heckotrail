@@ -2,8 +2,9 @@ import { StyleSheet, View, Text } from "react-native";
 
 import LocationText from "../texts/location/LocationText";
 import LocationIcon from "../icons/LocationIcon";
-import LocationButton from "../buttons/LocationButton";
+import StandardButton from "../buttons/StandardButton";
 import { getLocationTitle, getLocationArea } from "../../utils/LocationUtils";
+import { getLangObject } from "../../utils/LanguageUtil";
 
 function LocationPanel({ children, location }) {
   return (
@@ -18,9 +19,10 @@ function LocationPanel({ children, location }) {
           Text
         </LocationText>
       </View>
-      <LocationButton viewStyle={{ marginTop: 16 }}>
-        Enter Complte Address
-      </LocationButton>
+
+      <StandardButton viewStyle={{ marginTop: 16 }}>
+        {getLangObject().Location.enterCompleteAddress}
+      </StandardButton>
     </View>
   );
 }

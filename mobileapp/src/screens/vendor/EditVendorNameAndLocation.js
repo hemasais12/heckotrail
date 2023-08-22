@@ -11,6 +11,7 @@ import {
 } from "expo-location";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
+import { getLangObject } from "../../utils/LanguageUtil";
 
 const screen = Dimensions.get("screen");
 const screenHeight = screen.height;
@@ -127,7 +128,9 @@ function EditVendorNameAndLocation() {
           </View>
           <LocationPanel location={address} />
           <View style={styles.searchContainer}>
-            <SearchTextBox placeholder="Search for area, street name..." />
+            <SearchTextBox
+              placeholder={getLangObject().Location.searchPlaceholder}
+            />
           </View>
         </>
       ) : (

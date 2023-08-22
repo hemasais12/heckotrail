@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
-import { ScreenTextEn } from "../../common/screentexten";
-import { GlobalSizes } from "../../common/sizes";
+import { getLangObject } from "../../utils/LanguageUtil";
 import CustomPressable from "../commons/CustomPressable";
 import NormalText from "../texts/NormalText";
 
@@ -24,9 +23,9 @@ function RoleView({ children, role, isSelected, onPress }) {
 
   function getRoleTitle() {
     if (role === ROLE_CLIENT) {
-      return ScreenTextEn.General.clientTitle;
+      return getLangObject().General.clientTitle;
     } else if (role === ROLE_VENDOR) {
-      return ScreenTextEn.General.vendorTitle;
+      return getLangObject().General.vendorTitle;
     }
   }
 

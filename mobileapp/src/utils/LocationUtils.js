@@ -1,3 +1,5 @@
+import { getLangObject } from "./LanguageUtil";
+
 export function getLocationTitle(address) {
   //{"city": "Bengaluru", "country": "India", "district": "Chokkanahalli", "isoCountryCode": "IN",
   //"name": "1", "postalCode": "560064", "region": "Karnataka",
@@ -11,20 +13,21 @@ export function getLocationTitle(address) {
   else if (address && address.city) title += address.city;
   else if (address && address.region) title += address.region;
   else if (address && address.country) title += address.country;
-  else title += "Unknown Location";
+  else title += getLangObject().Location.unknownLocation;
 
   return title;
 }
 
 export function getLocationArea(address) {
   let area = "";
+  let sep = getLangObject().Location.separator;
 
-  if (address && address.district) area += address.district + ", ";
-  if (address && address.city) area += address.city + ", ";
-  if (address && address.region) area += address.region + ", ";
-  if (address && address.country) area += address.country + ", ";
+  if (address && address.district) area += address.district + sep;
+  if (address && address.city) area += address.city + sep;
+  if (address && address.region) area += address.region + sep;
+  if (address && address.country) area += address.country + sep;
 
-  if (area.length === 0) area = "Unknown Loation";
+  if (area.length === 0) area = getLangObject().Location.unknownLocation;
 
   return area;
 }

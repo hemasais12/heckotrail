@@ -1,6 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { createContext, useEffect, useState } from "react";
+import {
+  STORAGE_TOKEN,
+  STORAGE_USERROLE,
+  STORAGE_VENDOR_SETUP_STATUS,
+} from "../common/constants";
 
 export const AuthContext = createContext({
   token: "",
@@ -20,26 +25,26 @@ function AuthContextProvider({ children }) {
 
   function authenticate(token) {
     setAuthToken(token);
-    AsyncStorage.setItem("token", token);
+    AsyncStorage.setItem(STORAGE_TOKEN, token);
   }
 
   function logout() {
     setAuthToken(null);
     setUserRoleSelection(null);
     setIsVendorSetupDone(false);
-    AsyncStorage.removeItem("token");
-    AsyncStorage.removeItem("userRole");
-    AsyncStorage.removeItem("isVendorSetupDone");
+    AsyncStorage.removeItem(STORAGE_TOKEN);
+    AsyncStorage.removeItem(STORAGE_USERROLE);
+    AsyncStorage.removeItem(STORAGE_VENDOR_SETUP_STATUS);
   }
 
   function setUserRole(role) {
     setUserRoleSelection(role);
-    AsyncStorage.setItem("userRole", role);
+    AsyncStorage.setItem(STORAGE_USERROLE, role);
   }
 
   function setVendorSetupStatus(isVendorSetupDone) {
     setIsVendorSetupDone(isVendorSetupDone);
-    AsyncStorage.setItem("isVendorSetupDone", isVendorSetupDone);
+    AsyncStorage.setItem(STORAGE_VENDOR_SETUP_STATUS, isVendorSetupDone);
   }
 
   const value = {

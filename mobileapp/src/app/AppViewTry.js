@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import RoundedButton from "../controls/buttons/RoundedButton";
+import StandardButton from "../controls/buttons/StandardButton";
 import SearchTextBox from "../views/SearchTextBox";
 import ServiceOrder from "../views/ServiceOrder";
 import { FlatList } from "react-native";
@@ -41,7 +41,7 @@ function AppViewTry() {
       </View>
       <PopupDropDown data={GlobalCountries.list} />
       <PhoneOrEmailInput />
-      <RoundedButton>Login</RoundedButton>
+      <StandardButton>Login</StandardButton>
       <FlatList data={serviceOrderList} renderItem={renderOrderDetailItem} />
     </View>
   );

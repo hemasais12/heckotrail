@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
 import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
-import { ScreenTextEn } from "../../common/screentexten";
-import RoundedButton from "../../controls/buttons/RoundedButton";
+import StandardButton from "../../controls/buttons/StandardButton";
 import RoleView from "../../controls/images/RoleView";
 import ScreenBackground from "../../controls/layout/ScreenBackground";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import { AuthContext } from "../../store/AuthContextProvider";
+import { getLangObject } from "../../utils/LanguageUtil";
 
 function SelectRole({ navigation, route }) {
   const authCtx = useContext(AuthContext);
@@ -29,7 +29,7 @@ function SelectRole({ navigation, route }) {
       <View style={styles.container}>
         <View style={styles.description}>
           <ScreenHeaderText headerLevel={4}>
-            {ScreenTextEn.General.signInAsDescription}
+            {getLangObject().General.signInAsDescription}
           </ScreenHeaderText>
         </View>
         <View style={styles.rolesContainer}>
@@ -46,7 +46,7 @@ function SelectRole({ navigation, route }) {
         </View>
 
         <View style={styles.submitButton}>
-          <RoundedButton onPress={submitHandler}>Submit</RoundedButton>
+          <StandardButton onPress={submitHandler}>Submit</StandardButton>
         </View>
       </View>
     </ScreenBackground>

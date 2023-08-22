@@ -7,8 +7,8 @@ function ButtonHzLinearGradient({ children }) {
   return (
     <View>
       <LinearGradient
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
+        start={{ x: 1, y: 1 }}
+        end={{ x: 0, y: 0 }}
         colors={[
           GlobalColors.primaryButton.light,
           GlobalColors.primaryButton.dark,

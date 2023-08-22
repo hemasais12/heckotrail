@@ -1,53 +1,53 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GlobalColors } from "../../common/colors";
-import { ScreenTextEn } from "../../common/screentexten";
 import CustomPressable from "../../controls/commons/CustomPressable";
 import IoniconInput from "../../controls/inputs/IoniconInput";
 import ScreenBackground from "../../controls/layout/ScreenBackground";
 import NormalText from "../../controls/texts/NormalText";
+import { getLangObject } from "../../utils/LanguageUtil";
 
 function EditableVendorProfile({ children }) {
   const inputsArr = [
     {
       name: "user",
       ioniconType: "AntDesign",
-      placeholder: ScreenTextEn.VendorProfile.name,
+      placeholder: getLangObject().VendorProfile.name,
     },
     {
       name: "mobile1",
       ioniconType: "AntDesign",
-      placeholder: ScreenTextEn.General.contactNumber,
+      placeholder: getLangObject().General.contactNumber,
     },
     {
       name: "address",
       ioniconType: "Entypo",
-      placeholder: ScreenTextEn.General.addressLine1,
+      placeholder: getLangObject().General.addressLine1,
     },
     {
       name: "address",
       ioniconType: "Entypo",
-      placeholder: ScreenTextEn.General.addressLine2,
+      placeholder: getLangObject().General.addressLine2,
     },
     {
       name: "address",
       ioniconType: "Entypo",
-      placeholder: ScreenTextEn.General.addressLine3,
+      placeholder: getLangObject().General.addressLine3,
     },
     {
       name: "location-city",
       ioniconType: "MaterialIcons",
-      placeholder: ScreenTextEn.General.city,
+      placeholder: getLangObject().General.city,
     },
     {
       name: "location-outline",
       ioniconType: "Ionicons",
-      placeholder: ScreenTextEn.General.state,
+      placeholder: getLangObject().General.state,
     },
     {
       name: "map-pin",
       ioniconType: "FontAwesome",
-      placeholder: ScreenTextEn.General.pinCode,
+      placeholder: getLangObject().General.pinCode,
     },
   ];
 
@@ -83,7 +83,7 @@ function EditableVendorProfile({ children }) {
         })}
 
         <View style={styles.screenTitle}>
-          <Text> {ScreenTextEn.VendorProfile.editScreenTitle}</Text>
+          <Text> {getLangObject().VendorProfile.editScreenTitle}</Text>
         </View>
       </KeyboardAwareScrollView>
     </ScreenBackground>

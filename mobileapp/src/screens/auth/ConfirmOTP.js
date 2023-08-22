@@ -5,11 +5,11 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { useContext } from "react";
-import { ScreenTextEn } from "../../common/screentexten";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import OtpBoxes from "../../controls/inputs/OtpBoxes";
 import { AuthContext } from "../../store/AuthContextProvider";
 import LogoBackground from "../../controls/layout/LogoBackground";
+import { getLangObject } from "../../utils/LanguageUtil";
 
 function ConfirmOTP({ navigation, route }) {
   const authCtx = useContext(AuthContext);
@@ -38,17 +38,17 @@ function ConfirmOTP({ navigation, route }) {
         <View style={styles.middlecontainer}>
           <StatusBar hidden={true} />
           <ScreenHeaderText headerLevel={2}>
-            {ScreenTextEn.AuthConfirmOTP.screenHeader}
+            {getLangObject().AuthConfirmOTP.screenHeader}
           </ScreenHeaderText>
           <View style={styles.description}>
             <ScreenHeaderText headerLevel={4}>
-              {ScreenTextEn.AuthConfirmOTP.screenDescription}
+              {getLangObject().AuthConfirmOTP.screenDescription}
             </ScreenHeaderText>
           </View>
 
           <OtpBoxes
             onSubmit={submitHandler}
-            errorText={ScreenTextEn.AuthConfirmOTP.errorLength}
+            errorText={getLangObject().AuthConfirmOTP.errorLength}
           />
         </View>
       </KeyboardAvoidingView>

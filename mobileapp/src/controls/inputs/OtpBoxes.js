@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View, Button } from "react-native";
 import { useState, useEffect, useRef } from "react";
 import { OTP_LENGTH } from "../../common/constants";
 import OtpBox from "./OtpBox";
-import RoundedButton from "../buttons/RoundedButton";
+import StandardButton from "../buttons/StandardButton";
 import ErrorText from "../texts/ErrorText";
 
 function OtpBoxes({ onSubmit, errorText }) {
@@ -72,7 +72,7 @@ function OtpBoxes({ onSubmit, errorText }) {
         {showError ? <ErrorText>{errorText}</ErrorText> : <></>}
       </View>
       <View style={styles.submitButton}>
-        <RoundedButton onPress={submitHandler}>Submit</RoundedButton>
+        <StandardButton onPress={submitHandler}>Submit</StandardButton>
       </View>
     </View>
   );
