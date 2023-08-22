@@ -7,7 +7,7 @@ import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 
-function PhoneOrEmailInput() {
+function PhoneOrEmailInput({ viewStyle }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [inputId, setInputId] = useState("");
 
@@ -29,7 +29,7 @@ function PhoneOrEmailInput() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...viewStyle }}>
       {isEmailEntered ? <EmailView /> : <CountryDropDown />}
 
       <View style={styles.input}>

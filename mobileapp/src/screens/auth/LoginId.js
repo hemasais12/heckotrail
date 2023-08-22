@@ -42,9 +42,8 @@ function LoginId({ route, navigation }) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <View style={styles.topcontainer}></View>
-        <View style={styles.middlecontainer}>
-          <View style={styles.tagLineContainer}>
+        <View style={styles.pagecontainer}>
+          <View style={styles.headers}>
             <ScreenHeaderText headerLevel={3}>
               Expert Services at your tips
             </ScreenHeaderText>
@@ -53,31 +52,30 @@ function LoginId({ route, navigation }) {
             </ScreenHeaderText>
             <NormalText>{"Search   •   Review   •   Use"}</NormalText>
           </View>
-          <View style={styles.headers}>
+
+          <View style={styles.inputs}>
             <ScreenHeaderText>
               {isSignup ? "Sign up" : "Sign In"}
             </ScreenHeaderText>
             <NormalText>Please enter mobile number or email:</NormalText>
 
-            <View style={styles.phoneEmailContainer}>
-              <PhoneOrEmailInput />
-              <View style={styles.submitButton}>
-                <RoundedButton onPress={submitHandler}>
-                  {isSignup ? "Sign up" : "Sign In"}
-                </RoundedButton>
-              </View>
-            </View>
+            <PhoneOrEmailInput viewStyle={{ marginTop: 16 }} />
+
+            <RoundedButton
+              onPress={submitHandler}
+              viewStyle={{ marginTop: 24, alignSelf: "flex-end" }}
+            >
+              {isSignup ? "Sign up" : "Sign In"}
+            </RoundedButton>
           </View>
         </View>
-        <View style={styles.bottomcontainer}>
-          <View style={styles.link}>
-            <TextLink
-              linkText={isSignup ? "Sign In" : "Sign Up"}
-              onLinkClick={signInUpLinkClickHandler}
-            >
-              {isSignup ? "Already have an account?" : "Don't have an account?"}
-            </TextLink>
-          </View>
+        <View style={styles.link}>
+          <TextLink
+            linkText={isSignup ? "Sign In" : "Sign Up"}
+            onLinkClick={signInUpLinkClickHandler}
+          >
+            {isSignup ? "Already have an account?" : "Don't have an account?"}
+          </TextLink>
         </View>
       </KeyboardAvoidingView>
     </LogoBackground>
@@ -89,47 +87,28 @@ export default LoginId;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 
-  topcontainer: {
+  pagecontainer: {
     flex: 1,
-    justifyContent: "center",
-  },
-  middlecontainer: {
-    flex: 3,
-    justifyContent: "center",
-  },
-  bottomcontainer: {
-    flex: 2,
     justifyContent: "center",
   },
 
   headers: {
-    justifyContent: "center",
-    flex: 1,
-  },
-
-  phoneEmailContainer: {
-    alignItems: "flex-start",
-    marginTop: 24,
-  },
-  tagLineContainer: {
-    alignItems: "flex-start",
     alignItems: "center",
-    marginTop: 30,
   },
 
-  submitButton: {
-    flexDirection: "row",
-    marginTop: 24,
-    justifyContent: "flex-end",
+  inputs: {
+    alignItems: "flex-start",
     width: "100%",
+    marginTop: 36,
   },
+
   link: {
     justifyContent: "center",
-    alignItems: "flex-end",
-    flex: 1,
+    alignSelf: "flex-end",
     marginBottom: 16,
     flexDirection: "row",
     width: "100%",
