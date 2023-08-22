@@ -31,7 +31,7 @@ export default LocationPanel;
 
 const styles = StyleSheet.create({
   container: {
-    height: 150,
+    height: 130,
     padding: 16,
   },
   location: {

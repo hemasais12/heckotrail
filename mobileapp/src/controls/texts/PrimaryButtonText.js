@@ -18,6 +18,7 @@ export default PrimaryButtonText;
 const styles = StyleSheet.create({
   textcontainer: {
     flexDirection: "row",
+    justifyContent: "center",
   },
 
   buttonText: {
