@@ -14,7 +14,7 @@ export const OTP_LENGTH = 4;
 export const ROLE_CLIENT = "CLIENT";
 export const ROLE_VENDOR = "VENDOR";
 
-export const STORAGE_TOKEN = "token";
-export const STORAGE_USERLANG = "language";
-export const STORAGE_USERROLE = "userRole";
-export const STORAGE_VENDOR_SETUP_STATUS = "isVendorSetupDone";
+export const STORAGE_TOKEN = "token1";
+export const STORAGE_USERLANG = "language1";
+export const STORAGE_USERROLE = "userRole1";
+export const STORAGE_VENDOR_SETUP_STATUS = "isVendorSetupDone1";

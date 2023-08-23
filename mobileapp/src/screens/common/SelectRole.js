@@ -1,6 +1,10 @@
 import { useState, useContext } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
-import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
+import {
+  ROLE_CLIENT,
+  ROLE_VENDOR,
+  STORAGE_USERROLE,
+} from "../../common/constants";
 import StandardButton from "../../controls/buttons/StandardButton";
 import RoleView from "../../controls/images/RoleView";
 import ScreenBackground from "../../controls/layout/ScreenBackground";

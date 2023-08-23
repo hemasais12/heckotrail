@@ -21,28 +21,12 @@ function EditVendorNameAndLocation() {
   const [region, setRegion] = useState();
   const [address, setAddress] = useState();
   const [pickedLocation, setPickedLocation] = useState();
-  const [locationPermissionInformation, requestPermission] =
-    useForegroundPermissions();
 
   async function verifyPermissions() {
-    if (
-      locationPermissionInformation &&
-      locationPermissionInformation.status === PermissionStatus.UNDETERMINED
-    ) {
-      const permissionResponse = await requestPermission();
-
-      return permissionResponse.granted;
-    }
-
-    if (
-      locationPermissionInformation &&
-      locationPermissionInformation.status === PermissionStatus.DENIED
-    ) {
-      Alert.alert(
-        "Insufficient Permissions!",
-        "You need to grant location permissions to use this app."
-      );
-      return false;
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      return;
     }
 
     return true;

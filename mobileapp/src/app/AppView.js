@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Text, StyleSheet, View, Dimensions, SafeAreaView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import SyncStorage from "sync-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import LoginId from "../screens/auth/LoginId";
 import Empty from "../screens/auth/Empty";
@@ -185,7 +185,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       //authCtx.logout();
-      const storedToken = SyncStorage.get(STORAGE_TOKEN);
+      const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
 
       if (storedToken) {
         authCtx.authenticate(storedToken);
@@ -193,6 +193,11 @@ function Root() {
 
       setIsTryingLogin(false);
     }
+
+    // setIsTryingLogin(false);
+    // authCtx.authenticate("storedToken");
+    // authCtx.setUserRole(ROLE_VENDOR);
+    //authCtx.logout();
 
     fetchToken();
   }, []);
