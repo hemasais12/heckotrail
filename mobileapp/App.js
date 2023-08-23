@@ -6,5 +6,5 @@ export default function App() {
   let appViewTry = false;
 
   if (appViewTry) return <AppViewTry />;
-  else return <AppView></AppView>;
+  else return <AppView />;
 }

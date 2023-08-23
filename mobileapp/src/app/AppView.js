@@ -18,7 +18,12 @@ import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
 import { GlobalSizes } from "../common/sizes";
 import { GlobalColors } from "../common/colors";
-import { ROLE_CLIENT, ROLE_VENDOR, STORAGE_TOKEN } from "../common/constants";
+import {
+  ROLE_CLIENT,
+  ROLE_VENDOR,
+  STORAGE_TOKEN,
+  STORAGE_USERROLE,
+} from "../common/constants";
 import EditableVendorProfile from "../screens/vendor/EditableVendorProfile";
 import EditVendorNameAndLocation from "../screens/vendor/EditVendorNameAndLocation";
 
@@ -186,18 +191,18 @@ function Root() {
     async function fetchToken() {
       //authCtx.logout();
       const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
+      const userRole = await AsyncStorage.getItem(STORAGE_USERROLE);
 
       if (storedToken) {
         authCtx.authenticate(storedToken);
       }
 
+      if (userRole) {
+        authCtx.setUserRole(userRole);
+      }
+
       setIsTryingLogin(false);
     }
-
-    // setIsTryingLogin(false);
-    // authCtx.authenticate("storedToken");
-    // authCtx.setUserRole(ROLE_VENDOR);
-    //authCtx.logout();
 
     fetchToken();
   }, []);

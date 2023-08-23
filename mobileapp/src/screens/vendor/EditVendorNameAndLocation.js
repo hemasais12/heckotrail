@@ -95,7 +95,7 @@ function EditVendorNameAndLocation() {
 
   return (
     <ScreenBackground style={styles.screenContainer}>
-      {region ? (
+      {region && (
         <>
           <View style={styles.mapContainer}>
             <MapView
@@ -117,8 +117,6 @@ function EditVendorNameAndLocation() {
             />
           </View>
         </>
-      ) : (
-        <></>
       )}
     </ScreenBackground>
   );

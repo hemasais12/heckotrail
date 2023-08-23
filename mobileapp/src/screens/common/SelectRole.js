@@ -1,5 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   ROLE_CLIENT,
   ROLE_VENDOR,
@@ -15,6 +16,26 @@ import { getLangObject } from "../../utils/LanguageUtil";
 function SelectRole({ navigation, route }) {
   const authCtx = useContext(AuthContext);
   const [selectedRole, setSelectedRole] = useState(ROLE_CLIENT);
+
+  useEffect(() => {
+    async function fetchRole() {
+      //authCtx.logout();
+      const userRole = await AsyncStorage.getItem(STORAGE_USERROLE);
+      if (userRole) {
+        authCtx.setUserRole(userRole);
+
+        if (
+          authCtx.isAuthenticated &&
+          authCtx.userRole === ROLE_VENDOR &&
+          !authCtx.isVendorSetupDone
+        ) {
+          navigation.navigate("EditVendorNameAndLocation", { isSignup: true });
+        }
+      }
+    }
+
+    fetchRole();
+  }, []);
 
   function roleSelected(role) {
     setSelectedRole(role);
