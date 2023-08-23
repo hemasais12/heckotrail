@@ -6,7 +6,7 @@ import StandardButton from "../buttons/StandardButton";
 import { getLocationTitle, getLocationArea } from "../../utils/LocationUtils";
 import { getLangObject } from "../../utils/LanguageUtil";
 
-function LocationPanel({ children, location }) {
+function LocationPanel({ children, location, onPress }) {
   return (
     <View style={styles.container}>
       <View style={styles.location}>
@@ -20,7 +20,7 @@ function LocationPanel({ children, location }) {
         </LocationText>
       </View>
 
-      <StandardButton viewStyle={{ marginTop: 16 }}>
+      <StandardButton viewStyle={{ marginTop: 16 }} onPress={onPress}>
         {getLangObject().Location.enterCompleteAddress}
       </StandardButton>
     </View>

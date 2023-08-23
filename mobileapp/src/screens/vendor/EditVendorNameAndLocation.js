@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { getLangObject } from "../../utils/LanguageUtil";
+import EditVendorAddress from "./EditVendorAddress";
 
 const screen = Dimensions.get("screen");
 const screenHeight = screen.height;
@@ -21,6 +22,7 @@ function EditVendorNameAndLocation() {
   const [region, setRegion] = useState();
   const [address, setAddress] = useState();
   const [pickedLocation, setPickedLocation] = useState();
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   async function verifyPermissions() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -93,6 +95,15 @@ function EditVendorNameAndLocation() {
     });
   }, []);
 
+  function editAddressHandler() {
+    console.log("edit address");
+    setModalIsVisible(true);
+  }
+
+  function editAddressHandlerClose() {
+    setModalIsVisible(false);
+  }
+
   return (
     <ScreenBackground style={styles.screenContainer}>
       {region && (
@@ -110,12 +121,16 @@ function EditVendorNameAndLocation() {
               />
             </MapView>
           </View>
-          <LocationPanel location={address} />
+          <LocationPanel location={address} onPress={editAddressHandler} />
           <View style={styles.searchContainer}>
             <SearchTextBox
               placeholder={getLangObject().Location.searchPlaceholder}
             />
           </View>
+          <EditVendorAddress
+            visible={modalIsVisible}
+            onClose={editAddressHandlerClose}
+          />
         </>
       )}
     </ScreenBackground>
