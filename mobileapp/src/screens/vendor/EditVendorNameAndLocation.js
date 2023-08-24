@@ -19,9 +19,8 @@ const screenHeight = screen.height;
 const screenWidth = screen.width;
 
 function EditVendorNameAndLocation() {
-  const [region, setRegion] = useState();
   const [address, setAddress] = useState();
-  const [pickedLocation, setPickedLocation] = useState();
+  const [centerRegion, setCenterRegion] = useState();
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
   async function verifyPermissions() {
@@ -43,12 +42,7 @@ function EditVendorNameAndLocation() {
 
     let currentLocation = await getCurrentPositionAsync();
 
-    setPickedLocation({
-      lat: currentLocation.coords.latitude,
-      lng: currentLocation.coords.longitude,
-    });
-
-    setRegion({
+    setCenterRegion({
       latitude: currentLocation.coords.latitude,
       longitude: currentLocation.coords.longitude,
       latitudeDelta: 0.0922,
@@ -60,37 +54,11 @@ function EditVendorNameAndLocation() {
       latitude,
       longitude,
     });
-    console.log(response[0]);
     setAddress(response[0]);
-  }
-
-  async function selectLocationHandler(event) {
-    const lat = event.nativeEvent.coordinate.latitude;
-    const lng = event.nativeEvent.coordinate.longitude;
-
-    var newRegion = {
-      latitude: lat,
-      longitude: lng,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    };
-
-    // setArray((oldArray) => [...oldArray, newValue]);
-    setRegion(newRegion);
-
-    const { latitude, longitude } = event.nativeEvent.coordinate;
-    let response = await Location.reverseGeocodeAsync({
-      latitude,
-      longitude,
-    });
-    setAddress(response[0]);
-    //this
-    console.log(response[0]);
   }
 
   useEffect(() => {
     getCurrentLocation().catch((error) => {
-      // Handle any errors that occur
       console.error(error);
     });
   }, []);
@@ -104,19 +72,38 @@ function EditVendorNameAndLocation() {
     setModalIsVisible(false);
   }
 
+  function handleRegionChange(region) {
+    setCenterRegion({
+      latitude: region.latitude,
+      longitude: region.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+  }
+
+  async function handleRegionChangeComplete(region) {
+    const { latitude, longitude } = centerRegion;
+    let response = await Location.reverseGeocodeAsync({
+      latitude,
+      longitude,
+    });
+    setAddress(response[0]);
+  }
+
   return (
     <ScreenBackground style={styles.screenContainer}>
-      {region && (
+      {centerRegion && (
         <>
           <View style={styles.mapContainer}>
             <MapView
               style={styles.map}
-              initialRegion={region}
-              onPress={selectLocationHandler}
+              initialRegion={centerRegion}
+              onRegionChange={handleRegionChange}
+              onRegionChangeComplete={handleRegionChangeComplete}
             >
               <Marker
-                key={region}
-                coordinate={region}
+                key={centerRegion}
+                coordinate={centerRegion}
                 pinColor={GlobalColors.location.pin}
               />
             </MapView>
@@ -127,10 +114,6 @@ function EditVendorNameAndLocation() {
               placeholder={getLangObject().Location.searchPlaceholder}
             />
           </View>
-          <EditVendorAddress
-            visible={modalIsVisible}
-            onClose={editAddressHandlerClose}
-          />
         </>
       )}
     </ScreenBackground>
