@@ -87,4 +87,8 @@ export const GlobalColors = {
   icons: {
     color: "#f8921d",
   },
+  vendorAddress:{
+    borderBottomColor:'black',
+    backgroundColor:"orange",
+  }
 };
