@@ -21,7 +21,7 @@ const screenWidth = screen.width;
 function EditVendorNameAndLocation() {
   const [address, setAddress] = useState();
   const [centerRegion, setCenterRegion] = useState();
-  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false); //as
 
   async function verifyPermissions() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -114,6 +114,10 @@ function EditVendorNameAndLocation() {
               placeholder={getLangObject().Location.searchPlaceholder}
             />
           </View>
+          <EditVendorAddress
+            visible={modalIsVisible}
+            onClose={editAddressHandlerClose}
+          />
         </>
       )}
     </ScreenBackground>
