@@ -176,7 +176,7 @@ public class AuthController {
 				}
 
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
-					logger.info("isEmail:--->");
+					logger.info("not isEmail:--->");
 					otpService.generateOTP(emailOrMobileNumber);
 				} else {
 					logger.info("emailOrMobileNumber:--->");
