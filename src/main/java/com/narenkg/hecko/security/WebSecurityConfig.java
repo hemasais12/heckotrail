@@ -1,5 +1,9 @@
 package com.narenkg.hecko.security;
 
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +35,8 @@ public class WebSecurityConfig {
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -59,12 +65,14 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		
+		logger.info("SecurityFilterChain filterChain = "+(new Date()));
+		
 		//TODO: Add web url security 
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers("/api/init/**").permitAll()
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/init/**").permitAll()
 						.requestMatchers("/api/test/**").permitAll()
 						.anyRequest().authenticated());
 

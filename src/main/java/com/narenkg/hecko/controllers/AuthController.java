@@ -1,5 +1,7 @@
 package com.narenkg.hecko.controllers;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -293,6 +295,11 @@ public class AuthController {
 			return ResponseEntity.badRequest()
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
+	}
+	
+	@GetMapping("/testAuth")
+	public String testAuth() {
+		return "Authenticated URL: "+(new Date());
 	}
 
 }

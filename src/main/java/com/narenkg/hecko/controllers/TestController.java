@@ -1,5 +1,7 @@
 package com.narenkg.hecko.controllers;
 
+import java.util.Date;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ public class TestController {
 
 	@GetMapping("/all")
 	public String allAccess() {
-		return "Public Content.";
+		return "Public Content: "+(new Date());
 	}
 
 	@GetMapping("/user")
