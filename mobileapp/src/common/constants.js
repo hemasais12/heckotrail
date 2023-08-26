@@ -1,8 +1,3 @@
-//heckoapp2@gmail.com / Heck0@app2
-//heckoappdbinstance / Heck0@app2
-//heckoapp1@gmail.com / Hecko@app1 //Hecko@@pp1
-//heckoapp1@outlook.com / Hecko@app1 //Hecko@@pp1
-
 export const APP_NAME = "Hecko";
 
 export const BACKEND_URL = "http://localhost:2510";
