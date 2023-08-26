@@ -1,5 +1,3 @@
-import axios from "axios";
-import { API_URL } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STORAGE_TOKEN } from "../../common/constants";
 

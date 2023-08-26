@@ -29,13 +29,13 @@ import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 @EnableMethodSecurity
 
 public class WebSecurityConfig {
-	
+
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Bean
@@ -65,16 +65,16 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		
-		logger.info("SecurityFilterChain filterChain = "+(new Date()));
-		
-		//TODO: Add web url security 
+
+		logger.info("SecurityFilterChain filterChain = " + (new Date()));
+
+		// TODO: Add web url security
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/init/**").permitAll()
-						.requestMatchers("/api/test/**").permitAll()
-						.anyRequest().authenticated());
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/init/**")
+								.permitAll().requestMatchers("/api/test/**").permitAll().anyRequest().authenticated());
 
 		http.authenticationProvider(authenticationProvider());
 

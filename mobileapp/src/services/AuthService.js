@@ -1,11 +1,11 @@
-import { apiAuthSignupMobile } from "../api/apiutils/AuthApi";
+import { apiAuthSignupGenerateOTP } from "../api/apiutils/AuthApi";
 
-const doSignupMobile = (requestData) => {
-  return apiAuthSignupMobile(requestData);
+const doSignupGenerateOTP = (requestData) => {
+  return apiAuthSignupGenerateOTP(requestData);
 };
 
 const AuthService = {
-  doSignupMobile,
+  doSignupGenerateOTP,
 };
 
 export default AuthService;

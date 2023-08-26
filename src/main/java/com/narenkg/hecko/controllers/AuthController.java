@@ -164,7 +164,9 @@ public class AuthController {
 		try {
 
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
-
+			
+			logger.info("registerEmailOrMobileNumber:--->"+emailOrMobileNumber);
+			
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {

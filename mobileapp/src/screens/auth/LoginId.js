@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -13,11 +14,17 @@ import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
 import LogoBackground from "../../controls/layout/LogoBackground";
 import NormalText from "../../controls/texts/NormalText";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
+import AuthService from "../../services/AuthService";
 import TextLink from "../../views/TextLink";
 
 const screen = Dimensions.get("screen");
 
 function LoginId({ route, navigation }) {
+  const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginId, setLoginId] = useState("");
+
   let isSignup = route.params ? route.params.isSignup : false;
 
   function signInUpLinkClickHandler() {
@@ -32,8 +39,33 @@ function LoginId({ route, navigation }) {
     }
   }
 
-  function submitHandler() {
-    navigation.navigate("ConfirmOTP", { isSignup: isSignup });
+  function submitHandler(event) {
+    event.preventDefault();
+    setSuccessStatus("", false, true);
+
+    const requestData = {
+      emailOrMobileNumber: loginId,
+    };
+    AuthService.doSignupGenerateOTP(requestData)
+      .then((response) => {
+        console.log(response);
+        setSuccessStatus("", true, false);
+        navigation.navigate("ConfirmOTP", { isSignup: isSignup });
+      })
+      .catch((error) => {
+        console.log(error);
+        setSuccessStatus(error.message, false, false);
+      });
+  }
+
+  function setSuccessStatus(message, successful, loading) {
+    setMessage(message);
+    setSuccessful(successful);
+    setIsLoading(loading);
+  }
+
+  function inputChangeHandler(text) {
+    setLoginId(text);
   }
 
   return (
@@ -59,7 +91,10 @@ function LoginId({ route, navigation }) {
             </ScreenHeaderText>
             <NormalText>Please enter mobile number or email:</NormalText>
 
-            <PhoneOrEmailInput viewStyle={{ marginTop: 16 }} />
+            <PhoneOrEmailInput
+              onChangeText={inputChangeHandler}
+              viewStyle={{ marginTop: 16 }}
+            />
 
             <RoundedButton
               onPress={submitHandler}

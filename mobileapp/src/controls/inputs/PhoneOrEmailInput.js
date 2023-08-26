@@ -7,7 +7,7 @@ import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 
-function PhoneOrEmailInput({ viewStyle }) {
+function PhoneOrEmailInput({ viewStyle, onChangeText }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [inputId, setInputId] = useState("");
 
@@ -18,6 +18,7 @@ function PhoneOrEmailInput({ viewStyle }) {
     } else {
       setIsEmailEntered(true);
     }
+    onChangeText(text);
   }
 
   function EmailView() {
