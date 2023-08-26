@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,6 +72,8 @@ public class InitController {
 	private ServiceRepository serviceRepository;
 
 	private boolean isDBUpdatePending = true;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// http://34.16.136.247:5000/all //google cloud url test
 	// http://localhost:5000/api/init/init?requestId=1

@@ -170,15 +170,19 @@ public class AuthController {
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
+					logger.info("user already exists:--->");
 					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 							messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 				}
 
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
+					logger.info("isEmail:--->");
 					otpService.generateOTP(emailOrMobileNumber);
 				} else {
+					logger.info("emailOrMobileNumber:--->");
 					otpService.generateEmailOTP(emailOrMobileNumber);
 				}
+				logger.info("emailOrMobileNumber:--->"+messageService.getMessage(EMessage.GOOD_TO_GO));
 				return ResponseEntity
 						.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
 

@@ -33,7 +33,7 @@ public class EmailService {
 
 	@Autowired
 	private Configuration freemarkerConfig;
-
+	
 	@Async
 	private void sendEmail(EmailData mail, String template) {
 		try {
@@ -41,8 +41,8 @@ public class EmailService {
 			MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
 					StandardCharsets.UTF_8.name());
 
-			mail.setTo("narenkgcts@outlook.com");
-			mail.setCc("narenkgcts@outlook.com");
+			mail.setTo(IConstants.APP_SENDER_EMAIL);
+			mail.setCc(IConstants.APP_SENDER_EMAIL);
 
 			Template t = freemarkerConfig.getTemplate(template);
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
@@ -57,6 +57,7 @@ public class EmailService {
 
 			emailSender.send(message);
 		} catch (Exception ex) {
+			logger.info("Exception at email service........................");
 			ex.printStackTrace();
 		}
 

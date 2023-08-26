@@ -1,7 +1,7 @@
 export const APP_NAME = "Hecko";
 
 //export const BACKEND_URL = "http://localhost:5210/api";
-export const BACKEND_URL = "http://34.16.153.248:5210/api";
+export const BACKEND_URL = "http://34.16.153.248:5210";
 
 export const API_URL = BACKEND_URL + "/api";
 

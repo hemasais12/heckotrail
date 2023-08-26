@@ -1,5 +1,7 @@
 package com.narenkg.hecko.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.google.common.cache.CacheBuilder;
@@ -26,6 +28,8 @@ public class OtpService {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public OtpService() {
 		otpCache = CacheBuilder.newBuilder().expireAfterWrite(EXPIRE_MIN, TimeUnit.MINUTES).build(new CacheLoader<>() {
@@ -46,6 +50,9 @@ public class OtpService {
 			otp[i] = numbers.charAt(random.nextInt(numbers.length()));
 		}
 		String strOtp = new String(otp);
+		
+		logger.info("strOtp........................"+strOtp);
+		
 		otpCache.put(mobileNumber, strOtp);
 
 		SmsData smsData = new SmsData();
