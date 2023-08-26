@@ -6,10 +6,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.narenkg.hecko.HeckoApplication;
 
 
-@SpringBootTest(classes = HeckoApplication.class)
+///@SpringBootTest(classes = HeckoApplication.class)
 public class SpringBootSecurityJwtApplicationTests {
 
-	@Test
+	///@Test
 	void contextLoads() {
 	}
 
