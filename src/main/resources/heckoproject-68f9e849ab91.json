@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "heckoproject",
+  "private_key_id": "68f9e849ab91e3ecfc0b16a7cd2649050be843f1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqOKj12Q23k3t9\nJFaPepC6U08jOBLvNUu/9/6WbEPPrQSSHIhBdXq023f/Opsd34FsRPt0M0xINSm0\n4svvOqMNBnjQI3hTH5qyRav5cEisvfRD1zdSo9wLgAvgziIcNz9kfEJHK0cewknK\nFcMAK/8HMIMmc7zRnc+FI9SMnCfxDdANlANpZE1evSNvCJJ0hpv47KBCZM38D+il\ncgqXH3sLWUseobC8MZtBOIQDH4jBZoa5pmq9jIpoNs7EgrEDQ71ogqJzQ9kytBPC\ndRv0vb+nPs60tMF4lWcRPIYANHLSnYtGkreQ/A+XJmAV3bOeAZ5hAwQAkHmXADAR\n8DHLxvrlAgMBAAECggEAFwRiBcW2XvWQiVucYCVczvJ3QoC8FWAkYI5qUgZ3ZZcf\nMESvFgQ1Nfcb8vAGoT5OPrOAjvYQIWQdl3SNdUlSr+8JRMJvFvUF6DJB7ruZ+tBq\nvbEAgupeVahtssByM1Td0RAjrtecHn17bdnjIYb8IrQ9dQ8fCqHSDvjz2O7qpbkV\nQqeIXc7lMPHc3wSBIhkiSAApL0LOGXwLGKni3otFlF/nuQc1SdaKEI2/5joPXSTH\n0tefAPG9CLFDVe5n34EeSiwOfxjP4pYWKy4XNfKCyWYRnWdIxfBC8wDUQbqgEWzy\noc4arrjCR+beykC/bnW8D5SVcYVZqEb2BeIcsBWtdwKBgQDvyiQg5JhI36taWPPM\nqw02sOr663UlYxKbOjvmiF8CTk3lkvbUUDdzUBV/jUwEtZmt4V5JUu+Mk0HE3ZSO\nnqbZsUjYcHzoQC+5b7KNGzWp2UJxKtNZx4qXTGUCQnzadHxhD7jJldh7mtK7aYQ7\nSKza2P16bEwgJXmcout9Nn6sMwKBgQC1uo2CQRrfOxIPeGeg4nCqUwid79mSrrzp\n6ImWZecTp8YYtd6vuxd8IhQLknq7H+qcuIB3aLu9ES9LkX8vsFo43TfB3CoPnp9Z\n0dXWy0Tca99D5YQSmvnFXc4VtwTBgegjcnqQ7G/MfZiJEThg4AlYsJrgsAx3Ibqf\nj7wgkzEkhwKBgQDVmYBDWL4atDuEmJZcK8byf/hhmhrZOf6aDe7L9ZCEklIrfZWo\nHOi4LI9p9ujPjSEfVhFSSbGfzJEal7M8tDC23IiiXNm3XW3lxo0Ly0ArU6AvBNIO\nOITJL8EOmUF0q60cHRAjafrUaF7tmRm0YZGwxPhO9Gd/f0JseGhDOqbuJwKBgEG6\nr+Qk2CtVmjquOg0e2dFBJyS40+ESApI34Uvcn6+kRyo43cqByQTE7qsg1/NGn/z/\nXrfR0dWYmZqjjXUaPAfFO52KnEv5+3jpRIbkDowLGD3ejd6M3zpbq2Z/Q+EZs3Te\nuyYf3nAAHWO2LsYbQkYp2lraUifkszNzMYA2vNeRAoGANGhr/HKz8ICDN7HZeY3J\nhCR1yzmPLibivI+rjbDd2APVxPcB0umTI0cTY58B6N/m2juHL+NfirWLs3PilhVV\ngOG18x2ymluw2HBjAcAnQVvqZS4gqtB2Jx/JXH7C5vJfb2w0HV7MhqaZpsa+/UXL\n9kOBwfD2HZrwimzb4ytW17o=\n-----END PRIVATE KEY-----\n",
+  "client_email": "heckodbservice@heckoproject.iam.gserviceaccount.com",
+  "client_id": "107155118979608099576",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/heckodbservice%40heckoproject.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
