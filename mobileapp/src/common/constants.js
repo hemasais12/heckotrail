@@ -1,3 +1,5 @@
+//heckoapp1@gmail.com / Hecko@app1 //Hecko@@pp1
+
 export const APP_NAME = "Hecko";
 
 export const BACKEND_URL = "http://localhost:2510";
