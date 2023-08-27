@@ -4,7 +4,7 @@ import {
   StatusBar,
   KeyboardAvoidingView,
 } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import OtpBoxes from "../../controls/inputs/OtpBoxes";
 import { AuthContext } from "../../store/AuthContextProvider";
