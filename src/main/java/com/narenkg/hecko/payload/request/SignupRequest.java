@@ -14,9 +14,9 @@ import lombok.Setter;
 public class SignupRequest {
 
 	@NotBlank
-	@Size(min = 6, max = 120)
+	@Size(min = 4, max = 120)
 	private String otp;
 	
-	@Size(min = 6, max = 10)
+	@Size(min = 6, max = 120)
 	private String referralCode;
 }

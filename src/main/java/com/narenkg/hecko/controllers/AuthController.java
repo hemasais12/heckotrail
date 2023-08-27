@@ -265,6 +265,8 @@ public class AuthController {
 
 	@PostMapping("/signup/bymobileNumber")
 	public ResponseEntity<?> registerByMobileNumber(@Valid @RequestBody MobileSignupRequest signUpRequest) {
+		
+		logger.info("registerByMobileNumber:"+signUpRequest.getMobileNumber());
 		try {
 			if (userService.existsByMobileNumber(signUpRequest.getMobileNumber())) {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
