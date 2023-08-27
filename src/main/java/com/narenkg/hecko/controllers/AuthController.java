@@ -178,7 +178,8 @@ public class AuthController {
 							messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 				}
 
-				System.out.println("Elapsed Time in nano seconds: " + (System.nanoTime() - startTime));
+				System.out.println("**************1**********Elapsed Time in mili seconds: "
+						+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
 					logger.info("generating OTP on phone :--->" + emailOrMobileNumber);
@@ -191,7 +192,7 @@ public class AuthController {
 				}
 				logger.info("emailOrMobileNumber:--->" + messageService.getMessage(EMessage.GOOD_TO_GO));
 
-				System.out.println("************************Elapsed Time in mili seconds: "
+				System.out.println("***********2*************Elapsed Time in mili seconds: "
 						+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 				return ResponseEntity
@@ -241,13 +242,7 @@ public class AuthController {
 			user.setIsBlocked(false);
 			user.setIsVerified(true);
 
-			userService.save(user);
-
-			referralService.generateReferralCode(user);
-
-			if (signUpRequest.getReferralCode() != null && !signUpRequest.getReferralCode().trim().isBlank()) {
-				referralService.registerSignupViaReferral(user, signUpRequest.getReferralCode().trim());
-			}
+			userService.save(user, signUpRequest.getReferralCode());
 
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(signUpRequest.getEmail(), signUpRequest.getPassword()));
@@ -272,6 +267,9 @@ public class AuthController {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
 						messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 			}
+			
+			System.out.println("*****************11*******Elapsed Time in mili seconds: "
+					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 			if (!signUpRequest.getOtp().equals(otpService.getCacheOtp(signUpRequest.getMobileNumber()))) {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
@@ -288,25 +286,19 @@ public class AuthController {
 				}
 			}
 
+			System.out.println("*****************12*******Elapsed Time in mili seconds: "
+					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+			
 			User user = new User(signUpRequest.getMobileNumber());
 			user.setIsBlocked(false);
 			user.setIsVerified(true);
 
 			user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
 
-			userService.save(user);
+			userService.save(user, signUpRequest.getReferralCode());
 			
-			System.out.println("*****************1*******Elapsed Time in mili seconds: "
+			System.out.println("*****************13*******Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
-
-			referralService.generateReferralCode(user);
-			
-			System.out.println("************2************Elapsed Time in mili seconds: "
-					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
-
-			if (signUpRequest.getReferralCode() != null && !signUpRequest.getReferralCode().trim().isBlank()) {
-				referralService.registerSignupViaReferral(user, signUpRequest.getReferralCode().trim());
-			}
 
 			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					signUpRequest.getMobileNumber(), signUpRequest.getMobileNumber()));
@@ -314,7 +306,7 @@ public class AuthController {
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			String jwt = jwtUtils.generateJwtToken(authentication);
 			
-			System.out.println("****************3********Elapsed Time in mili seconds: "
+			System.out.println("****************14********Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 			return userService.doFirstLogin(user, jwt);

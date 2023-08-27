@@ -2,11 +2,13 @@ package com.narenkg.hecko.services;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
@@ -33,6 +35,9 @@ public class UserService {
 
 	@Autowired
 	private RoleService roleService;
+
+	@Autowired
+	private ReferralService referralService;
 
 	public Boolean existsByEmail(String email) {
 		return userRepository.existsByEmail(email);
@@ -76,8 +81,17 @@ public class UserService {
 		return userRepository.findById(userId).orElse(null);
 	}
 
-	public Object save(User user) {
-		return userRepository.save(user);
+	public void save(User user, String referralCode) {
+		long startTime = System.nanoTime();
+		userRepository.save(user);
+		System.out.println("*****************save 1*******Elapsed Time in mili seconds: "
+				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+		referralService.generateReferralCode(user);
+		System.out.println("*****************save 2*******Elapsed Time in mili seconds: "
+				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+		referralService.useReferralcode(user, referralCode);
+		System.out.println("*****************save 3*******Elapsed Time in mili seconds: "
+				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 	}
 
 	public User getCurrentUser() {

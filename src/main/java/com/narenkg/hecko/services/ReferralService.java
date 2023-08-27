@@ -2,11 +2,13 @@ package com.narenkg.hecko.services;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
@@ -40,46 +42,31 @@ public class ReferralService {
 	@Autowired
 	private MessageService messageService;
 
-	public ResponseEntity<?> generateReferralCode(User user) {
+	@Async
+	public void generateReferralCode(User user) {
+		
+		long startTime = System.nanoTime();
+		logger.info("generateReferralCode");
 
-		if (user != null) {
-			if (user.getIsVerified() != null && user.getIsVerified()) {
+		ReferralCode referralCode = new ReferralCode();
 
-				if (user.getIsBlocked() != null && !user.getIsBlocked()) {
+		referralCode.setUser(user);
 
-					ReferralCode referralCode = new ReferralCode();
+		boolean codeFound = false;
 
-					referralCode.setUser(user);
-
-					boolean codeFound = false;
-
-					String code = null;
-					while (!codeFound) {
-						code = GeneralUtil.createAlphaNumbericRandomCode(IConstants.REFERRAL_CODE_LENGTH);
-						// changed by hemasai
-						ReferralCode referralCode1 = referralCodeRepository.findByCode(code);
-						if (referralCode1 == null)
-							// upto this
-							codeFound = true;
-					}
-					referralCode.setCode(code);
-					referralCodeRepository.save(referralCode);
-
-					return ResponseEntity.ok(
-							new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
-				} else {
-					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-							messageService.getMessage(EMessage.SIGNIN_ACCOUNT_BLOCKED)));
-				}
-
-			} else {
-				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.SIGNIN_EMAIL_NOTVERIFIED)));
-			}
-		} else {
-			return ResponseEntity.badRequest().body(
-					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+		String code = null;
+		while (!codeFound) {
+			code = GeneralUtil.createAlphaNumbericRandomCode(IConstants.REFERRAL_CODE_LENGTH);
+			ReferralCode referralCode1 = referralCodeRepository.findByCode(code);
+			if (referralCode1 == null)
+				codeFound = true;
 		}
+		referralCode.setCode(code);
+		referralCodeRepository.save(referralCode);
+		
+		System.out.println("*****************generateReferralCode *******Elapsed Time in mili seconds: "
+				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+
 	}
 
 	public ResponseEntity<?> verifyReferralCode(String strReferralCode) {
@@ -96,32 +83,18 @@ public class ReferralService {
 
 	}
 
-	public ResponseEntity<?> registerSignupViaReferral(User user, String strReferralCode) {
-
-		if (user != null) {
-			if (user.getIsVerified() != null && user.getIsVerified()) {
-
-				if (user.getIsBlocked() != null && !user.getIsBlocked()) {
-					Referrals referrals = new Referrals();
-					referrals.setUsedBy(user);
-					referrals.setUsedReferralCode(strReferralCode);
-					referralsRepository.save(referrals);
-					return ResponseEntity
-							.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
-					
-				} else {
-					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-							messageService.getMessage(EMessage.SIGNIN_ACCOUNT_BLOCKED)));
-				}
-
-			} else {
-				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.SIGNIN_EMAIL_NOTVERIFIED)));
-			}
-		} else {
-			return ResponseEntity.badRequest().body(
-					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+	@Async
+	public void useReferralcode(User user, String strReferralCode) {
+		long startTime = System.nanoTime();
+		if (strReferralCode != null && !strReferralCode.trim().isBlank()) {
+			Referrals referrals = new Referrals();
+			referrals.setUsedBy(user);
+			referrals.setUsedReferralCode(strReferralCode);
+			referralsRepository.save(referrals);
+			
 		}
+		System.out.println("*****************useReferralcode *******Elapsed Time in mili seconds: "
+				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 	}
 
 }
