@@ -6,7 +6,7 @@ import { GlobalSizes } from "../../common/sizes";
 import CustomPressable from "../commons/CustomPressable";
 import { useState } from "react";
 
-function CountryDropDown() {
+function CountryDropDown({ onCountrySelected }) {
   const [isOptionsVisible, setIsOptionsVisible] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -17,18 +17,24 @@ function CountryDropDown() {
   function changeCountryHandler(country) {
     setIsOptionsVisible(false);
     setSelectedCountry(country);
+    onCountrySelected(country);
   }
 
   function getMyCountryCode() {
-    return "IN";
+    let defaultCountry = "IN";
+    let vSelectedItem = GlobalCountries.list.find(
+      (item) => item.key === defaultCountry
+    );
+    onCountrySelected(vSelectedItem);
+    return defaultCountry;
   }
 
   function CountryRenderItem({ item, index }) {
     return (
       <View style={styles.optionItem}>
-      <View style={styles.subOptionItem}>
-        <Image source={item.flag} style={styles.flagIcon}></Image>
-        <Text style={styles.countryName}> {item.name}</Text>
+        <View style={styles.subOptionItem}>
+          <Image source={item.flag} style={styles.flagIcon}></Image>
+          <Text style={styles.countryName}> {item.name}</Text>
         </View>
         <Text style={styles.value}> {item.value}</Text>
       </View>
@@ -86,12 +92,12 @@ const styles = StyleSheet.create({
 
   optionItem: {
     flexDirection: "row",
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     flex: 1,
     marginBottom: 18,
-    borderBottomWidth:0.2,
+    borderBottomWidth: 0.2,
   },
-  subOptionItem:{
+  subOptionItem: {
     flexDirection: "row",
   },
   countryName: {
@@ -101,12 +107,12 @@ const styles = StyleSheet.create({
 
   value: {
     color: GlobalColors.page.textColor,
-    paddingRight:13,
+    paddingRight: 13,
   },
   flagIcon: {
     width: 25,
     height: 25,
-    marginTop:-2,
-    resizeMode:"contain",
+    marginTop: -2,
+    resizeMode: "contain",
   },
 });

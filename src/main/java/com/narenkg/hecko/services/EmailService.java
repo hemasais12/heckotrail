@@ -54,6 +54,8 @@ public class EmailService {
 			}
 			helper.setSubject(mail.getSubject());
 			helper.setFrom(IConstants.APP_SENDER_EMAIL);
+			
+			logger.info("Email Sent........................: From ("+IConstants.APP_SENDER_EMAIL+"), To ("+IConstants.APP_SENDER_EMAIL+")");
 
 			emailSender.send(message);
 		} catch (Exception ex) {

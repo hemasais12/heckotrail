@@ -176,10 +176,10 @@ public class AuthController {
 				}
 
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
-					logger.info("not isEmail:--->");
+					logger.info("generating OTP on phone :--->"+emailOrMobileNumber);
 					otpService.generateOTP(emailOrMobileNumber);
 				} else {
-					logger.info("emailOrMobileNumber:--->");
+					logger.info("generating OTP on phone :--->"+emailOrMobileNumber);
 					otpService.generateEmailOTP(emailOrMobileNumber);
 				}
 				logger.info("emailOrMobileNumber:--->"+messageService.getMessage(EMessage.GOOD_TO_GO));

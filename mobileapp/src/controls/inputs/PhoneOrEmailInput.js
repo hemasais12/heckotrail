@@ -10,6 +10,7 @@ import { GlobalSizes } from "../../common/sizes";
 function PhoneOrEmailInput({ viewStyle, onChangeText }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [inputId, setInputId] = useState("");
+  let countryCode = "";
 
   function inputChangeHandler(text) {
     setInputId(text);
@@ -18,7 +19,8 @@ function PhoneOrEmailInput({ viewStyle, onChangeText }) {
     } else {
       setIsEmailEntered(true);
     }
-    onChangeText(text);
+    if (isEmailEntered) onChangeText(text);
+    else onChangeText(countryCode + text);
   }
 
   function EmailView() {
@@ -29,9 +31,18 @@ function PhoneOrEmailInput({ viewStyle, onChangeText }) {
     );
   }
 
+  function countrySelectHandler(country) {
+    console.log(country.value);
+    countryCode = country.value;
+  }
+
   return (
     <View style={{ ...styles.container, ...viewStyle }}>
-      {isEmailEntered ? <EmailView /> : <CountryDropDown />}
+      {isEmailEntered ? (
+        <EmailView />
+      ) : (
+        <CountryDropDown onCountrySelected={countrySelectHandler} />
+      )}
 
       <View style={styles.input}>
         <Input
