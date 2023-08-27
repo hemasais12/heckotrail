@@ -23,3 +23,18 @@ export async function request(options) {
     })
   );
 }
+
+export function httpPost(url, requestData) {
+  return request({
+    url: url,
+    method: "POST",
+    body: JSON.stringify(requestData),
+  });
+}
+
+export function httpGet(url) {
+  return request({
+    url: url,
+    method: "GET",
+  });
+}

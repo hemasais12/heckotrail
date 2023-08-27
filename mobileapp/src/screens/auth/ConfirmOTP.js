@@ -10,22 +10,50 @@ import OtpBoxes from "../../controls/inputs/OtpBoxes";
 import { AuthContext } from "../../store/AuthContextProvider";
 import LogoBackground from "../../controls/layout/LogoBackground";
 import { getLangObject } from "../../utils/LanguageUtil";
+import AuthService from "../../services/AuthService";
 
 function ConfirmOTP({ navigation, route }) {
+  const [message, setMessage] = useState("");
+  const [successful, setSuccessful] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const authCtx = useContext(AuthContext);
-  const { isSignup } = route.params;
+  const { isSignup, loginId } = route.params;
 
   function moveToSignUpAsScreen() {
     authCtx.authenticate("token");
+  }
+
+  function setSuccessStatus(message, successful, loading) {
+    setMessage(message);
+    setSuccessful(successful);
+    setIsLoading(loading);
   }
 
   function moveToSignInAsScreen() {
     authCtx.authenticate("token");
   }
 
-  function submitHandler(otp) {
-    if (isSignup) moveToSignUpAsScreen();
-    else moveToSignInAsScreen();
+  function submitHandler(event, otp) {
+    event.preventDefault();
+    setSuccessStatus("", false, true);
+
+    const requestData = {
+      mobileNumber: loginId,
+      otp: "",
+      referralCode: "",
+    };
+    AuthService.doSignupByMobileNumber(requestData)
+      .then((response) => {
+        console.log(response);
+        setSuccessStatus("", true, false);
+        if (isSignup) moveToSignUpAsScreen();
+        else moveToSignInAsScreen();
+      })
+      .catch((error) => {
+        console.log(error);
+        setSuccessStatus(error.message, false, false);
+      });
   }
 
   return (

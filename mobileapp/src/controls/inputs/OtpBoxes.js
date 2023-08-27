@@ -10,10 +10,10 @@ function OtpBoxes({ onSubmit, errorText }) {
 
   const otpBoxesArr = [];
 
-  function submitHandler() {
+  function submitHandler(event) {
     let otp = makeOtp();
     if (otp.length === OTP_LENGTH) {
-      onSubmit(otp);
+      onSubmit(event, otp);
     } else {
       setShowError(true);
     }

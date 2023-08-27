@@ -1,11 +1,13 @@
-import { request } from "../base/BaseApi";
-import { URL_AUTH_SIGNUP_GENERATEOTP } from "../URLS";
+import { httpPost, httpGet } from "../base/BaseApi";
+import {
+  URL_AUTH_SIGNUP_GENERATEOTP,
+  URL_AUTH_SIGNUP_BYMOBILENUMBER,
+} from "../URLS";
 
 export function apiAuthSignupGenerateOTP(requestData) {
-  console.log(URL_AUTH_SIGNUP_GENERATEOTP);
-  return request({
-    url: URL_AUTH_SIGNUP_GENERATEOTP,
-    method: "POST",
-    body: JSON.stringify(requestData),
-  });
+  return httpPost(URL_AUTH_SIGNUP_GENERATEOTP, requestData);
+}
+
+export function apiAuthSignupByMobileNumber(requestData) {
+  return httpGet(URL_AUTH_SIGNUP_BYMOBILENUMBER, requestData);
 }
