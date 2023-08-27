@@ -3,6 +3,7 @@ package com.narenkg.hecko.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -39,8 +40,8 @@ public class OtpService {
 			}
 		});
 	}
-
-	public String generateOTP(String mobileNumber) throws Exception {
+	
+	public String createOTP() {
 		int length = IConstants.OTP_LENGTH;
 		String numbers = "1234567890";
 		Random random = new Random();
@@ -49,10 +50,12 @@ public class OtpService {
 		for (int i = 0; i < length; i++) {
 			otp[i] = numbers.charAt(random.nextInt(numbers.length()));
 		}
-		String strOtp = new String(otp);
-		
-		logger.info("strOtp........................"+strOtp);
-		
+		return new String(otp);
+	}
+
+	@Async
+	public void generateOTP(String mobileNumber) throws Exception {
+		String strOtp = createOTP();
 		otpCache.put(mobileNumber, strOtp);
 
 		SmsData smsData = new SmsData();
@@ -62,19 +65,11 @@ public class OtpService {
 		smsData.setModel(model);
 
 		smsService.sendOtpSms(smsData);
-		return strOtp;
 	}
 	
-	public String generateEmailOTP(String emailId) throws Exception {
-		int length = IConstants.OTP_LENGTH;
-		String numbers = "1234567890";
-		Random random = new Random();
-		char[] otp = new char[length];
-
-		for (int i = 0; i < length; i++) {
-			otp[i] = numbers.charAt(random.nextInt(numbers.length()));
-		}
-		String strOtp = new String(otp);
+	@Async
+	public void generateEmailOTP(String emailId) throws Exception {
+		String strOtp = createOTP();
 		otpCache.put(emailId, strOtp);
 		
 		EmailData emailData = new EmailData();
@@ -86,7 +81,6 @@ public class OtpService {
 		emailData.setModel(model);
 
 		emailService.sendOtpEmail(emailData);
-		return strOtp;
 	}
 
 	// get saved otp

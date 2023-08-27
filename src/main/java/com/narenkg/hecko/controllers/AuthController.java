@@ -1,6 +1,7 @@
 package com.narenkg.hecko.controllers;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,10 +164,12 @@ public class AuthController {
 			@Valid @RequestBody EmailOrMobileNumberInput emailOrMobileNumberInput) {
 		try {
 
+			long startTime = System.nanoTime();
+
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
-			
-			logger.info("registerEmailOrMobileNumber:--->"+emailOrMobileNumber);
-			
+
+			logger.info("registerEmailOrMobileNumber:--->" + emailOrMobileNumber);
+
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
@@ -175,14 +178,22 @@ public class AuthController {
 							messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
 				}
 
+				System.out.println("Elapsed Time in nano seconds: " + (System.nanoTime() - startTime));
+
 				if (!GeneralUtil.isEmail(emailOrMobileNumber)) {
-					logger.info("generating OTP on phone :--->"+emailOrMobileNumber);
+					logger.info("generating OTP on phone :--->" + emailOrMobileNumber);
 					otpService.generateOTP(emailOrMobileNumber);
+					logger.info("generated OTP");
 				} else {
-					logger.info("generating OTP on phone :--->"+emailOrMobileNumber);
+					logger.info("generating OTP on phone :--->" + emailOrMobileNumber);
 					otpService.generateEmailOTP(emailOrMobileNumber);
+					logger.info("generated OTP");
 				}
-				logger.info("emailOrMobileNumber:--->"+messageService.getMessage(EMessage.GOOD_TO_GO));
+				logger.info("emailOrMobileNumber:--->" + messageService.getMessage(EMessage.GOOD_TO_GO));
+
+				System.out.println("************************Elapsed Time in mili seconds: "
+						+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+
 				return ResponseEntity
 						.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
 
@@ -301,11 +312,6 @@ public class AuthController {
 			return ResponseEntity.badRequest()
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
-	}
-	
-	@GetMapping("/testAuth")
-	public String testAuth() {
-		return "Authenticated URL: "+(new Date());
 	}
 
 }

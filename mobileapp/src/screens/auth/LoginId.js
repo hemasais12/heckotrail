@@ -50,7 +50,10 @@ function LoginId({ route, navigation }) {
       .then((response) => {
         console.log(response);
         setSuccessStatus("", true, false);
-        navigation.navigate("ConfirmOTP", { isSignup: isSignup });
+        navigation.navigate("ConfirmOTP", {
+          isSignup: isSignup,
+          loginId: loginId,
+        });
       })
       .catch((error) => {
         console.log(error);
