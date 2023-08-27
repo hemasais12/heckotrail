@@ -40,8 +40,8 @@ function ConfirmOTP({ navigation, route }) {
 
     const requestData = {
       mobileNumber: loginId,
-      otp: "",
-      referralCode: "",
+      otp: otp,
+      referralCode: null,
     };
     AuthService.doSignupByMobileNumber(requestData)
       .then((response) => {

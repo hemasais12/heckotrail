@@ -265,7 +265,7 @@ public class AuthController {
 
 	@PostMapping("/signup/bymobileNumber")
 	public ResponseEntity<?> registerByMobileNumber(@Valid @RequestBody MobileSignupRequest signUpRequest) {
-		
+		long startTime = System.nanoTime();
 		logger.info("registerByMobileNumber:"+signUpRequest.getMobileNumber());
 		try {
 			if (userService.existsByMobileNumber(signUpRequest.getMobileNumber())) {
@@ -295,8 +295,14 @@ public class AuthController {
 			user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
 
 			userService.save(user);
+			
+			System.out.println("*****************1*******Elapsed Time in mili seconds: "
+					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 			referralService.generateReferralCode(user);
+			
+			System.out.println("************2************Elapsed Time in mili seconds: "
+					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 			if (signUpRequest.getReferralCode() != null && !signUpRequest.getReferralCode().trim().isBlank()) {
 				referralService.registerSignupViaReferral(user, signUpRequest.getReferralCode().trim());
@@ -307,6 +313,9 @@ public class AuthController {
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			String jwt = jwtUtils.generateJwtToken(authentication);
+			
+			System.out.println("****************3********Elapsed Time in mili seconds: "
+					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
 			return userService.doFirstLogin(user, jwt);
 		} catch (Exception ex) {
