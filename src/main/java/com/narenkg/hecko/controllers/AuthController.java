@@ -82,6 +82,8 @@ public class AuthController {
 		try {
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
 
+			Boolean isSignupByEmail = emailOrMobileNumberInput.getIsSignupByEmail();
+
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
@@ -97,8 +99,8 @@ public class AuthController {
 				}
 
 			} else {
-				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER)));
+				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL, messageService
+						.getMessage(isSignupByEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -170,12 +172,16 @@ public class AuthController {
 
 			logger.info("registerEmailOrMobileNumber:--->" + emailOrMobileNumber);
 
+			boolean isSignupByEmail = emailOrMobileNumberInput.getIsSignupByEmail();
+
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
 				if (userService.existsByEmailOrMobileNumber(emailOrMobileNumber)) {
 					logger.info("user already exists:--->");
-					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-							messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
+					return ResponseEntity.badRequest()
+							.body(new ApiResponse(EApiResponseType.FAIL,
+									messageService.getMessage(isSignupByEmail ? EMessage.SIGNUP_EMAIL_ALREADY_REGISTERED
+											: EMessage.SIGNUP_MOBILE_ALREADY_REGISTERED)));
 				}
 
 				System.out.println("**************1**********Elapsed Time in mili seconds: "
@@ -190,7 +196,6 @@ public class AuthController {
 					otpService.generateEmailOTP(emailOrMobileNumber);
 					logger.info("generated OTP");
 				}
-				logger.info("emailOrMobileNumber:--->" + messageService.getMessage(EMessage.GOOD_TO_GO));
 
 				System.out.println("***********2*************Elapsed Time in mili seconds: "
 						+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
@@ -199,8 +204,8 @@ public class AuthController {
 						.ok(new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
 
 			} else {
-				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER)));
+				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL, messageService
+						.getMessage(isSignupByEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -214,7 +219,7 @@ public class AuthController {
 		try {
 			if (userService.existsByEmail(signUpRequest.getEmail())) {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
+						messageService.getMessage(EMessage.SIGNUP_EMAIL_ALREADY_REGISTERED)));
 			}
 
 			if (!signUpRequest.getPassword().equals(signUpRequest.getConfirmPassword())) {
@@ -261,13 +266,13 @@ public class AuthController {
 	@PostMapping("/signup/bymobileNumber")
 	public ResponseEntity<?> registerByMobileNumber(@Valid @RequestBody MobileSignupRequest signUpRequest) {
 		long startTime = System.nanoTime();
-		logger.info("registerByMobileNumber:"+signUpRequest.getMobileNumber());
+		logger.info("registerByMobileNumber:" + signUpRequest.getMobileNumber());
 		try {
 			if (userService.existsByMobileNumber(signUpRequest.getMobileNumber())) {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-						messageService.getMessage(EMessage.SIGNUP_USER_ALREADY_EXISTS)));
+						messageService.getMessage(EMessage.SIGNUP_MOBILE_ALREADY_REGISTERED)));
 			}
-			
+
 			System.out.println("*****************11*******Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
@@ -288,7 +293,7 @@ public class AuthController {
 
 			System.out.println("*****************12*******Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
-			
+
 			User user = new User(signUpRequest.getMobileNumber());
 			user.setIsBlocked(false);
 			user.setIsVerified(true);
@@ -296,7 +301,7 @@ public class AuthController {
 			user.setMobilePassword(encoder.encode(signUpRequest.getMobileNumber()));
 
 			userService.save(user, signUpRequest.getReferralCode());
-			
+
 			System.out.println("*****************13*******Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 
@@ -305,7 +310,7 @@ public class AuthController {
 
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			String jwt = jwtUtils.generateJwtToken(authentication);
-			
+
 			System.out.println("****************14********Elapsed Time in mili seconds: "
 					+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
 

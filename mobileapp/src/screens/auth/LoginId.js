@@ -56,9 +56,10 @@ function LoginId({ route, navigation }) {
     setSuccessStatus("", false, true);
 
     const requestData = {
+      isSignupByEmail: !isMobile,
       emailOrMobileNumber: loginId,
     };
-    AuthService.doSignupGenerateOTP(requestData)
+    doSignInOrSignup(requestData)
       .then((response) => {
         setSuccessStatus("", true, false);
         navigation.navigate("ConfirmOTP", {
@@ -71,6 +72,14 @@ function LoginId({ route, navigation }) {
         let errorSet = { phoneOrEmail: error.message.description };
         setErrorArr({ ...errorArr, ...errorSet });
       });
+  }
+
+  function doSignInOrSignup(requestData) {
+    if (isSignup) {
+      return AuthService.doSignupGenerateOTP(requestData);
+    } else {
+      return AuthService.doSigninGenerateOTP(requestData);
+    }
   }
 
   function setSuccessStatus(message, successful, loading) {

@@ -75,8 +75,8 @@ public class InitController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// http://34.16.136.247:5000/all //google cloud url test
-	// http://localhost:5000/api/init/init?requestId=1
+	// http://34.16.153.248:5210/api/test/all -- Test app
+	// http://34.16.153.248:5210/api/init/init?requestId=0
 	@GetMapping("/init")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
 		String msg = "Welcome to the App. " + "Let's Login or SignUp";
@@ -164,10 +164,15 @@ public class InitController {
 		String successColor = "Green";
 		String errorColor = "Red";
 
-		messageList.add(new Message(errorColor, EMessage.SIGNUP_USER_ALREADY_EXISTS.name(),
+		messageList.add(new Message(errorColor, EMessage.SIGNUP_MOBILE_ALREADY_REGISTERED.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Email/MobileNumber is already registered. Please try to login.",
-				"Email/MobileNumber is already registered. Please try to login."));
+				"Mobile number is already registered. Please login.",
+				"Mobile number is already registered. Please login."));
+		
+		messageList.add(new Message(errorColor, EMessage.SIGNUP_EMAIL_ALREADY_REGISTERED.name(),
+				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
+				"Email is already registered. Please login.",
+				"Email is already registered. Please login."));
 
 		messageList.add(new Message(errorColor, EMessage.USER_NOT_FOUND.name(), mapCategories.get(EMessageType.ERROR.name()),
 				EMessageType.ERROR.name(), "Could not find Email/MobileNumber.", "Could not find Email/MobileNumber."));
@@ -175,10 +180,6 @@ public class InitController {
 		messageList.add(new Message(successColor, EMessage.SIGNUP_USER_SUCCESS.name(),
 				mapCategories.get(EMessageType.SUCCESS.name()), EMessageType.SUCCESS.name(),
 				"User successfuly registered.", "User successfuly registered."));
-
-		messageList.add(new Message(errorColor, EMessage.SIGNUP_USER_ALREADY_EXISTS.name(),
-				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"User already exists.", "User already exists."));
 
 		messageList.add(new Message(errorColor, EMessage.SIGNIN_EMAIL_NOTVERIFIED.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
@@ -227,8 +228,12 @@ public class InitController {
 				EMessageType.SUCCESS.name(), "Good to go next step.", "Good to go next step."));
 		
 		messageList
-		.add(new Message(errorColor, EMessage.NOT_VALID_EMAIL_OR_MOBILENUMBER.name(), mapCategories.get(EMessageType.ERROR.name()),
-				EMessageType.ERROR.name(), "Not a valid email or mobile number.", "Not a valid email or mobile number."));
+		.add(new Message(errorColor, EMessage.NOT_VALID_EMAIL.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Email entered is not valid.", "Email entered is not valid."));
+		
+		messageList
+		.add(new Message(errorColor, EMessage.NOT_VALID_MOBILENUMBER.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Mobile number entered is not valid.", "Mobile number entered is not valid."));
 		
 		messageList
 		.add(new Message(errorColor, EMessage.PASSWORD_NOT_MATCHING.name(), mapCategories.get(EMessageType.ERROR.name()),
