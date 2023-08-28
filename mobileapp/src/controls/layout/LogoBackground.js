@@ -11,13 +11,15 @@ import { GlobalColors } from "../../common/colors";
 import Bubbles from "../../views/Bubbles";
 import SphereImages from "../../views/SphereImages";
 import CustomPressable from "../commons/CustomPressable";
+import SplashPanel from "./SplashPanel";
 
 const screen = Dimensions.get("screen");
 
-function LogoBackground({ children }) {
+function LogoBackground({ children, isLoading = false }) {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
+      <SplashPanel isLoading={isLoading} />
       <View style={styles.customBackground}></View>
       <View style={styles.logoContainer}>
         <Image

@@ -2,10 +2,9 @@ import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalFonts } from "../../common/fonts";
 
-function PrimaryButtonText({ children, isLoading }) {
+function PrimaryButtonText({ children }) {
   return (
     <View style={styles.textcontainer}>
-      {isLoading && <ActivityIndicator size="small" color="yellow" />}
       <Text style={styles.buttonText}>{" " + children}</Text>
       <View style={styles.buttonArrowContainer}>
         <Text style={styles.buttonArrow}>→</Text>

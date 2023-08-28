@@ -7,6 +7,7 @@ export const GlobalColors = {
     errorColor: "#e61616",
     borderColor: "#e8c662",
     iconColor: "#f8921d",
+    activityColor: "#fc8701",
   },
   page: {
     titleColor: "#000000",
@@ -81,14 +82,14 @@ export const GlobalColors = {
     textColor: "#6a6a6a",
     textBGColor: "#ffffff",
     textErrorColor: "#c63c1d",
-    textErrorBGColor: "#ceada5",
     borderColor: "#b8b7b7",
+    textErrorBGColor: "#ffead2",
   },
   icons: {
     color: "#f8921d",
   },
-  vendorAddress:{
-    borderBottomColor:'black',
-    backgroundColor:"orange",
-  }
+  vendorAddress: {
+    borderBottomColor: "black",
+    backgroundColor: "orange",
+  },
 };

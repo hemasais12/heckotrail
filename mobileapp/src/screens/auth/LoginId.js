@@ -6,6 +6,8 @@ import {
   Image,
   Dimensions,
   KeyboardAvoidingView,
+  TextInput,
+  Text,
 } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
@@ -23,7 +25,7 @@ function LoginId({ route, navigation }) {
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loginId, setLoginId] = useState(""); //
+  const [loginId, setLoginId] = useState("");
 
   let isSignup = route.params ? route.params.isSignup : false;
 
@@ -75,7 +77,7 @@ function LoginId({ route, navigation }) {
   }
 
   return (
-    <LogoBackground>
+    <LogoBackground isLoading={isLoading}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
@@ -128,7 +130,6 @@ export default LoginId;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -146,6 +147,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: "100%",
     marginTop: 36,
+    borderWidth: 1,
+    flex: 1,
   },
 
   link: {

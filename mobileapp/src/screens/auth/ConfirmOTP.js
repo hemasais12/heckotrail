@@ -52,7 +52,7 @@ function ConfirmOTP({ navigation, route }) {
   }
 
   return (
-    <LogoBackground>
+    <LogoBackground isLoading={isLoading}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
