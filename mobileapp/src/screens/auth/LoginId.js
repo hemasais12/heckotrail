@@ -130,6 +130,7 @@ export default LoginId;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -147,8 +148,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     width: "100%",
     marginTop: 36,
-    borderWidth: 1,
-    flex: 1,
   },
 
   link: {
