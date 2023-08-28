@@ -20,18 +20,14 @@ function ConfirmOTP({ navigation, route }) {
   const authCtx = useContext(AuthContext);
   const { isSignup, loginId } = route.params;
 
-  function moveToSignUpAsScreen() {
-    authCtx.authenticate("token");
-  }
-
   function setSuccessStatus(message, successful, loading) {
     setMessage(message);
     setSuccessful(successful);
     setIsLoading(loading);
   }
 
-  function moveToSignInAsScreen() {
-    authCtx.authenticate("token");
+  function setUserData(data) {
+    authCtx.authenticate(data.jwtAuthenticationResponse.token);
   }
 
   function submitHandler(event, otp) {
@@ -45,10 +41,9 @@ function ConfirmOTP({ navigation, route }) {
     };
     AuthService.doSignupByMobileNumber(requestData)
       .then((response) => {
-        console.log(response);
+        console.log();
         setSuccessStatus("", true, false);
-        if (isSignup) moveToSignUpAsScreen();
-        else moveToSignInAsScreen();
+        setUserData(response.data);
       })
       .catch((error) => {
         console.log(error);

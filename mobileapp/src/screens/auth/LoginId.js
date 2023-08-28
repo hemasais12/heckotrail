@@ -23,7 +23,7 @@ function LoginId({ route, navigation }) {
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loginId, setLoginId] = useState("");
+  const [loginId, setLoginId] = useState(""); //
 
   let isSignup = route.params ? route.params.isSignup : false;
 
@@ -41,6 +41,9 @@ function LoginId({ route, navigation }) {
 
   function submitHandler(event) {
     event.preventDefault();
+
+    if (isLoading) return;
+
     setSuccessStatus("", false, true);
 
     const requestData = {
@@ -102,6 +105,7 @@ function LoginId({ route, navigation }) {
             <RoundedButton
               onPress={submitHandler}
               viewStyle={{ marginTop: 24, alignSelf: "flex-end" }}
+              isLoading={isLoading}
             >
               {isSignup ? "Sign up" : "Sign In"}
             </RoundedButton>
