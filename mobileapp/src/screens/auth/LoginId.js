@@ -8,12 +8,17 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Text,
+  Platform,
+  TouchableWithoutFeedback,
+  Button,
+  Keyboard,
 } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
-import LogoBackground from "../../controls/layout/LogoBackground";
+import LogoBackgroundA from "../../controls/layout/LogoBackgroundA";
+import LogoLayout from "../../controls/layout/LogoLayout";
 import NormalText from "../../controls/texts/NormalText";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import AuthService from "../../services/AuthService";
@@ -26,8 +31,10 @@ function LoginId({ route, navigation }) {
   const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginId, setLoginId] = useState("");
+  const [keyBoardVisible, setKeyBoardVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(route.params.isMobile);
 
-  let isSignup = route.params ? route.params.isSignup : false;
+  const { isSignup } = route.params;
 
   function signInUpLinkClickHandler() {
     if (!isSignup) {
@@ -76,14 +83,25 @@ function LoginId({ route, navigation }) {
     setLoginId(text);
   }
 
+  function inputTypeChange() {
+    setIsMobile(!isMobile);
+  }
+
+  const keyboardShowListener = Keyboard.addListener("keyboardDidShow", () => {
+    setKeyBoardVisible(true);
+  });
+  const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () => {
+    setKeyBoardVisible(false);
+  });
+
   return (
-    <LogoBackground isLoading={isLoading}>
+    <LogoLayout isLoading={isLoading} logoVisible={!keyBoardVisible}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
+        style={styles.mainContainer}
       >
-        <View style={styles.pagecontainer}>
-          <View style={styles.headers}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.innerContainer}>
             <ScreenHeaderText headerLevel={3}>
               Expert Services at your tips
             </ScreenHeaderText>
@@ -91,70 +109,75 @@ function LoginId({ route, navigation }) {
               Affordable as No commission
             </ScreenHeaderText>
             <NormalText>{"Search   •   Review   •   Use"}</NormalText>
+            <View style={styles.formContainer}>
+              <ScreenHeaderText>
+                {isSignup ? "Sign up" : "Sign In"}
+              </ScreenHeaderText>
+              <NormalText>
+                Please enter {isMobile ? "mobile number" : "email"}:
+              </NormalText>
+              <PhoneOrEmailInput
+                onChangeText={inputChangeHandler}
+                viewStyle={{ marginTop: 16 }}
+                isMobileView={isMobile}
+              />
+              <RoundedButton
+                onPress={submitHandler}
+                viewStyle={{ marginTop: 24, alignSelf: "flex-end" }}
+                isLoading={isLoading}
+              >
+                {isSignup ? "Sign up" : "Sign In"}
+              </RoundedButton>
+              <View style={styles.linkContainer1}>
+                <TextLink
+                  linkText={isMobile ? "Email" : "Mobile"}
+                  onLinkClick={inputTypeChange}
+                >
+                  {isSignup ? "OR sign up using" : "OR sign in using"}
+                </TextLink>
+              </View>
+              <View style={styles.linkContainer2}>
+                <TextLink
+                  linkText={isSignup ? "Sign In" : "Sign Up"}
+                  onLinkClick={signInUpLinkClickHandler}
+                >
+                  {isSignup
+                    ? "Already have an account?"
+                    : "Don't have an account?"}
+                </TextLink>
+              </View>
+            </View>
           </View>
-
-          <View style={styles.inputs}>
-            <ScreenHeaderText>
-              {isSignup ? "Sign up" : "Sign In"}
-            </ScreenHeaderText>
-            <NormalText>Please enter mobile number or email:</NormalText>
-
-            <PhoneOrEmailInput
-              onChangeText={inputChangeHandler}
-              viewStyle={{ marginTop: 16 }}
-            />
-
-            <RoundedButton
-              onPress={submitHandler}
-              viewStyle={{ marginTop: 24, alignSelf: "flex-end" }}
-              isLoading={isLoading}
-            >
-              {isSignup ? "Sign up" : "Sign In"}
-            </RoundedButton>
-          </View>
-        </View>
-        <View style={styles.link}>
-          <TextLink
-            linkText={isSignup ? "Sign In" : "Sign Up"}
-            onLinkClick={signInUpLinkClickHandler}
-          >
-            {isSignup ? "Already have an account?" : "Don't have an account?"}
-          </TextLink>
-        </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-    </LogoBackground>
+    </LogoLayout>
   );
 }
 
 export default LoginId;
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
   },
-
-  pagecontainer: {
+  innerContainer: {
     flex: 1,
     justifyContent: "center",
-  },
-
-  headers: {
     alignItems: "center",
   },
 
-  inputs: {
+  formContainer: {
     alignItems: "flex-start",
-    width: "100%",
-    marginTop: 36,
+    marginTop: 16,
   },
-
-  link: {
-    justifyContent: "center",
-    alignSelf: "flex-end",
-    marginBottom: 16,
-    flexDirection: "row",
-    width: "100%",
+  linkContainer1: {
+    alignItems: "center",
+    marginTop: 24,
+    alignSelf: "center",
+  },
+  linkContainer2: {
+    alignItems: "center",
+    marginTop: 12,
+    alignSelf: "center",
   },
 });

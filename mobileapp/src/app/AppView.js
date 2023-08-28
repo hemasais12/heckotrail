@@ -37,6 +37,7 @@ function AuthStack() {
       <Stack.Screen
         name="LoginId"
         component={LoginId}
+        initialParams={{ isSignup: false, isMobile: true }}
         options={{ title: "", headerShown: false }}
       />
       <Stack.Screen

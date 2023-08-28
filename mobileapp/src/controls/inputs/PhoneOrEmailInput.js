@@ -7,19 +7,13 @@ import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 
-function PhoneOrEmailInput({ viewStyle, onChangeText }) {
-  const [isEmailEntered, setIsEmailEntered] = useState(false);
+function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView = true }) {
   const [inputId, setInputId] = useState("");
   let countryCode = "";
 
   function inputChangeHandler(text) {
     setInputId(text);
-    if (isNumber(text)) {
-      setIsEmailEntered(false);
-    } else {
-      setIsEmailEntered(true);
-    }
-    if (isEmailEntered) onChangeText(text);
+    if (!isMobileView) onChangeText(text);
     else onChangeText(countryCode + text);
   }
 
@@ -38,18 +32,29 @@ function PhoneOrEmailInput({ viewStyle, onChangeText }) {
 
   return (
     <View style={{ ...styles.container, ...viewStyle }}>
-      {isEmailEntered ? (
-        <EmailView />
+      {!isMobileView ? (
+        <>
+          <EmailView />
+          <View style={styles.input}>
+            <Input
+              onUpdateValue={inputChangeHandler}
+              placeHolder="Enter Email"
+              keyboardType="email-address"
+            />
+          </View>
+        </>
       ) : (
-        <CountryDropDown onCountrySelected={countrySelectHandler} />
+        <>
+          <CountryDropDown onCountrySelected={countrySelectHandler} />
+          <View style={styles.input}>
+            <Input
+              onUpdateValue={inputChangeHandler}
+              placeHolder="Enter Mobile number"
+              keyboardType="number-pad"
+            />
+          </View>
+        </>
       )}
-
-      <View style={styles.input}>
-        <Input
-          onUpdateValue={inputChangeHandler}
-          placeHolder="Mobile number or Email"
-        />
-      </View>
     </View>
   );
 }
@@ -74,6 +79,5 @@ const styles = StyleSheet.create({
     paddingRight: GlobalSizes.input.paddingRight,
     padding: 2,
     justifyContent: "flex-end",
-    marginLeft: 60,
   },
 });

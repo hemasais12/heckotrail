@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
@@ -11,6 +12,8 @@ function Input({
   isInvalid,
   placeHolder,
 }) {
+  const [inputValue, setInputValue] = useState(value);
+
   return (
     <View style={styles.inputContainer}>
       {label ? (
@@ -26,7 +29,6 @@ function Input({
         keyboardType={keyboardType}
         secureTextEntry={secure}
         onChangeText={onUpdateValue}
-        value={value}
         placeholder={placeHolder}
       />
     </View>
