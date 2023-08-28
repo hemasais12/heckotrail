@@ -191,9 +191,13 @@ public class InitController {
 						EMessageType.ERROR.name(), "Your account is blocked. Please contact support.",
 						"Your account is blocked. Please contact support."));
 
-		messageList.add(new Message(errorColor, EMessage.SIGNIN_USER_NOTFOUND.name(),
+		messageList.add(new Message(errorColor, EMessage.SIGNIN_MOBILE_NOTFOUND.name(),
 				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
-				"Email/MobileNumber is not registered. Please register.", "Email/MobileNumber is not registered. Please register."));
+				"Mobile is not registered. Please register.", "Mobile is not registered. Please register."));
+		
+		messageList.add(new Message(errorColor, EMessage.SIGNIN_EMAIL_NOTFOUND.name(),
+				mapCategories.get(EMessageType.ERROR.name()), EMessageType.ERROR.name(),
+				"Email is not registered. Please register.", "Email is not registered. Please register."));
 
 		messageList
 				.add(new Message(successColor, EMessage.SIGNIN_SUCCESS.name(), mapCategories.get(EMessageType.SUCCESS.name()),

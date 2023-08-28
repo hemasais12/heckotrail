@@ -94,8 +94,10 @@ public class AuthController {
 					return ResponseEntity.ok(
 							new ApiResponse(EApiResponseType.SUCCESS, messageService.getMessage(EMessage.GOOD_TO_GO)));
 				} else {
-					return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL,
-							messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+					return ResponseEntity.badRequest()
+							.body(new ApiResponse(EApiResponseType.FAIL,
+									messageService.getMessage(isSignupByEmail ? EMessage.SIGNIN_EMAIL_NOTFOUND
+											: EMessage.SIGNIN_MOBILE_NOTFOUND)));
 				}
 
 			} else {
