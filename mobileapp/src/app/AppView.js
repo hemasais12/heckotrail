@@ -209,10 +209,8 @@ function Root() {
   }, []);
 
   if (isTryingLogin) {
-    //console.log("I am here");
     return <Text>Loading</Text>;
   } else {
-    //console.log("I am not here");
   }
 
   return <Navigation />;

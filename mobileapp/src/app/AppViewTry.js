@@ -28,11 +28,6 @@ function AppViewTry() {
     );
   }
 
-  function getText() {
-    GlobalCountries.list.map((obj, index) => console.log(obj.flag));
-    return "test";
-  }
-
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />

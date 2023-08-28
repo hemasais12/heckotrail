@@ -55,26 +55,18 @@ export function adjustFont(size) {
 }
 
 export function adjustHeight(size) {
-  console.log("pixelRatio=" + pixelRatio);
-  console.log("deviceHeight=" + deviceHeight);
-  console.log("deviceWidth=" + deviceWidth);
-  console.log("size=" + size);
   if (pixelRatio >= 2 && pixelRatio < 3) {
     // iphone 5s and older Androids
     if (deviceWidth < 360) {
-      console.log("size=" + size * 0.95);
       return size * 0.95;
     } // iphone 5
     else if (deviceHeight < 667) {
-      console.log("size=" + size);
       return size;
       // iphone 6-6s
     } else if (deviceHeight >= 667 && deviceHeight <= 735) {
-      console.log("size=" + size * 1.15);
       return size * 1.15;
     }
     // older phablets
-    console.log("size=" + size * 1.25);
     return size * 1.25;
   } else if (pixelRatio >= 3 && pixelRatio < 3.5) {
     // catch Android font scaling on small machines
@@ -163,26 +155,18 @@ export function adjustWidth(size) {
 }
 
 export function adjustPadding(size) {
-  console.log("pixelRatio=" + pixelRatio);
-  console.log("deviceHeight=" + deviceHeight);
-  console.log("deviceWidth=" + deviceWidth);
-  console.log("size=" + size);
   if (pixelRatio >= 2 && pixelRatio < 3) {
     // iphone 5s and older Androids
     if (deviceWidth < 360) {
-      console.log("size=" + size * 0.95);
       return size * 0.95;
     } // iphone 5
     else if (deviceHeight < 667) {
-      console.log("size=" + size);
       return size;
       // iphone 6-6s
     } else if (deviceHeight >= 667 && deviceHeight <= 735) {
-      console.log("size=" + size * 1.15);
       return size * 1.5;
     }
     // older phablets
-    console.log("size=" + size * 1.25);
     return size * 2;
   } else if (pixelRatio >= 3 && pixelRatio < 3.5) {
     // catch Android font scaling on small machines

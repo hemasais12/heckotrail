@@ -41,12 +41,10 @@ function ConfirmOTP({ navigation, route }) {
     };
     AuthService.doSignupByMobileNumber(requestData)
       .then((response) => {
-        console.log();
         setSuccessStatus("", true, false);
         setUserData(response.data);
       })
       .catch((error) => {
-        console.log(error);
         setSuccessStatus(error.message, false, false);
       });
   }

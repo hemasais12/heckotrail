@@ -16,9 +16,7 @@ function PopupDropDown({ data }) {
     setOptionListIsVisible(false);
   }
 
-  function onSelectItem(item) {
-    console.log(item);
-  }
+  function onSelectItem(item) {}
 
   return (
     <CustomPressable onPress={showOptions}>

@@ -7,7 +7,12 @@ import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 
-function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView = true }) {
+function PhoneOrEmailInput({
+  viewStyle,
+  onChangeText,
+  isMobileView = true,
+  error,
+}) {
   const [inputId, setInputId] = useState("");
   let countryCode = "";
 
@@ -26,7 +31,6 @@ function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView = true }) {
   }
 
   function countrySelectHandler(country) {
-    console.log(country.value);
     countryCode = country.value;
   }
 
@@ -40,6 +44,7 @@ function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView = true }) {
               onUpdateValue={inputChangeHandler}
               placeHolder="Enter Email"
               keyboardType="email-address"
+              error={error}
             />
           </View>
         </>
@@ -51,6 +56,7 @@ function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView = true }) {
               onUpdateValue={inputChangeHandler}
               placeHolder="Enter Mobile number"
               keyboardType="number-pad"
+              error={error}
             />
           </View>
         </>

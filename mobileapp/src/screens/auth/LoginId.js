@@ -27,12 +27,12 @@ import TextLink from "../../views/TextLink";
 const screen = Dimensions.get("screen");
 
 function LoginId({ route, navigation }) {
-  const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginId, setLoginId] = useState("");
   const [keyBoardVisible, setKeyBoardVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(route.params.isMobile);
+  const [errorArr, setErrorArr] = useState([]);
 
   const { isSignup } = route.params;
 
@@ -60,7 +60,6 @@ function LoginId({ route, navigation }) {
     };
     AuthService.doSignupGenerateOTP(requestData)
       .then((response) => {
-        console.log(response);
         setSuccessStatus("", true, false);
         navigation.navigate("ConfirmOTP", {
           isSignup: isSignup,
@@ -68,18 +67,21 @@ function LoginId({ route, navigation }) {
         });
       })
       .catch((error) => {
-        console.log(error);
-        setSuccessStatus(error.message, false, false);
+        setSuccessStatus("", false, false);
+        let errorSet = { phoneOrEmail: error.message.description };
+        setErrorArr({ ...errorArr, ...errorSet });
       });
   }
 
   function setSuccessStatus(message, successful, loading) {
-    setMessage(message);
     setSuccessful(successful);
     setIsLoading(loading);
   }
 
   function inputChangeHandler(text) {
+    let errorSet = { phoneOrEmail: "" };
+    //setMyArray(oldArray => [...oldArray, newElement]);
+    setErrorArr({ ...errorArr, ...errorSet });
     setLoginId(text);
   }
 
@@ -105,7 +107,7 @@ function LoginId({ route, navigation }) {
             <ScreenHeaderText headerLevel={3}>
               Expert Services at your tips
             </ScreenHeaderText>
-            <ScreenHeaderText headerLevel={5}>
+            <ScreenHeaderText headerLevel={5} style={{ marginVertical: 4 }}>
               Affordable as No commission
             </ScreenHeaderText>
             <NormalText>{"Search   •   Review   •   Use"}</NormalText>
@@ -120,7 +122,9 @@ function LoginId({ route, navigation }) {
                 onChangeText={inputChangeHandler}
                 viewStyle={{ marginTop: 16 }}
                 isMobileView={isMobile}
+                error={errorArr.phoneOrEmail}
               />
+
               <RoundedButton
                 onPress={submitHandler}
                 viewStyle={{ marginTop: 24, alignSelf: "flex-end" }}
@@ -128,6 +132,7 @@ function LoginId({ route, navigation }) {
               >
                 {isSignup ? "Sign up" : "Sign In"}
               </RoundedButton>
+
               <View style={styles.linkContainer1}>
                 <TextLink
                   linkText={isMobile ? "Email" : "Mobile"}

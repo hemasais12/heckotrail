@@ -44,7 +44,6 @@ function SelectRole({ navigation, route }) {
   function submitHandler() {
     if (selectedRole) {
       authCtx.setUserRole(selectedRole);
-      console.log("going to EditVendorNameAndLocation");
       navigation.navigate("EditVendorNameAndLocation", { isSignup: true });
     }
   }

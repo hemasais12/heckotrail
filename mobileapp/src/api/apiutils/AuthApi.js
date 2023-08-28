@@ -9,6 +9,5 @@ export function apiAuthSignupGenerateOTP(requestData) {
 }
 
 export function apiAuthSignupByMobileNumber(requestData) {
-  console.log(URL_AUTH_SIGNUP_BYMOBILENUMBER);
   return httpPost(URL_AUTH_SIGNUP_BYMOBILENUMBER, requestData);
 }

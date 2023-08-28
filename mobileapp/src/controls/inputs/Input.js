@@ -11,6 +11,7 @@ function Input({
   value,
   isInvalid,
   placeHolder,
+  error,
 }) {
   const [inputValue, setInputValue] = useState(value);
 
@@ -31,6 +32,7 @@ function Input({
         onChangeText={onUpdateValue}
         placeholder={placeHolder}
       />
+      {error && <Text style={styles.errorStyle}>{error}</Text>}
     </View>
   );
 }
@@ -49,13 +51,18 @@ const styles = StyleSheet.create({
     color: GlobalColors.input.labelErrorColor,
   },
 
+  errorStyle: {
+    marginTop: 4,
+    color: GlobalColors.input.labelErrorColor,
+  },
+
   input: {
     backgroundColor: GlobalColors.input.textBGColor,
     borderRadius: GlobalSizes.input.borderRadius,
-    flex: 1,
     borderColor: GlobalColors.input.borderColor,
     borderWidth: 1,
     paddingHorizontal: 8,
+    height: "100%",
   },
   inputInvalid: {
     backgroundColor: GlobalColors.input.textErrorBGColor,

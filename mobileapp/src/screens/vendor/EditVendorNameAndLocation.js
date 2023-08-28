@@ -64,7 +64,6 @@ function EditVendorNameAndLocation() {
   }, []);
 
   function editAddressHandler() {
-    console.log("edit address");
     setModalIsVisible(true);
   }
 
