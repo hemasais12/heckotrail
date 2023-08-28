@@ -128,8 +128,9 @@ public class UserService {
 						messageService.getMessage(EMessage.SIGNIN_EMAIL_NOTVERIFIED)));
 			}
 		} else {
+			//TODO: Why only mobile; May change to general message
 			return ResponseEntity.badRequest().body(
-					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_MOBILE_NOTFOUND)));
 		}
 	}
 
@@ -176,8 +177,9 @@ public class UserService {
 					messageService.getMessage(EMessage.SIGNUP_USER_SUCCESS), userProfile));
 
 		} else {
+			//TODO: Why only mobile message. Change to general message?
 			return ResponseEntity.badRequest().body(
-					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_USER_NOTFOUND)));
+					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_MOBILE_NOTFOUND)));
 		}
 	}
 
