@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, Dimensions, Keyboard } from "react-native";
+import { OTP_EXPIRED_OR_WRONG, TECHNICAL_ISSUE } from "../../common/errorkeys";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
 import LogoLayout from "../../controls/layout/LogoLayout";
@@ -74,7 +75,11 @@ function LoginId({ route, navigation }) {
       })
       .catch((error) => {
         setSuccessStatus("", false, false);
-        let newError = { phoneOrEmail: error.message.description };
+
+        let newError = {};
+        if (error.message.messageKey === TECHNICAL_ISSUE)
+          newError = { general: error.message.description };
+        else newError = { phoneOrEmail: error.message.description };
         setErrors({ ...errors, ...newError });
       });
   }
@@ -93,9 +98,8 @@ function LoginId({ route, navigation }) {
   }
 
   function inputChangeHandler(text) {
-    let newError = { phoneOrEmail: "" };
     //setMyArray(oldArray => [...oldArray, newElement]);
-    setErrors({ ...errors, ...newError });
+    setErrors([]);
     setLoginId(text);
   }
 
