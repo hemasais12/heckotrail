@@ -2,9 +2,8 @@ import { View, StyleSheet, Text } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import { useState } from "react";
 import CountryDropDown from "./CountryDropDown";
-import Input from "./Input";
-import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 import StandardInput from "./StandardInput";
 
@@ -26,7 +25,7 @@ function PhoneOrEmailInput({
   function EmailView() {
     return (
       <View style={styles.emailContainer}>
-        <Zocial name="email" size={24} color={GlobalColors.icons.color} />
+        <Entypo name="email" size={24} color={GlobalColors.icons.color} />
       </View>
     );
   }
@@ -70,6 +69,10 @@ const styles = StyleSheet.create({
     paddingLeft: GlobalSizes.input.paddingLeft,
     paddingRight: GlobalSizes.input.paddingRight,
     padding: 2,
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+    height: 50,
+    marginTop: 6,
   },
 });
