@@ -32,7 +32,7 @@ function LoginId({ route, navigation }) {
   const [loginId, setLoginId] = useState("");
   const [keyBoardVisible, setKeyBoardVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(route.params.isMobile);
-  const [errorArr, setErrorArr] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const { isSignup } = route.params;
 
@@ -56,21 +56,36 @@ function LoginId({ route, navigation }) {
     setSuccessStatus("", false, true);
 
     const requestData = {
-      isSignupByEmail: !isMobile,
+      isInputEmail: !isMobile,
       emailOrMobileNumber: loginId,
     };
     doSignInOrSignup(requestData)
       .then((response) => {
+        console.log(response);
         setSuccessStatus("", true, false);
-        navigation.navigate("ConfirmOTP", {
-          isSignup: isSignup,
-          loginId: loginId,
-        });
+        if (requestData.isInputEmail) {
+          if (isSignup) {
+            navigation.navigate("SignupPasswordAndOTP", {
+              isSignup: isSignup,
+              loginId: loginId,
+            });
+          } else {
+            navigation.navigate("LoginByPassword", {
+              isSignup: isSignup,
+              loginId: loginId,
+            });
+          }
+        } else {
+          navigation.navigate("ConfirmOTP", {
+            isSignup: isSignup,
+            loginId: loginId,
+          });
+        }
       })
       .catch((error) => {
         setSuccessStatus("", false, false);
-        let errorSet = { phoneOrEmail: error.message.description };
-        setErrorArr({ ...errorArr, ...errorSet });
+        let newError = { phoneOrEmail: error.message.description };
+        setErrors({ ...errors, ...newError });
       });
   }
 
@@ -88,9 +103,9 @@ function LoginId({ route, navigation }) {
   }
 
   function inputChangeHandler(text) {
-    let errorSet = { phoneOrEmail: "" };
+    let newError = { phoneOrEmail: "" };
     //setMyArray(oldArray => [...oldArray, newElement]);
-    setErrorArr({ ...errorArr, ...errorSet });
+    setErrors({ ...errors, ...newError });
     setLoginId(text);
   }
 
@@ -131,7 +146,7 @@ function LoginId({ route, navigation }) {
                 onChangeText={inputChangeHandler}
                 viewStyle={{ marginTop: 16 }}
                 isMobileView={isMobile}
-                error={errorArr.phoneOrEmail}
+                error={errors.phoneOrEmail}
               />
 
               <RoundedButton

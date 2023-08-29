@@ -16,6 +16,7 @@ function ConfirmOTP({ navigation, route }) {
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const authCtx = useContext(AuthContext);
   const { isSignup, loginId } = route.params;
@@ -39,14 +40,25 @@ function ConfirmOTP({ navigation, route }) {
       otp: otp,
       referralCode: null,
     };
-    AuthService.doSignupByMobileNumber(requestData)
+    doSignupOrSignIn(requestData)
       .then((response) => {
+        console.log(response);
         setSuccessStatus("", true, false);
         setUserData(response.data);
       })
       .catch((error) => {
-        setSuccessStatus(error.message, false, false);
+        setSuccessStatus("", false, false);
+        let newError = { otp: error.message.description };
+        setErrors({ ...errors, ...newError });
       });
+  }
+
+  function doSignupOrSignIn(requestData) {
+    if (isSignup) {
+      return AuthService.doSignupByMobileNumber(requestData);
+    } else {
+      return AuthService.doSigninByMobile(requestData);
+    }
   }
 
   return (
@@ -67,10 +79,7 @@ function ConfirmOTP({ navigation, route }) {
             </ScreenHeaderText>
           </View>
 
-          <OtpBoxes
-            onSubmit={submitHandler}
-            errorText={getLangObject().AuthConfirmOTP.errorLength}
-          />
+          <OtpBoxes onSubmit={submitHandler} errorText={errors.otp} />
         </View>
       </KeyboardAvoidingView>
     </LogoBackground>

@@ -82,7 +82,7 @@ public class AuthController {
 		try {
 			String emailOrMobileNumber = emailOrMobileNumberInput.getEmailOrMobileNumber();
 
-			Boolean isSignupByEmail = emailOrMobileNumberInput.getIsSignupByEmail();
+			Boolean isInputEmail = emailOrMobileNumberInput.getIsInputEmail();
 
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
@@ -96,13 +96,13 @@ public class AuthController {
 				} else {
 					return ResponseEntity.badRequest()
 							.body(new ApiResponse(EApiResponseType.FAIL,
-									messageService.getMessage(isSignupByEmail ? EMessage.SIGNIN_EMAIL_NOTFOUND
+									messageService.getMessage(isInputEmail ? EMessage.SIGNIN_EMAIL_NOTFOUND
 											: EMessage.SIGNIN_MOBILE_NOTFOUND)));
 				}
 
 			} else {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL, messageService
-						.getMessage(isSignupByEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
+						.getMessage(isInputEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -174,7 +174,7 @@ public class AuthController {
 
 			logger.info("registerEmailOrMobileNumber:--->" + emailOrMobileNumber);
 
-			boolean isSignupByEmail = emailOrMobileNumberInput.getIsSignupByEmail();
+			boolean isInputEmail = emailOrMobileNumberInput.getIsInputEmail();
 
 			if (GeneralUtil.isEmail(emailOrMobileNumber) || GeneralUtil.isMobileNumber(emailOrMobileNumber)) {
 
@@ -182,7 +182,7 @@ public class AuthController {
 					logger.info("user already exists:--->");
 					return ResponseEntity.badRequest()
 							.body(new ApiResponse(EApiResponseType.FAIL,
-									messageService.getMessage(isSignupByEmail ? EMessage.SIGNUP_EMAIL_ALREADY_REGISTERED
+									messageService.getMessage(isInputEmail ? EMessage.SIGNUP_EMAIL_ALREADY_REGISTERED
 											: EMessage.SIGNUP_MOBILE_ALREADY_REGISTERED)));
 				}
 
@@ -207,7 +207,7 @@ public class AuthController {
 
 			} else {
 				return ResponseEntity.badRequest().body(new ApiResponse(EApiResponseType.FAIL, messageService
-						.getMessage(isSignupByEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
+						.getMessage(isInputEmail ? EMessage.NOT_VALID_EMAIL : EMessage.NOT_VALID_MOBILENUMBER)));
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

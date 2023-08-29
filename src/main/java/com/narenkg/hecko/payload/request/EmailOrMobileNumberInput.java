@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailOrMobileNumberInput {
-	private Boolean isSignupByEmail;
+	private Boolean isInputEmail;
 	private String emailOrMobileNumber;
 }
