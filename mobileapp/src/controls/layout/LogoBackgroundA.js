@@ -1,19 +1,29 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Dimensions, Image } from "react-native";
+import { useState } from "react";
+import { StyleSheet, View, Dimensions, Image, Keyboard } from "react-native";
 import { GlobalColors } from "../../common/colors";
 import SphereImages from "../../views/SphereImages";
 import DesignerBackground from "./DesignerBackground";
-import SplashPanel from "./SplashPanel";
 
 const screen = Dimensions.get("screen");
+const width = screen.width;
+const height = screen.height;
 
-function LogoBackgroundA({ logoVisible }) {
+function LogoBackgroundA() {
+  const [keyBoardVisible, setKeyBoardVisible] = useState(false);
+
+  const keyboardShowListener = Keyboard.addListener("keyboardDidShow", () => {
+    setKeyBoardVisible(true);
+  });
+  const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () => {
+    setKeyBoardVisible(false);
+  });
+
   return (
     <View style={styles.container}>
       <DesignerBackground />
 
       <View style={styles.logoImageContainer}>
-        {logoVisible && (
+        {(!keyBoardVisible || height > 700) && (
           <Image
             style={styles.logoImage}
             source={require("../../assets/logo/logo.png")}

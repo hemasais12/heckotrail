@@ -19,3 +19,5 @@ export const STORAGE_TOKEN = "token1";
 export const STORAGE_USERLANG = "language1";
 export const STORAGE_USERROLE = "userRole1";
 export const STORAGE_VENDOR_SETUP_STATUS = "isVendorSetupDone1";
+
+export const PASSWORD_MIN_LENGTH = 6;

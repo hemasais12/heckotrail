@@ -1,6 +1,7 @@
 export const GlobalSizes = {
   app: {
     padding: 8,
+    errorFontSize: 11,
   },
   primaryButton: {
     radius: 20,

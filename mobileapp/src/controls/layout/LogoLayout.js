@@ -1,28 +1,31 @@
 import { StatusBar } from "expo-status-bar";
 import {
-  Pressable,
   StyleSheet,
-  Text,
   View,
   Dimensions,
-  Image,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
-import { GlobalColors } from "../../common/colors";
-import Bubbles from "../../views/Bubbles";
-import SphereImages from "../../views/SphereImages";
-import CustomPressable from "../commons/CustomPressable";
 import LogoBackgroundA from "./LogoBackgroundA";
 import SplashPanel from "./SplashPanel";
 
 const screen = Dimensions.get("screen");
 
-function LogoLayout({ children, isLoading = false, logoVisible = true }) {
+function LogoLayout({ children, isLoading = false, showLogo = true }) {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      <LogoBackgroundA logoVisible={logoVisible} />
+      <LogoBackgroundA showLogo={showLogo} />
       <SplashPanel isLoading={isLoading} />
-      <View style={styles.contentContainer}>{children}</View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.contentContainer}>{children}</View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -37,7 +40,5 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     paddingHorizontal: 8,
-    borderColor: "blue",
-    borderWidth: 1,
   },
 });
