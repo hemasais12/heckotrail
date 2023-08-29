@@ -3,6 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import { GlobalColors } from "../../common/colors";
+import { GlobalSizes } from "../../common/sizes";
 
 function StandardInput(props) {
   return (
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
   container: {},
   input: {},
   error: {
-    color: GlobalColors.app.error,
+    color: GlobalColors.input.textErrorColor,
+    fontSize: GlobalSizes.input.errorFontSize,
   },
 });

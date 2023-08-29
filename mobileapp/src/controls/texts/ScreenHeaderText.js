@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 22,
     fontWeight: "bold",
-    color: GlobalColors.page.titleColor,
+    color: GlobalColors.page.titleColor2,
   },
   header1: {
     fontSize: 20,

@@ -48,16 +48,17 @@ export const GlobalSizes = {
     borderWidth: 1,
     paddingRight: 10,
     paddingLeft: 10,
+    errorFontSize: 11,
   },
-  vendorAddress:{
+  vendorAddress: {
     height: 36,
     marginHorizontal: 10,
     marginBottom: 13,
     padding: 3,
     paddingLeft: 15,
-    paddingTop:10,
+    paddingTop: 10,
     paddingRight: 15,
     marginRight: 10,
-    paddingBottom:15,
-  }
+    paddingBottom: 15,
+  },
 };
