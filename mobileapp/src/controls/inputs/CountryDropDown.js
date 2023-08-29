@@ -43,24 +43,28 @@ function CountryDropDown({ onCountrySelected }) {
 
   return (
     <CustomPressable onPress={showCountryOptions}>
-      <View style={styles.container}>
-        <View style={styles.flagContainer}>
-          <Image
-            source={
-              selectedCountry
-                ? selectedCountry.flag
-                : require("../../assets/images/countryflags/png/in.png")
-            }
-            style={styles.flag}
-          ></Image>
+      <View style={styles.outerContainer}>
+        <View style={styles.innerContainer}>
+          <View style={styles.flagContainer}>
+            <Image
+              source={
+                selectedCountry
+                  ? selectedCountry.flag
+                  : require("../../assets/images/countryflags/png/in.png")
+              }
+              style={styles.flag}
+            ></Image>
+          </View>
+          <View style={styles.dropDownContainer}>
+            <DropDown
+              data={GlobalCountries.list}
+              selectedKey={getMyCountryCode()}
+              isOptionsVisible={isOptionsVisible}
+              onSelectItem={changeCountryHandler}
+              RenderView={CountryRenderItem}
+            />
+          </View>
         </View>
-        <DropDown
-          data={GlobalCountries.list}
-          selectedKey={getMyCountryCode()}
-          isOptionsVisible={isOptionsVisible}
-          onSelectItem={changeCountryHandler}
-          RenderView={CountryRenderItem}
-        />
       </View>
     </CustomPressable>
   );
@@ -69,13 +73,19 @@ function CountryDropDown({ onCountrySelected }) {
 export default CountryDropDown;
 
 const styles = StyleSheet.create({
-  container: {
+  outerContainer: {
+    marginRight: 8,
+    height: 50,
+    marginTop: 6,
+  },
+  innerContainer: {
     flexDirection: "row",
     backgroundColor: GlobalColors.input.textBGColor,
     borderColor: GlobalColors.input.borderColor,
     borderWidth: GlobalSizes.input.borderWidth,
     borderRadius: GlobalSizes.input.borderRadius,
     padding: 2,
+    height: "100%",
   },
 
   flagContainer: {
@@ -90,29 +100,7 @@ const styles = StyleSheet.create({
     width: 24,
   },
 
-  optionItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flex: 1,
-    marginBottom: 18,
-    borderBottomWidth: 0.2,
-  },
-  subOptionItem: {
-    flexDirection: "row",
-  },
-  countryName: {
-    marginLeft: 12,
-    marginRight: 6,
-  },
-
-  value: {
-    color: GlobalColors.page.textColor,
-    paddingRight: 13,
-  },
-  flagIcon: {
-    width: 25,
-    height: 25,
-    marginTop: -2,
-    resizeMode: "contain",
+  dropDownContainer: {
+    alignSelf: "center",
   },
 });

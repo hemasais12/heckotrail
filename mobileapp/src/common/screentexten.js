@@ -11,6 +11,9 @@ export const ScreenTextEn = {
       "We have sent you a 4 digit verification code on the given mobile number.",
     errorLength: "OTP must have " + OTP_LENGTH + " digits",
   },
+  AuthSignupPasswordAndOTP: {
+    screenHeader: "Enter password and OTP received on your email entered.",
+  },
   SelectUserType: {
     screenTitle: "",
   },

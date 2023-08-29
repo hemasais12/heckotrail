@@ -25,7 +25,8 @@
     "react-native-ionicons": "^4.6.5",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.1",
-    "react-native-maps": "1.7.1"
+    "react-native-maps": "1.7.1",
+    "react-native-paper": "^5.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -63,23 +63,30 @@ function LoginId({ route, navigation }) {
       .then((response) => {
         console.log(response);
         setSuccessStatus("", true, false);
-        if (requestData.isInputEmail) {
-          if (isSignup) {
+        if (isSignup) {
+          if (requestData.isInputEmail) {
             navigation.navigate("SignupPasswordAndOTP", {
-              isSignup: isSignup,
+              isSignup: true,
               loginId: loginId,
             });
           } else {
-            navigation.navigate("LoginByPassword", {
-              isSignup: isSignup,
+            navigation.navigate("ConfirmOTP", {
+              isSignup: true,
               loginId: loginId,
             });
           }
         } else {
-          navigation.navigate("ConfirmOTP", {
-            isSignup: isSignup,
-            loginId: loginId,
-          });
+          if (requestData.isInputEmail) {
+            navigation.navigate("LoginByPassword", {
+              isSignup: false,
+              loginId: loginId,
+            });
+          } else {
+            navigation.navigate("ConfirmOTP", {
+              isSignup: false,
+              loginId: loginId,
+            });
+          }
         }
       })
       .catch((error) => {
@@ -144,7 +151,6 @@ function LoginId({ route, navigation }) {
               </NormalText>
               <PhoneOrEmailInput
                 onChangeText={inputChangeHandler}
-                viewStyle={{ marginTop: 16 }}
                 isMobileView={isMobile}
                 error={errors.phoneOrEmail}
               />
@@ -198,6 +204,7 @@ const styles = StyleSheet.create({
   formContainer: {
     alignItems: "flex-start",
     marginTop: 16,
+    width: "100%",
   },
   linkContainer1: {
     alignItems: "center",

@@ -6,6 +6,7 @@ import Input from "./Input";
 import { isNumber } from "../../utils/NumberUtil";
 import { Zocial } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
+import StandardInput from "./StandardInput";
 
 function PhoneOrEmailInput({
   viewStyle,
@@ -37,30 +38,18 @@ function PhoneOrEmailInput({
   return (
     <View style={{ ...styles.container, ...viewStyle }}>
       {!isMobileView ? (
-        <>
-          <EmailView />
-          <View style={styles.input}>
-            <Input
-              onUpdateValue={inputChangeHandler}
-              placeHolder="Enter Email"
-              keyboardType="email-address"
-              error={error}
-            />
-          </View>
-        </>
+        <EmailView />
       ) : (
-        <>
-          <CountryDropDown onCountrySelected={countrySelectHandler} />
-          <View style={styles.input}>
-            <Input
-              onUpdateValue={inputChangeHandler}
-              placeHolder="Enter Mobile number"
-              keyboardType="number-pad"
-              error={error}
-            />
-          </View>
-        </>
+        <CountryDropDown onCountrySelected={countrySelectHandler} />
       )}
+
+      <StandardInput
+        keyboardType={isMobileView ? "number-pad" : "email-address"}
+        label={isMobileView ? "Mobile number" : "Email"}
+        viewStyle={{ flex: 1 }}
+        onChangeText={inputChangeHandler}
+        error={error}
+      />
     </View>
   );
 }
@@ -71,10 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
-  input: {
-    flex: 1,
-    marginLeft: 8,
-  },
+
   emailContainer: {
     flexDirection: "row",
     backgroundColor: GlobalColors.input.textBGColor,

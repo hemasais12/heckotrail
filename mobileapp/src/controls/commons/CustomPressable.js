@@ -4,14 +4,12 @@ import { GlobalSizes } from "../../common/sizes";
 
 function CustomPressable({ children, onPress }) {
   return (
-    <View>
-      <Pressable
-        onPress={onPress}
-        style={({ pressed }) => pressed && styles.pressed}
-      >
-        {children}
-      </Pressable>
-    </View>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
+      {children}
+    </Pressable>
   );
 }
 

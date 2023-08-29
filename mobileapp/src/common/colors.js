@@ -82,8 +82,10 @@ export const GlobalColors = {
     textColor: "#6a6a6a",
     textBGColor: "#ffffff",
     textErrorColor: "#c63c1d",
-    borderColor: "#b8b7b7",
+    borderColor: "#fab97d",
     textErrorBGColor: "#ffead2",
+    activeBorderColor: "#f8921d",
+    placeHolderColor: "#6a6a6a",
   },
   icons: {
     color: "#f8921d",

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
 
   countryCode: {
-    marginLeft: 16,
+    marginLeft: 8,
     marginRight: 4,
     justifyContent: "center",
   },
