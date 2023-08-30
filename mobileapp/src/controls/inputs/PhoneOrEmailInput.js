@@ -45,6 +45,7 @@ function PhoneOrEmailInput({
       <StandardInput
         keyboardType={isMobileView ? "number-pad" : "email-address"}
         label={isMobileView ? "Mobile number" : "Email"}
+        placeholder={isMobileView ? "Enter Mobile number" : "Enter Email"}
         viewStyle={{ flex: 1 }}
         onChangeText={inputChangeHandler}
         error={error}
