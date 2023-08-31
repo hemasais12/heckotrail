@@ -4,75 +4,52 @@ import { OTP_LENGTH } from "../../common/constants";
 import OtpBox from "./OtpBox";
 import StandardButton from "../buttons/StandardButton";
 import ErrorText from "../texts/ErrorText";
+import { GlobalColors } from "../../common/colors";
+import { GlobalSizes } from "../../common/sizes";
 
-function OtpBoxes({ onSubmit, errorText }) {
-  const [showError, setShowError] = useState(false);
+function OtpBoxes({ onOTPChange, error }) {
+  const otpBoxRefs = new Array(OTP_LENGTH).fill(null);
+  const otpBoxesArr = new Array(OTP_LENGTH).fill(null);
 
-  const otpBoxesArr = [];
-
-  function submitHandler(event) {
-    let otp = makeOtp();
-    if (otp.length === OTP_LENGTH) {
-      onSubmit(event, otp);
-    } else {
-      setShowError(true);
-    }
+  //TODO: Can we do at declare place itself .. at above?
+  for (let i = 0; i < OTP_LENGTH; i++) {
+    otpBoxRefs[i] = useRef(null);
   }
+
+  useEffect(() => {
+    //Runs only on the first render
+  }, []);
 
   function makeOtp() {
     let otp = "";
     for (let i = 0; i < OTP_LENGTH; i++) {
-      otp = otp + otpBoxesArr[i].value.trim();
+      if (otpBoxesArr[i]) otp = otp + otpBoxesArr[i].trim();
     }
     return otp;
   }
 
-  function otpChangeHandler(newInput, index, nextOtpBoxRef) {
-    //setShowError(false);
-    otpBoxesArr[index].value = newInput;
-    if (nextOtpBoxRef && newInput.length > 0) nextOtpBoxRef.current.focus();
-  }
+  function otpChangeHandler(index, newInput) {
+    otpBoxesArr[index] = newInput;
 
-  function OTPBoxes() {
-    let otpBoxRef = useRef();
-    let nextOtpBoxRef = null;
-    for (let i = 0; i < OTP_LENGTH; i++) {
-      if (i < OTP_LENGTH - 1) {
-        nextOtpBoxRef = useRef();
-      } else {
-        nextOtpBoxRef = null;
-      }
-      otpBoxesArr.push({
-        index: i,
-        value: "",
-        otpBoxRef: otpBoxRef,
-        nextOtpBoxRef: nextOtpBoxRef,
-      });
-      otpBoxRef = nextOtpBoxRef;
-    }
-    let boxesArr = otpBoxesArr.map((boxInfo) => (
-      <OtpBox
-        key={boxInfo.index}
-        index={boxInfo.index}
-        onPress={otpChangeHandler}
-        //  value={boxInfo.value}
-        otpBoxRef={boxInfo.otpBoxRef}
-        nextOtpBoxRef={boxInfo.nextOtpBoxRef}
-      />
-    ));
-    return boxesArr;
+    if (index < OTP_LENGTH - 1) otpBoxRefs[index + 1].current.focus();
+    let otp = makeOtp();
+    onOTPChange(otp);
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.otpBoxes}>
-        <OTPBoxes />
+        {[...Array(OTP_LENGTH)].map((x, i) => (
+          <OtpBox
+            key={i}
+            index={i}
+            otpChangeHandler={otpChangeHandler}
+            inputRef={otpBoxRefs[i]}
+          />
+        ))}
       </View>
-      <View style={styles.errorMessage}>
-        {showError ? <ErrorText>{errorText}</ErrorText> : <></>}
-      </View>
-      <View style={styles.submitButton}>
-        <StandardButton onPress={submitHandler}>Submit</StandardButton>
+      <View style={styles.error}>
+        {error && <ErrorText>{error}</ErrorText>}
       </View>
     </View>
   );
@@ -86,19 +63,11 @@ const styles = StyleSheet.create({
   },
   otpBoxes: {
     flexDirection: "row",
-    marginTop: 20,
     paddingHorizontal: 8,
     justifyContent: "center",
   },
-  submitButton: {
-    flexDirection: "row",
-    marginTop: 18,
-    justifyContent: "flex-end",
-    marginRight: 18,
-  },
-  errorMessage: {
-    flexDirection: "row",
-    marginTop: 8,
-    justifyContent: "center",
+  error: {
+    color: GlobalColors.input.textErrorColor,
+    fontSize: GlobalSizes.input.errorFontSize,
   },
 });

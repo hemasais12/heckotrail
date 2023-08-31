@@ -89,7 +89,8 @@ function SignupPasswordAndOTP({ route, navigation }) {
           </ScreenHeaderText>
 
           <StandardInput
-            label="Enter Password"
+            label="Password"
+            placeholder="Enter Password"
             keyboardType="default"
             viewStyle={{ marginTop: 8, width: "100%" }}
             onChangeText={(text) => formFieldChangeHandler(text, setPassword)}
@@ -97,6 +98,7 @@ function SignupPasswordAndOTP({ route, navigation }) {
           />
           <StandardInput
             label="Confirm Password"
+            placeholder="Re-enter Password"
             keyboardType="default"
             viewStyle={{ marginTop: 8, width: "100%" }}
             onChangeText={(text) =>
@@ -106,6 +108,7 @@ function SignupPasswordAndOTP({ route, navigation }) {
           />
           <StandardInput
             label="OTP"
+            placeholder="Enter OTP"
             keyboardType="number-pad"
             viewStyle={{ marginTop: 8, width: "100%" }}
             onChangeText={(text) => formFieldChangeHandler(text, setOtp)}

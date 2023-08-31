@@ -1,39 +1,28 @@
-import {
-  StyleSheet,
-  View,
-  StatusBar,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, View, StatusBar } from "react-native";
 import { useContext, useState } from "react";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import OtpBoxes from "../../controls/inputs/OtpBoxes";
 import { AuthContext } from "../../store/AuthContextProvider";
-import LogoBackground from "../../controls/layout/LogoBackground";
 import { getLangObject } from "../../utils/LanguageUtil";
 import AuthService from "../../services/AuthService";
+import LogoLayout from "../../controls/layout/LogoLayout";
+import StandardButton from "../../controls/buttons/StandardButton";
 
 function ConfirmOTP({ navigation, route }) {
-  const [message, setMessage] = useState("");
-  const [successful, setSuccessful] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [otp, setOtp] = useState(null);
 
   const authCtx = useContext(AuthContext);
   const { isSignup, loginId } = route.params;
-
-  function setSuccessStatus(message, successful, loading) {
-    setMessage(message);
-    setSuccessful(successful);
-    setIsLoading(loading);
-  }
 
   function setUserData(data) {
     authCtx.authenticate(data.jwtAuthenticationResponse.token);
   }
 
-  function submitHandler(event, otp) {
+  function submitHandler(event) {
     event.preventDefault();
-    setSuccessStatus("", false, true);
+    setIsLoading(true);
 
     const requestData = {
       mobileNumber: loginId,
@@ -43,11 +32,11 @@ function ConfirmOTP({ navigation, route }) {
     doSignupOrSignIn(requestData)
       .then((response) => {
         console.log(response);
-        setSuccessStatus("", true, false);
+        setIsLoading(false);
         setUserData(response.data);
       })
       .catch((error) => {
-        setSuccessStatus("", false, false);
+        setIsLoading(false);
         let newError = { otp: error.message.description };
         setErrors({ ...errors, ...newError });
       });
@@ -61,14 +50,14 @@ function ConfirmOTP({ navigation, route }) {
     }
   }
 
+  function onOTPChange(text) {
+    setOtp(text);
+  }
+
   return (
-    <LogoBackground isLoading={isLoading}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <View style={styles.topcontainer}></View>
-        <View style={styles.middlecontainer}>
+    <LogoLayout isLoading={isLoading}>
+      <View style={styles.innerContainer}>
+        <View style={styles.formContainer}>
           <StatusBar hidden={true} />
           <ScreenHeaderText headerLevel={2}>
             {getLangObject().AuthConfirmOTP.screenHeader}
@@ -79,28 +68,44 @@ function ConfirmOTP({ navigation, route }) {
             </ScreenHeaderText>
           </View>
 
-          <OtpBoxes onSubmit={submitHandler} errorText={errors.otp} />
+          <View style={styles.otp}>
+            <OtpBoxes onOTPChange={onOTPChange} error={errors.otp} />
+          </View>
+
+          <View style={styles.btnContainer}>
+            <StandardButton onPress={submitHandler}>Submit</StandardButton>
+          </View>
         </View>
-      </KeyboardAvoidingView>
-    </LogoBackground>
+      </View>
+    </LogoLayout>
   );
 }
 
 export default ConfirmOTP;
 
 const styles = StyleSheet.create({
-  container: {
+  innerContainer: {
     flex: 1,
-  },
-  topcontainer: {
-    flex: 1,
-  },
-  middlecontainer: {
-    flex: 2,
+    justifyContent: "center",
     alignItems: "center",
+  },
+
+  formContainer: {
+    width: "100%",
+    alignItems: "flex-start",
   },
 
   description: {
     marginTop: 10,
+  },
+
+  otp: {
+    marginTop: 16,
+    width: "100%",
+  },
+
+  btnContainer: {
+    marginTop: 24,
+    alignSelf: "flex-end",
   },
 });

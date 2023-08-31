@@ -1,19 +1,16 @@
 import { Pressable, StyleSheet, Text, View, TextInput } from "react-native";
 import { GlobalColors } from "../../common/colors";
 
-function OtpBox({ index, onPress, otpBoxRef, nextOtpBoxRef, value }) {
-  function onChangeNumber(newInput, index, otpBoxRef) {
-    onPress(newInput, index, otpBoxRef);
-  }
-
+function OtpBox({ index, otpChangeHandler, inputRef }) {
   return (
     <TextInput
+      key={index}
+      test={index}
       style={styles.otpBox}
       maxLength={1}
-      ref={otpBoxRef}
       keyboardType="numeric"
-      value={value}
-      onChangeText={(text) => onChangeNumber(text, index, nextOtpBoxRef)}
+      ref={inputRef}
+      onChangeText={(text) => otpChangeHandler(index, text)}
     />
   );
 }
