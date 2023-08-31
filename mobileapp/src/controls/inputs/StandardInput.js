@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -9,6 +9,11 @@ function StandardInput(props) {
   const [label, setLabel] = useState(props.label);
   const [currentLabel, setCurrentLabel] = useState("");
   const [placeholder, setPlaceholder] = useState(props.placeholder);
+
+  useEffect(() => {
+    setLabel(props.label);
+    setPlaceholder(props.placeholder);
+  }, [props]);
 
   function changeHandler(event) {
     if (event.nativeEvent.text && event.nativeEvent.text.length > 0)
@@ -27,9 +32,9 @@ function StandardInput(props) {
         mode="outlined"
         outlineColor={GlobalColors.input.borderColor}
         activeOutlineColor={GlobalColors.input.activeBorderColor}
+        placeholderTextColor={GlobalColors.input.placeHolderColor}
         label={currentLabel}
         placeholder={placeholder}
-        placeholderTextColor={GlobalColors.input.placeHolderColor}
         onChange={changeHandler}
         onEndEditing={changeHandler}
         onFocus={focusHandler}

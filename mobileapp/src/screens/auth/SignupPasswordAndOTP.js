@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import StandardInput from "../../controls/inputs/StandardInput";
 import LogoLayout from "../../controls/layout/LogoLayout";
@@ -6,6 +6,7 @@ import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import AuthService from "../../services/AuthService";
 import { getLangObject } from "../../utils/LanguageUtil";
 import StandardButton from "../../controls/buttons/StandardButton";
+import { AuthContext } from "../../store/AuthContextProvider";
 import {
   OTP_EXPIRED_OR_WRONG,
   PASSWORD_NOT_MATCHING,
@@ -26,6 +27,8 @@ function SignupPasswordAndOTP({ route, navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [referralCode, setReferralCode] = useState(null);
+
+  const authCtx = useContext(AuthContext);
 
   const { loginId } = route.params;
 
@@ -121,9 +124,6 @@ function SignupPasswordAndOTP({ route, navigation }) {
 export default SignupPasswordAndOTP;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
   innerContainer: {
     flex: 1,
     justifyContent: "center",

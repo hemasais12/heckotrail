@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, Dimensions, Keyboard } from "react-native";
-import { OTP_EXPIRED_OR_WRONG, TECHNICAL_ISSUE } from "../../common/errorkeys";
+import { TECHNICAL_ISSUE } from "../../common/errorkeys";
 import RoundedButton from "../../controls/buttons/RoundedButton";
 import PhoneOrEmailInput from "../../controls/inputs/PhoneOrEmailInput";
 import LogoLayout from "../../controls/layout/LogoLayout";
@@ -17,19 +17,22 @@ function LoginId({ route, navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [loginId, setLoginId] = useState("");
   const [keyBoardVisible, setKeyBoardVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(route.params.isMobile);
+  const [isMobile, setIsMobile] = useState(
+    route.params ? route.params.isMobile : true
+  );
   const [errors, setErrors] = useState([]);
 
   const { isSignup } = route.params;
-
   function signInUpLinkClickHandler() {
     if (!isSignup) {
       navigation.replace("LoginId", {
         isSignup: true,
+        isMobile: isMobile,
       });
     } else {
       navigation.replace("LoginId", {
         isSignup: false,
+        isMobile: isMobile,
       });
     }
   }
@@ -74,6 +77,7 @@ function LoginId({ route, navigation }) {
         }
       })
       .catch((error) => {
+        console.log(error);
         setSuccessStatus("", false, false);
 
         let newError = {};
@@ -106,13 +110,6 @@ function LoginId({ route, navigation }) {
   function inputTypeChange() {
     setIsMobile(!isMobile);
   }
-
-  const keyboardShowListener = Keyboard.addListener("keyboardDidShow", () => {
-    setKeyBoardVisible(true);
-  });
-  const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () => {
-    setKeyBoardVisible(false);
-  });
 
   return (
     <LogoLayout isLoading={isLoading}>

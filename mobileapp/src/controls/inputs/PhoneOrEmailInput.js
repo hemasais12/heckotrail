@@ -7,12 +7,7 @@ import { Entypo } from "@expo/vector-icons";
 import { GlobalSizes } from "../../common/sizes";
 import StandardInput from "./StandardInput";
 
-function PhoneOrEmailInput({
-  viewStyle,
-  onChangeText,
-  isMobileView = true,
-  error,
-}) {
+function PhoneOrEmailInput({ viewStyle, onChangeText, isMobileView, error }) {
   const [inputId, setInputId] = useState("");
   let countryCode = "";
 
