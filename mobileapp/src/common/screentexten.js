@@ -35,6 +35,10 @@ export const ScreenTextEn = {
     city: "City",
     state: "State",
     pinCode: "Pin code",
+    clientRoleDefinition:
+      "Client: The users who want to avail/consume services.",
+    vendorRoleDefinition:
+      "Vendor: The users who provide the services or has shops.",
   },
   VendorProfile: {
     editScreenTitle:

@@ -72,6 +72,12 @@ function SelectRole({ navigation, route }) {
         <View style={styles.submitButton}>
           <StandardButton onPress={submitHandler}>Submit</StandardButton>
         </View>
+        <ScreenHeaderText style={{ marginTop: 30 }} headerLevel={4}>
+          {getLangObject().General.clientRoleDefinition}
+        </ScreenHeaderText>
+        <ScreenHeaderText style={{ marginTop: 5 }} headerLevel={4}>
+          {getLangObject().General.vendorRoleDefinition}
+        </ScreenHeaderText>
       </View>
     </ScreenBackground>
   );
