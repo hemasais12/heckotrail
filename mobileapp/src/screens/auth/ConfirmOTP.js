@@ -36,6 +36,7 @@ function ConfirmOTP({ navigation, route }) {
         setUserData(response.data);
       })
       .catch((error) => {
+        console.log(error);
         setIsLoading(false);
         let newError = { otp: error.message.description };
         setErrors({ ...errors, ...newError });

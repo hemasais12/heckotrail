@@ -1,14 +1,10 @@
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, StatusBar, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import ScreenBackground from "../../controls/layout/ScreenBackground";
 import SearchTextBox from "../../views/SearchTextBox";
 import { GlobalColors } from "../../common/colors";
 import LocationPanel from "../../controls/layout/LocationPanel";
-import {
-  getCurrentPositionAsync,
-  useForegroundPermissions,
-  PermissionStatus,
-} from "expo-location";
+import { getCurrentPositionAsync } from "expo-location";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { getLangObject } from "../../utils/LanguageUtil";
@@ -21,7 +17,7 @@ const screenWidth = screen.width;
 function EditVendorNameAndLocation() {
   const [address, setAddress] = useState();
   const [centerRegion, setCenterRegion] = useState();
-  const [modalIsVisible, setModalIsVisible] = useState(false); //as
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   async function verifyPermissions() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -29,17 +25,14 @@ function EditVendorNameAndLocation() {
       console.log("Permission to access location was denied");
       return;
     }
-
     return true;
   }
 
   async function getCurrentLocation() {
     const hasPermission = await verifyPermissions();
-
     if (!hasPermission) {
       return;
     }
-
     let currentLocation = await getCurrentPositionAsync();
 
     setCenterRegion({
@@ -91,34 +84,32 @@ function EditVendorNameAndLocation() {
 
   return (
     <ScreenBackground style={styles.screenContainer}>
-      {centerRegion && (
-        <>
-          <View style={styles.mapContainer}>
-            <MapView
-              style={styles.map}
-              initialRegion={centerRegion}
-              onRegionChange={handleRegionChange}
-              onRegionChangeComplete={handleRegionChangeComplete}
-            >
-              <Marker
-                key={centerRegion}
-                coordinate={centerRegion}
-                pinColor={GlobalColors.location.pin}
-              />
-            </MapView>
-          </View>
-          <LocationPanel location={address} onPress={editAddressHandler} />
-          <View style={styles.searchContainer}>
-            <SearchTextBox
-              placeholder={getLangObject().Location.searchPlaceholder}
+      <>
+        <View style={styles.mapContainer}>
+          <MapView
+            style={styles.map}
+            initialRegion={centerRegion}
+            onRegionChange={handleRegionChange}
+            onRegionChangeComplete={handleRegionChangeComplete}
+          >
+            <Marker
+              key={centerRegion}
+              coordinate={centerRegion}
+              pinColor={GlobalColors.location.pin}
             />
-          </View>
-          <EditVendorAddress
-            visible={modalIsVisible}
-            onClose={editAddressHandlerClose}
+          </MapView>
+        </View>
+        <LocationPanel location={address} onPress={editAddressHandler} />
+        <View style={styles.searchContainer}>
+          <SearchTextBox
+            placeholder={getLangObject().Location.searchPlaceholder}
           />
-        </>
-      )}
+        </View>
+        <EditVendorAddress
+          visible={modalIsVisible}
+          onClose={editAddressHandlerClose}
+        />
+      </>
     </ScreenBackground>
   );
 }

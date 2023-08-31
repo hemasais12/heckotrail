@@ -16,15 +16,13 @@ import WelcomeScreen from "../screens/common/WelcomeScreen";
 
 import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
-import { GlobalSizes } from "../common/sizes";
-import { GlobalColors } from "../common/colors";
+
 import {
   ROLE_CLIENT,
   ROLE_VENDOR,
   STORAGE_TOKEN,
   STORAGE_USERROLE,
 } from "../common/constants";
-import EditableVendorProfile from "../screens/vendor/EditableVendorProfile";
 import EditVendorNameAndLocation from "../screens/vendor/EditVendorNameAndLocation";
 
 const Stack = createNativeStackNavigator();
