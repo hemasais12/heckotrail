@@ -54,7 +54,6 @@ function LoginByPassword({ navigation, route }) {
     };
     AuthService.doSigninByEmail(requestData)
       .then((response) => {
-        console.log(response);
         setIsLoading(false);
         setUserData(response.data);
       })

@@ -16,7 +16,6 @@ const doSigninByEmail = (requestData) => {
 };
 
 const doSigninByMobile = (requestData) => {
-  console.log(requestData);
   return apiAuthSigninByMobile(requestData);
 };
 

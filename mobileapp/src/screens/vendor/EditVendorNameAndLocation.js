@@ -84,32 +84,34 @@ function EditVendorNameAndLocation() {
 
   return (
     <ScreenBackground style={styles.screenContainer}>
-      <>
-        <View style={styles.mapContainer}>
-          <MapView
-            style={styles.map}
-            initialRegion={centerRegion}
-            onRegionChange={handleRegionChange}
-            onRegionChangeComplete={handleRegionChangeComplete}
-          >
-            <Marker
-              key={centerRegion}
-              coordinate={centerRegion}
-              pinColor={GlobalColors.location.pin}
+      {centerRegion && (
+        <>
+          <View style={styles.mapContainer}>
+            <MapView
+              style={styles.map}
+              initialRegion={centerRegion}
+              onRegionChange={handleRegionChange}
+              onRegionChangeComplete={handleRegionChangeComplete}
+            >
+              <Marker
+                key={centerRegion}
+                coordinate={centerRegion}
+                pinColor={GlobalColors.location.pin}
+              />
+            </MapView>
+          </View>
+          <LocationPanel location={address} onPress={editAddressHandler} />
+          <View style={styles.searchContainer}>
+            <SearchTextBox
+              placeholder={getLangObject().Location.searchPlaceholder}
             />
-          </MapView>
-        </View>
-        <LocationPanel location={address} onPress={editAddressHandler} />
-        <View style={styles.searchContainer}>
-          <SearchTextBox
-            placeholder={getLangObject().Location.searchPlaceholder}
+          </View>
+          <EditVendorAddress
+            visible={modalIsVisible}
+            onClose={editAddressHandlerClose}
           />
-        </View>
-        <EditVendorAddress
-          visible={modalIsVisible}
-          onClose={editAddressHandlerClose}
-        />
-      </>
+        </>
+      )}
     </ScreenBackground>
   );
 }

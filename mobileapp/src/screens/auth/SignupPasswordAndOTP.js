@@ -60,15 +60,13 @@ function SignupPasswordAndOTP({ route, navigation }) {
       otp: otp,
       referralCode: referralCode,
     };
-    console.log(requestData);
+
     AuthService.doSignupByEmail(requestData)
       .then((response) => {
-        console.log(response);
         setIsLoading(false);
         authCtx.authenticate(response.data.jwtAuthenticationResponse.token);
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
         let newError = {};
         if (error.message.messageKey === OTP_EXPIRED_OR_WRONG)

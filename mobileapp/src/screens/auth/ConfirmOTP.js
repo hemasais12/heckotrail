@@ -31,12 +31,10 @@ function ConfirmOTP({ navigation, route }) {
     };
     doSignupOrSignIn(requestData)
       .then((response) => {
-        console.log(response);
         setIsLoading(false);
         setUserData(response.data);
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
         let newError = { otp: error.message.description };
         setErrors({ ...errors, ...newError });

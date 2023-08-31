@@ -50,7 +50,6 @@ function LoginId({ route, navigation }) {
     };
     doSignInOrSignup(requestData)
       .then((response) => {
-        console.log(response);
         setSuccessStatus("", true, false);
         if (isSignup) {
           if (requestData.isInputEmail) {
@@ -77,9 +76,7 @@ function LoginId({ route, navigation }) {
         }
       })
       .catch((error) => {
-        console.log(error);
         setSuccessStatus("", false, false);
-
         let newError = {};
         if (error.message.messageKey === TECHNICAL_ISSUE)
           newError = { general: error.message.description };

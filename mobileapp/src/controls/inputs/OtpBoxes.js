@@ -27,14 +27,11 @@ function OtpBoxes({ onOTPChange, error }) {
     for (let i = 0; i < OTP_LENGTH; i++) {
       if (otpBoxesArr[i]) otp = otp + otpBoxesArr[i].trim();
     }
-    console.log("otp = " + otp);
     return otp;
   }
 
   function otpChangeHandler(index, newInput) {
-    console.log("index = " + index);
     otpBoxesArr[index] = newInput;
-    console.log("otpBoxesArr = " + otpBoxesArr);
 
     if (index < OTP_LENGTH - 1) otpBoxRefs[index + 1].current.focus();
     let otp = makeOtp();
