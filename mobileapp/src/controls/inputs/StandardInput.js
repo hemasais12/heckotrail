@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import { GlobalColors } from "../../common/colors";
 import { GlobalSizes } from "../../common/sizes";
+import ErrorText from "../texts/ErrorText";
 
 function StandardInput(props) {
   const [label, setLabel] = useState(props.label);
@@ -40,7 +41,7 @@ function StandardInput(props) {
         onFocus={focusHandler}
         style={[styles.input, props.inputStyle]}
       />
-      {props.error && <Text style={styles.error}>{props.error}</Text>}
+      {props.error && <ErrorText>{props.error}</ErrorText>}
     </View>
   );
 }
@@ -50,8 +51,4 @@ export default StandardInput;
 const styles = StyleSheet.create({
   container: {},
   input: {},
-  error: {
-    color: GlobalColors.input.textErrorColor,
-    fontSize: GlobalSizes.input.errorFontSize,
-  },
 });

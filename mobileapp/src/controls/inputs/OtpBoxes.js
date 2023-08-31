@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   error: {
-    color: GlobalColors.input.textErrorColor,
-    fontSize: GlobalSizes.input.errorFontSize,
+    alignItems: "center",
+    marginTop: 4,
   },
 });
