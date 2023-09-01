@@ -12,10 +12,14 @@ import ScreenBackground from "../../controls/layout/ScreenBackground";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import { AuthContext } from "../../store/AuthContextProvider";
 import { getLangObject } from "../../utils/LanguageUtil";
+import ErrorText from "../../controls/texts/ErrorText";
+import AuthService from "../../services/AuthService";
 
 function SelectRole({ navigation, route }) {
   const authCtx = useContext(AuthContext);
   const [selectedRole, setSelectedRole] = useState(ROLE_CLIENT);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     async function fetchRole() {
@@ -41,10 +45,37 @@ function SelectRole({ navigation, route }) {
     setSelectedRole(role);
   }
 
-  function submitHandler() {
+  function submitHandler(event) {
+    event.preventDefault();
+
     if (selectedRole) {
-      authCtx.setUserRole(selectedRole);
-      navigation.navigate("EditVendorNameAndLocation", { isSignup: true });
+      setIsLoading(true);
+
+      var roles = [];
+      roles.push(selectedRole);
+
+      const requestData = {
+        roles: roles,
+      };
+      AuthService.doSignupGenerateOTP(requestData)
+        .then((response) => {
+          setIsLoading(false);
+          authCtx.setUserRole(selectedRole);
+          if (selectedRole === ROLE_CLIENT) {
+          } else {
+            navigation.navigate("EditVendorNameAndLocation", {
+              isSignup: true,
+            });
+          }
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          let newError = { otp: error.message.description };
+          setErrors({ ...errors, ...newError });
+        });
+    } else {
+      let newError = { role: "please select how you want to login" };
+      setErrors({ ...errors, ...newError });
     }
   }
 
@@ -67,6 +98,10 @@ function SelectRole({ navigation, route }) {
             isSelected={selectedRole === ROLE_VENDOR}
             onPress={roleSelected}
           />
+        </View>
+
+        <View style={styles.error}>
+          {errors.role && <ErrorText>{errors.role}</ErrorText>}
         </View>
 
         <View style={styles.submitButton}>
@@ -103,5 +138,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     marginTop: 20,
+  },
+
+  error: {
+    alignItems: "center",
+    marginTop: 4,
   },
 });

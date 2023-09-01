@@ -25,7 +25,7 @@ import com.narenkg.hecko.payload.request.EmailSignupRequest;
 import com.narenkg.hecko.payload.request.LoginRequest;
 import com.narenkg.hecko.payload.request.MobileLoginRequest;
 import com.narenkg.hecko.payload.request.MobileSignupRequest;
-import com.narenkg.hecko.payload.request.SetRolesRequest;
+import com.narenkg.hecko.payload.request.RoleRequest;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.JwtResponse;
 import com.narenkg.hecko.payload.response.UserProfile;
@@ -52,20 +52,21 @@ public class UserController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@PostMapping("/roles/setroles")
-	public ResponseEntity<?> setUserRoles(@Valid @RequestBody SetRolesRequest rolesRequest) {
+	@PostMapping("/roles/addrole")
+	public ResponseEntity<?> addUserRole(@Valid @RequestBody RoleRequest roleRequest) {
 		try {
 			User user = userService.getCurrentUser();
-			return userService.updateRoles(user, rolesRequest.getRoles());
+			return userService.addUserRole(user, roleRequest.getRoleName());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return ResponseEntity.badRequest()
 					.body(new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.TECHNICAL_ISSUE)));
 		}
 	}
+
 	
 	@PostMapping("/info/update")
-	public ResponseEntity<?> updateUserInfo(@Valid @RequestBody SetRolesRequest rolesRequest) {
+	public ResponseEntity<?> updateUserInfo(@Valid @RequestBody RoleRequest roleRequest) {
 		try {
 			User user = userService.getCurrentUser();
 			return ResponseEntity.ok(

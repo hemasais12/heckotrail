@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -31,10 +32,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "HeckoUsers", uniqueConstraints = { @UniqueConstraint(columnNames = "email"), @UniqueConstraint(columnNames = "mobileNumber") })
+@Table(name = "HeckoUsers", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
+		@UniqueConstraint(columnNames = "mobileNumber") })
 
-public class User extends DateAudit  {
-	
+public class User extends DateAudit {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -47,19 +49,21 @@ public class User extends DateAudit  {
 
 	@Size(max = 120)
 	private String password;
-	
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToMany
+	private Set<UserRoles> userRoles = new HashSet<>();
+
 	private Boolean isVerified;
-	
+
 	private Boolean isBlocked;
-	
+
 	@Size(max = 120)
 	private String mobilePassword;
-	
+
 	public User(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
@@ -68,7 +72,7 @@ public class User extends DateAudit  {
 		this.email = email;
 		this.password = password;
 	}
-	
+
 	@OneToOne
 	private UserDetail userDetail;
 

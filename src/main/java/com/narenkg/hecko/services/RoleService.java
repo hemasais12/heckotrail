@@ -1,7 +1,6 @@
 package com.narenkg.hecko.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +45,31 @@ public class RoleService {
 				.collect(Collectors.toCollection(ArrayList::new));
 		return filteredCollection;
 
+	}
+	
+	public List<Role> getVendorPotentialRoles() {
+
+		List<Role> roles = roleRepository.findAll();
+
+		// roles.removeIf(role ->
+		// role.getName().name().equalsIgnoreCase(ERole.ROLE_ADMIN.name()));
+		List<Role> filteredCollection = roles.stream()
+				.filter(role -> !role.getName().name().equalsIgnoreCase(ERole.ROLE_ADMIN.name()))
+				.collect(Collectors.toCollection(ArrayList::new));
+		return filteredCollection;
+
+	}
+
+	public Role getRole(Long roleId, Boolean isReturnNullIfAdmin) {
+		Role role = roleRepository.getById(roleId);
+		if (isReturnNullIfAdmin && role.getName().name().equalsIgnoreCase(ERole.ROLE_ADMIN.name())) {
+			return null;
+		}
+		return role;
+	}
+	
+	public Role getClientRole() {
+		return roleRepository.findByName(ERole.ROLE_CLIENT);
 	}
 
 }

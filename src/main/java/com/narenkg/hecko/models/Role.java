@@ -1,6 +1,5 @@
 package com.narenkg.hecko.models;
 
-import com.narenkg.hecko.models.audit.DateAudit;
 import com.narenkg.hecko.models.audit.UserDateAudit;
 import com.narenkg.hecko.models.enums.ERole;
 

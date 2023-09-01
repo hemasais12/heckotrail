@@ -12,7 +12,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
+import com.narenkg.hecko.models.Role;
 import com.narenkg.hecko.models.User;
+import com.narenkg.hecko.models.enums.ERole;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.JwtResponse;
 import com.narenkg.hecko.payload.response.UserProfile;
@@ -128,19 +130,24 @@ public class UserService {
 						messageService.getMessage(EMessage.SIGNIN_EMAIL_NOTVERIFIED)));
 			}
 		} else {
-			//TODO: Why only mobile; May change to general message
+			// TODO: Why only mobile; May change to general message
 			return ResponseEntity.badRequest().body(
 					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_MOBILE_NOTFOUND)));
 		}
 	}
 
-	public ResponseEntity<?> updateRoles(User user, List<Long> roles) {
+	public ResponseEntity<?> addUserRole(User user, String roleName) {
 		if (user != null) {
 			if (user.getIsVerified() != null && user.getIsVerified()) {
 				if (user.getIsBlocked() != null && !user.getIsBlocked()) {
 
 					user.getRoles().clear();
-					user.getRoles().addAll(roleService.getRolesExceptAdmin(roles));
+
+					if (roleName.equalsIgnoreCase(ERole.ROLE_VENDOR.name()))
+						user.getRoles().addAll(roleService.getVendorPotentialRoles());
+					else
+						user.getRoles().add(roleService.getClientRole());
+
 					userRepository.save(user);
 
 					return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS,
@@ -177,7 +184,7 @@ public class UserService {
 					messageService.getMessage(EMessage.SIGNUP_USER_SUCCESS), userProfile));
 
 		} else {
-			//TODO: Why only mobile message. Change to general message?
+			// TODO: Why only mobile message. Change to general message?
 			return ResponseEntity.badRequest().body(
 					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_MOBILE_NOTFOUND)));
 		}
