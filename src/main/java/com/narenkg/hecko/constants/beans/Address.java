@@ -1,12 +1,11 @@
-package com.narenkg.hecko.models;
+package com.narenkg.hecko.constants.beans;
 
 import java.util.List;
 
-import com.narenkg.hecko.models.audit.DateAudit;
+import com.narenkg.hecko.models.User;
 import com.narenkg.hecko.models.audit.UserDateAudit;
 import com.narenkg.hecko.models.enums.EAddressType;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,14 +17,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Address extends UserDateAudit {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

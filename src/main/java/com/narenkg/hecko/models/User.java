@@ -54,9 +54,6 @@ public class User extends DateAudit {
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany
-	private Set<UserRoles> userRoles = new HashSet<>();
-
 	private Boolean isVerified;
 
 	private Boolean isBlocked;

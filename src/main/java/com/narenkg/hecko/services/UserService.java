@@ -143,10 +143,7 @@ public class UserService {
 
 					user.getRoles().clear();
 
-					if (roleName.equalsIgnoreCase(ERole.ROLE_VENDOR.name()))
-						user.getRoles().addAll(roleService.getVendorPotentialRoles());
-					else
-						user.getRoles().add(roleService.getClientRole());
+					user.getRoles().add(roleService.getRole(roleName));
 
 					userRepository.save(user);
 
