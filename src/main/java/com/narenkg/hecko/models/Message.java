@@ -53,9 +53,7 @@ public class Message extends DateAudit{
 		this.messageType = messageType;
 		this.title = title;
 		this.description = description;
-		this.remarks = remarks;
-		
-		
+		this.remarks = remarks;		
 	}
 
 }
