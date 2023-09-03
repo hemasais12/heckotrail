@@ -7,16 +7,15 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.narenkg.hecko.models.User;
+import com.narenkg.hecko.models.base.User;
+import com.narenkg.hecko.models.vendor.Vendor;
 
-public class UserDetailsImpl implements UserDetails {
+public abstract class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -43,21 +42,6 @@ public class UserDetailsImpl implements UserDetails {
 		this.password = password;
 		this.authorities = authorities;
 	}
-
-	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-		
-		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getMobileNumber(), user.getPassword(), authorities);
-	}
-	
-	public static UserDetailsImpl buildForMobileLogin(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-		
-		return new UserDetailsImpl(user.getId(), user.getEmail(), user.getMobileNumber(), user.getMobilePassword(), authorities);
-	}
-	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -102,12 +86,12 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (this == o)
+	public boolean equals(Object anotherObject) {
+		if (this == anotherObject)
 			return true;
-		if (o == null || getClass() != o.getClass())
+		if (anotherObject == null || getClass() != anotherObject.getClass())
 			return false;
-		UserDetailsImpl user = (UserDetailsImpl) o;
+		UserDetailsImpl user = (UserDetailsImpl) anotherObject;
 		return Objects.equals(id, user.id);
 	}
 
@@ -119,4 +103,5 @@ public class UserDetailsImpl implements UserDetails {
 		else 
 			return mobileNumber;
 	}
+	
 }

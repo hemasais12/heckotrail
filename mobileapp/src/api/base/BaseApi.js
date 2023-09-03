@@ -7,6 +7,7 @@ export async function request(options) {
   });
 
   const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
+
   if (storedToken) {
     headers.append("Authorization", "Bearer " + storedToken);
   }

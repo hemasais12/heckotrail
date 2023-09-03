@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
-import com.narenkg.hecko.models.Message;
+import com.narenkg.hecko.models.common.Message;
 import com.narenkg.hecko.repository.MessageRepository;
 
 @Service

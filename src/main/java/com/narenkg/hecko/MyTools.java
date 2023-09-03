@@ -1,21 +1,28 @@
 package com.narenkg.hecko;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class MyTools {
 	public static void main(String[] args) {
 
 		MyTools myTools = new MyTools();
-		myTools.downloadCountriesFlagImages();
+		myTools.test();
+		//myTools.downloadCountriesFlagImages();
 
+	}
+	
+	public void test() {
+		String userId = "vnarendrakg@gmail.com";
+		String userType=userId.substring(0,1);
+		String username = userId.substring(1);
+		System.out.println(userType+":"+username);
 	}
 
 	public void downloadCountriesFlagImages() {

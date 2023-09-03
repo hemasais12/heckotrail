@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.narenkg.hecko.models.audit.DateAudit;
 import com.narenkg.hecko.models.audit.UserDateAudit;
+import com.narenkg.hecko.models.common.Category;
+import com.narenkg.hecko.models.common.Currency;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +38,7 @@ public class Product extends UserDateAudit {
 	private String shortBrand; // short Brand Name
 	
 	@ManyToOne
-	private Category productCategory; // Car, Bike etc
+	private Category productUsedIn; // Car, Bike etc
 	
 	@ManyToOne
 	private Category productType; // Oil, wire, indicators

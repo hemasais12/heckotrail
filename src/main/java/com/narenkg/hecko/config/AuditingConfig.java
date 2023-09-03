@@ -8,7 +8,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.narenkg.hecko.security.services.UserDetailsImpl;
+import com.narenkg.hecko.security.services.vendor.VendorDetailsImpl;
 
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
 			return Optional.empty();
 		}
 
-		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+		VendorDetailsImpl userPrincipal = (VendorDetailsImpl) authentication.getPrincipal();
 
 		return Optional.ofNullable(userPrincipal.getId());
 	}

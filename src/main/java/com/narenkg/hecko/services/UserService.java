@@ -1,20 +1,13 @@
 package com.narenkg.hecko.services;
 
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
-import com.narenkg.hecko.models.Role;
-import com.narenkg.hecko.models.User;
-import com.narenkg.hecko.models.enums.ERole;
+import com.narenkg.hecko.models.base.User;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.JwtResponse;
 import com.narenkg.hecko.payload.response.UserProfile;
@@ -23,12 +16,9 @@ import com.narenkg.hecko.repository.UserRepository;
 import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 
 @Service
-public class UserService {
+public abstract class UserService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@Autowired
-	private UserRepository userRepository;
-
+	
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -42,15 +32,15 @@ public class UserService {
 	private ReferralService referralService;
 
 	public Boolean existsByEmail(String email) {
-		return userRepository.existsByEmail(email);
+		return getUserRepository().existsByEmail(email);
 	}
 
 	public Boolean existsByMobileNumber(String mobileNumber) {
-		return userRepository.existsByMobileNumber(mobileNumber);
+		return getUserRepository().existsByMobileNumber(mobileNumber);
 	}
 
 	public Boolean existsByEmailOrMobileNumber(String email, String mobileNumber) {
-		return userRepository.existsByEmailOrMobileNumber(email, mobileNumber);
+		return getUserRepository().existsByEmailOrMobileNumber(email, mobileNumber);
 	}
 
 	public Boolean existsByEmailOrMobileNumber(String emailOrMobileNumber) {
@@ -58,21 +48,16 @@ public class UserService {
 	}
 
 	public User findByEmail(String email) {
-
-		User user = userRepository.findByEmail(email);
-		return user;
+		return getUserRepository().findByEmail(email);
 	}
 
 	public User findByMobileNumber(String mobileNumber) {
-
-		User user = userRepository.findByMobileNumber(mobileNumber);
-		return user;
+		return getUserRepository().findByMobileNumber(mobileNumber);
 	}
 
 	public User findByEmailOrMobileNumber(String email, String mobileNumber) {
 
-		User user = userRepository.findByEmailOrMobileNumber(email, mobileNumber);
-		return user;
+		return getUserRepository().findByEmailOrMobileNumber(email, mobileNumber);
 	}
 
 	public User findByEmailOrMobileNumber(String emailOrMobileNumber) {
@@ -80,20 +65,24 @@ public class UserService {
 	}
 
 	public User findById(Long userId) {
-		return userRepository.findById(userId).orElse(null);
+		Object entity = getUserRepository().findById(userId).orElse(null);
+		if(entity!=null)
+			return (User)entity;
+		return null;
 	}
 
 	public void save(User user, String referralCode) {
 		long startTime = System.nanoTime();
-		userRepository.save(user);
-		System.out.println("*****************save 1*******Elapsed Time in mili seconds: "
-				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
-		referralService.generateReferralCode(user);
-		System.out.println("*****************save 2*******Elapsed Time in mili seconds: "
-				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+		save(user);
+
+		referralService.generateReferralCode();
+
 		referralService.useReferralcode(user, referralCode);
-		System.out.println("*****************save 3*******Elapsed Time in mili seconds: "
-				+ TimeUnit.NANOSECONDS.toMillis((System.nanoTime() - startTime)));
+
+	}
+	
+	public void save(User user) {
+		logger.info("i am in base class save method");
 	}
 
 	public User getCurrentUser() {
@@ -109,14 +98,8 @@ public class UserService {
 				if (user.getIsBlocked() != null && !user.getIsBlocked()) {
 
 					UserProfile userProfile = new UserProfile();
-					userProfile.setEmail(user.getEmail());
-					userProfile.setMobileNumber(user.getMobileNumber());
-					userProfile.setIsVerified(user.getIsVerified());
-					userProfile.setIsBlocked(user.getIsBlocked());
-					userProfile.setUserDetail(user.getUserDetail());
-					userProfile.setRoles(user.getRoles());
+					userProfile.setUser(user);
 					userProfile.setJwtAuthenticationResponse(new JwtResponse(jwt));
-					userProfile.setEmail(user.getEmail());
 
 					return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS,
 							messageService.getMessage(EMessage.SIGNIN_SUCCESS), userProfile));
@@ -145,7 +128,7 @@ public class UserService {
 
 					user.getRoles().add(roleService.getRole(roleName));
 
-					userRepository.save(user);
+					getUserRepository().save(user);
 
 					return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS,
 							messageService.getMessage(EMessage.ROLE_UPDATE_SUCCESS)));
@@ -169,12 +152,8 @@ public class UserService {
 		if (user != null) {
 
 			UserProfile userProfile = new UserProfile();
-			userProfile.setEmail(user.getEmail());
-			userProfile.setMobileNumber(user.getMobileNumber());
-			userProfile.setIsVerified(user.getIsVerified());
-			userProfile.setIsBlocked(user.getIsBlocked());
-			userProfile.setUserDetail(user.getUserDetail());
-			userProfile.setRoles(user.getRoles());
+			userProfile.setUser(user);
+			//TODO: Fetch user detail and set if required.
 			userProfile.setJwtAuthenticationResponse(new JwtResponse(jwt));
 
 			return ResponseEntity.ok(new ApiResponse(EApiResponseType.SUCCESS,
@@ -186,5 +165,11 @@ public class UserService {
 					new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.SIGNIN_MOBILE_NOTFOUND)));
 		}
 	}
+	
+	public abstract UserRepository getUserRepository();
+	
+	public abstract User getNewEntity(String userId);
+	
+	public abstract User getNewEntity(String userId, String password);
 
 }

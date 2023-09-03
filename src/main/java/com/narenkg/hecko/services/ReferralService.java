@@ -1,7 +1,5 @@
 package com.narenkg.hecko.services;
 
-import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -13,17 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
 import com.narenkg.hecko.consts.IConstants;
-import com.narenkg.hecko.models.ReferralCode;
-import com.narenkg.hecko.models.Referrals;
-import com.narenkg.hecko.models.User;
+import com.narenkg.hecko.models.base.User;
+import com.narenkg.hecko.models.common.ReferralCode;
+import com.narenkg.hecko.models.common.Referrals;
+import com.narenkg.hecko.models.vendor.Vendor;
 import com.narenkg.hecko.payload.response.ApiResponse;
-import com.narenkg.hecko.payload.response.JwtResponse;
-import com.narenkg.hecko.payload.response.UserProfile;
 import com.narenkg.hecko.payload.response.enums.EApiResponseType;
 import com.narenkg.hecko.repository.ReferralCodeRepository;
 import com.narenkg.hecko.repository.ReferralsRepository;
-import com.narenkg.hecko.repository.UserRepository;
-import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
+import com.narenkg.hecko.repository.vendor.VendorRepository;
 import com.narenkg.hecko.util.GeneralUtil;
 
 @Service
@@ -31,7 +27,7 @@ public class ReferralService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	private UserRepository userRepository;
+	private VendorRepository userRepository;
 
 	@Autowired
 	private ReferralCodeRepository referralCodeRepository;
@@ -43,14 +39,12 @@ public class ReferralService {
 	private MessageService messageService;
 
 	@Async
-	public void generateReferralCode(User user) {
+	public void generateReferralCode() {
 		
 		long startTime = System.nanoTime();
 		logger.info("generateReferralCode");
 
 		ReferralCode referralCode = new ReferralCode();
-
-		referralCode.setUser(user);
 
 		boolean codeFound = false;
 
@@ -88,8 +82,9 @@ public class ReferralService {
 		long startTime = System.nanoTime();
 		if (strReferralCode != null && !strReferralCode.trim().isBlank()) {
 			Referrals referrals = new Referrals();
-			referrals.setUsedBy(user);
-			referrals.setUsedReferralCode(strReferralCode);
+			referrals.setUsedBy(user.getId());
+			referrals.setIsVendor(user.isVendor());
+			referrals.setReferralStrCode(strReferralCode);
 			referralsRepository.save(referrals);
 			
 		}

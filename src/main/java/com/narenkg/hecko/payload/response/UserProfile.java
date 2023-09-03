@@ -1,9 +1,7 @@
 package com.narenkg.hecko.payload.response;
 
-import java.util.HashSet;
-import java.util.Set;
-import com.narenkg.hecko.models.Role;
-import com.narenkg.hecko.models.UserDetail;
+import com.narenkg.hecko.models.base.User;
+import com.narenkg.hecko.models.base.UserDetail;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,12 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfile {
-	private String email;
-	private String mobileNumber;
-	private Set<Role> roles = new HashSet<>();
-	private Boolean isVerified;
-	private Boolean isBlocked;
-	private UserDetail userDetail;
+	private User user;
 	private JwtResponse jwtAuthenticationResponse;
 
 }

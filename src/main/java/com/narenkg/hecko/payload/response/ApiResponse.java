@@ -1,6 +1,6 @@
 package com.narenkg.hecko.payload.response;
 
-import com.narenkg.hecko.models.Message;
+import com.narenkg.hecko.models.common.Message;
 import com.narenkg.hecko.payload.response.enums.EApiResponseType;
 
 import lombok.AllArgsConstructor;

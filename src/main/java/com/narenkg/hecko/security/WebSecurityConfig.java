@@ -31,7 +31,7 @@ import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 public class WebSecurityConfig {
 
 	@Autowired
-	private UserDetailsServiceImpl userDetailsService;
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
@@ -40,14 +40,17 @@ public class WebSecurityConfig {
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
+		logger.info("*************************************************************authenticationJwtTokenFilter ");
 		return new AuthTokenFilter();
 	}
 
+
 	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
+	public DaoAuthenticationProvider userAuthenticationProvider() {
+		logger.info("*************************************************************authenticationProvider ");
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setUserDetailsService(userDetailsServiceImpl);
 		authProvider.setPasswordEncoder(passwordEncoder());
 
 		return authProvider;
@@ -55,18 +58,21 @@ public class WebSecurityConfig {
 
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		logger.info("*************************************************************authenticationManager ");
 		return authConfig.getAuthenticationManager();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
+		logger.info("*************************************************************passwordEncoder ");
 		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		logger.info("SecurityFilterChain filterChain = " + (new Date()));
+		logger.info("*************************************************************SecurityFilterChain filterChain = "
+				+ (new Date()));
 
 		// TODO: Add web url security
 		http.csrf(csrf -> csrf.disable())
@@ -76,10 +82,20 @@ public class WebSecurityConfig {
 						auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/init/**")
 								.permitAll().requestMatchers("/api/test/**").permitAll().anyRequest().authenticated());
 
-		http.authenticationProvider(authenticationProvider());
+		http.authenticationProvider(userAuthenticationProvider());
+		
+		//http.authenticationProvider(null)
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
+	
+
+	/*@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(clientAuthenticationProvider())
+				.authenticationProvider(vendorAuthenticationProvider());
+	}*/
+
 }

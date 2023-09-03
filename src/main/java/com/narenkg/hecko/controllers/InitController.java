@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.narenkg.hecko.consts.EMessage;
 import com.narenkg.hecko.consts.ICurrency;
-import com.narenkg.hecko.models.Category;
-import com.narenkg.hecko.models.Currency;
-import com.narenkg.hecko.models.Message;
-import com.narenkg.hecko.models.Role;
-import com.narenkg.hecko.models.Service;
-import com.narenkg.hecko.models.ServiceCategory;
-import com.narenkg.hecko.models.ServiceGroup;
+import com.narenkg.hecko.models.Task;
+import com.narenkg.hecko.models.TaskCategory;
+import com.narenkg.hecko.models.TaskSubCategory;
+import com.narenkg.hecko.models.common.Category;
+import com.narenkg.hecko.models.common.Currency;
+import com.narenkg.hecko.models.common.Message;
+import com.narenkg.hecko.models.common.Role;
 import com.narenkg.hecko.models.enums.EMessageType;
 import com.narenkg.hecko.models.enums.ERole;
-import com.narenkg.hecko.models.enums.EServiceCategory;
+import com.narenkg.hecko.models.enums.ETaskCategory;
 import com.narenkg.hecko.repository.CategoryRepository;
 import com.narenkg.hecko.repository.CurrencyRepository;
 import com.narenkg.hecko.repository.MessageRepository;
 import com.narenkg.hecko.repository.RoleRepository;
-import com.narenkg.hecko.repository.ServiceCategoryRepository;
-import com.narenkg.hecko.repository.ServiceGroupRepository;
-import com.narenkg.hecko.repository.ServiceRepository;
+import com.narenkg.hecko.repository.TaskCategoryRepository;
+import com.narenkg.hecko.repository.TaskSubCategoryRepository;
+import com.narenkg.hecko.repository.TaskRepository;
 import com.narenkg.hecko.services.CategoryService;
-import com.narenkg.hecko.services.ServiceCategoryService;
-import com.narenkg.hecko.services.ServiceGroupService;
+import com.narenkg.hecko.services.TaskCategoryService;
+import com.narenkg.hecko.services.TaskSubCategoryService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -57,19 +57,19 @@ public class InitController {
 	private CategoryService categoryService;
 
 	@Autowired
-	private ServiceCategoryRepository serviceCategoryRepository;
+	private TaskCategoryRepository taskCategoryRepository;
 
 	@Autowired
-	private ServiceCategoryService serviceCategoryService;
+	private TaskCategoryService taskCategoryService;
 
 	@Autowired
-	private ServiceGroupRepository serviceGroupRepository;
+	private TaskSubCategoryRepository taskSubCategoryRepository;
 
 	@Autowired
-	private ServiceGroupService serviceGroupService;
+	private TaskSubCategoryService taskSubCategoryService;
 
 	@Autowired
-	private ServiceRepository serviceRepository;
+	private TaskRepository taskRepository;
 
 	private boolean isDBUpdatePending = true;
 	
@@ -105,9 +105,9 @@ public class InitController {
 		setCurrencies();
 		setCategories();
 		setMessages();
-		setServiceCategories();
-		setServiceGroups();
-		setServices();
+		setTaskCategories();
+		setTaskSubCategories();
+		setTasks();
 	}
 
 	private void setDeltaValuesInDB() {
@@ -260,101 +260,105 @@ public class InitController {
 		String successColor = "Green";
 		String errorColor = "Red";
 		
+		messageList
+		.add(new Message(errorColor, EMessage.UNETHICAL_REQUEST.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Unethical request. If this is continued, this IP will be blocked.", "Unethical request. If this is continued, this IP will be blocked."));
+		
 		messageRepository.saveAll(messageList);
 		messageRepository.flush();
 	}
 
-	private void setServiceCategories() {
+	private void setTaskCategories() {
 
-		String[][] serviceCategories = { { "Bike Service", EServiceCategory.BikeService.name() },
-				{ "Car Service", EServiceCategory.CarService.name() } };
+		String[][] taskCategories = { { "Bike Service", ETaskCategory.BikeTask.name() },
+				{ "Car Service", ETaskCategory.CarTask.name() } };
 
-		ArrayList<ServiceCategory> serviceCategoryList = new ArrayList<ServiceCategory>();
-		for (String[] serviceCategoryNames : serviceCategories) {
-			ServiceCategory serviceCategory = new ServiceCategory();
-			serviceCategory.setName(serviceCategoryNames[0]);
-			serviceCategory.setIdentifier(serviceCategoryNames[1]);
-			serviceCategory.setIsActive(true);
-			serviceCategoryList.add(serviceCategory);
+		ArrayList<TaskCategory> taskCategoryList = new ArrayList<TaskCategory>();
+		for (String[] taskCategoryNames : taskCategories) {
+			TaskCategory taskCategory = new TaskCategory();
+			taskCategory.setName(taskCategoryNames[0]);
+			taskCategory.setIdentifier(taskCategoryNames[1]);
+			taskCategory.setIsActive(true);
+			taskCategoryList.add(taskCategory);
 		}
-		serviceCategoryRepository.saveAll(serviceCategoryList);
-		serviceCategoryRepository.flush();
+		taskCategoryRepository.saveAll(taskCategoryList);
+		taskCategoryRepository.flush();
 	}
 
-	private void setServiceGroups() {
+	private void setTaskSubCategories() {
 
-		HashMap<String, String[]> serviceGroups = new HashMap<String, String[]>();
+		HashMap<String, String[]> taskSubCategories = new HashMap<String, String[]>();
 
-		String[] bikeServiceGroups = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
-		String[] carServiceGroups = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
+		String[] bikeTaskSubCategories = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
+		String[] carTaskSubCategories = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
 
-		serviceGroups.put(EServiceCategory.BikeService.name(), bikeServiceGroups);
+		taskSubCategories.put(ETaskCategory.BikeTask.name(), bikeTaskSubCategories);
 
-		serviceGroups.put(EServiceCategory.CarService.name(), carServiceGroups);
+		taskSubCategories.put(ETaskCategory.CarTask.name(), carTaskSubCategories);
 
-		EServiceCategory serviceCategories[] = EServiceCategory.values();
+		ETaskCategory taskCategories[] = ETaskCategory.values();
 
-		ArrayList<ServiceGroup> serviceGroupList = new ArrayList<ServiceGroup>();
+		ArrayList<TaskSubCategory> taskSubCategoryList = new ArrayList<TaskSubCategory>();
 
-		for (EServiceCategory eServiceCategory : serviceCategories) {
-			ServiceCategory serviceCategory = serviceCategoryService.getServiceCategory(eServiceCategory.name(), true);
+		for (ETaskCategory eTaskCategory : taskCategories) {
+			TaskCategory taskCategory = taskCategoryService.getTaskCategory(eTaskCategory.name(), true);
 
-			String[] serviceGroupArr = serviceGroups.get(eServiceCategory.name());
+			String[] subCategoryArr = taskSubCategories.get(eTaskCategory.name());
 
-			for (String serviceGroupName : serviceGroupArr) {
-				ServiceGroup serviceGroup = new ServiceGroup();
-				serviceGroup.setName(serviceGroupName);
-				serviceGroup.setServiceCategory(serviceCategory);
-				serviceGroup.setIsActive(true);
-				serviceGroup.setIdentifier(serviceGroupName);
-				serviceGroupList.add(serviceGroup);
+			for (String subCategoryName : subCategoryArr) {
+				TaskSubCategory taskSubCategory = new TaskSubCategory();
+				taskSubCategory.setName(subCategoryName);
+				taskSubCategory.setTaskCategory(taskCategory);
+				taskSubCategory.setIsActive(true);
+				taskSubCategory.setIdentifier(subCategoryName);
+				taskSubCategoryList.add(taskSubCategory);
 			}
 		}
 
-		serviceGroupRepository.saveAll(serviceGroupList);
-		serviceGroupRepository.flush();
+		taskSubCategoryRepository.saveAll(taskSubCategoryList);
+		taskSubCategoryRepository.flush();
 	}
 
-	private void setServices() {
+	private void setTasks() {
 
-		HashMap<String, String[]> serviceGroups = new HashMap<String, String[]>();
+		HashMap<String, String[]> taskSubCategories = new HashMap<String, String[]>();
 
-		String[] bikeServiceGroups = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
-		String[] carServiceGroups = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
+		String[] bikeTaskSubCategories = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
+		String[] carTaskSubCategories = { "General", "Cleaning", "Wiring", "Oiling", "Engine", "Tyres" };
 
-		serviceGroups.put(EServiceCategory.BikeService.name(), bikeServiceGroups);
+		taskSubCategories.put(ETaskCategory.BikeTask.name(), bikeTaskSubCategories);
 
-		serviceGroups.put(EServiceCategory.CarService.name(), carServiceGroups);
+		taskSubCategories.put(ETaskCategory.CarTask.name(), carTaskSubCategories);
 
-		EServiceCategory serviceCategories[] = EServiceCategory.values();
+		ETaskCategory taskCategories[] = ETaskCategory.values();
 
-		ArrayList<Service> serviceList = new ArrayList<Service>();
+		ArrayList<Task> taskList = new ArrayList<Task>();
 
-		for (EServiceCategory eServiceCategory : serviceCategories) {
-			ServiceCategory serviceCategory = serviceCategoryService.getServiceCategory(eServiceCategory.name(), true);
+		for (ETaskCategory eTaskCategory : taskCategories) {
+			TaskCategory taskCategory = taskCategoryService.getTaskCategory(eTaskCategory.name(), true);
 
-			String[] serviceGroupArr = serviceGroups.get(eServiceCategory.name());
+			String[] taskSubCategoryArr = taskSubCategories.get(eTaskCategory.name());
 
-			for (String serviceGroupName : serviceGroupArr) {
+			for (String taskSubCategoryName : taskSubCategoryArr) {
 
-				ServiceGroup serviceGroup = serviceGroupService.getServiceGroup(serviceCategory, serviceGroupName,
+				TaskSubCategory taskSubCategory = taskSubCategoryService.getTaskSubCategory(taskCategory, taskSubCategoryName,
 						true);
 
 				for (int i = 0; i < 10; i++) {
-					Service service = new Service();
-					String serviceName = "0" + i + ": " + serviceGroupName + ": " + "Service " + i;
-					service.setName(serviceName);
-					service.setServiceGroup(serviceGroup);
-					service.setIsActive(true);
-					service.setIdentifier(serviceName.replace(" ", ""));
-					serviceList.add(service);
+					Task task = new Task();
+					String taskName = "0" + i + ": " + taskSubCategoryName + ": " + "Service " + i;
+					task.setName(taskName);
+					task.setTaskSubCategory(taskSubCategory);
+					task.setIsActive(true);
+					task.setIdentifier(taskName.replace(" ", ""));
+					taskList.add(task);
 				}
 
 			}
 		}
 
-		serviceRepository.saveAll(serviceList);
-		serviceRepository.flush();
+		taskRepository.saveAll(taskList);
+		taskRepository.flush();
 	}
 
 	

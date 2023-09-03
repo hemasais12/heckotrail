@@ -2,11 +2,6 @@ package com.narenkg.hecko.security.jwt;
 
 import java.io.IOException;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +13,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
@@ -31,12 +31,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		logger.info("doFilterInternal -----*****************************----------->:");
 		try {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String emailOrMobileNumber = jwtUtils.getUserNameFromJwtToken(jwt);
-
+				
 				UserDetails userDetails = userDetailsService.loadUserByUsername(emailOrMobileNumber);
+				
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -58,5 +60,17 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 
 		return null;
+	}
+	
+	private boolean isRequestSourceVendor(HttpServletRequest request) {
+		String headerSource = request.getHeader("TempDate");
+		
+		logger.info("headerSource ---------------->:"+headerSource);
+
+		if (StringUtils.hasText(headerSource) && headerSource.startsWith("Date ")) {
+			return true;
+		}
+
+		return false;
 	}
 }

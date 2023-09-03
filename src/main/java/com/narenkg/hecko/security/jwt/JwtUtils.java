@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.narenkg.hecko.security.services.UserDetailsImpl;
+import com.narenkg.hecko.security.services.vendor.VendorDetailsImpl;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

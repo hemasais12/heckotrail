@@ -4,6 +4,8 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+import com.narenkg.hecko.consts.IConstants;
+
 public class GeneralUtil {
 
 	public static boolean patternMatches(String input, String regexPattern) {
@@ -31,4 +33,37 @@ public class GeneralUtil {
 		}
 		return code.toString();
 	}
+
+	public static String getUsername(String username) {
+		if (IConstants.hasUsernamePrefix) {
+			return username.substring(IConstants.APP_USER_PREFIX_LENGTH);
+		} else {
+			return username;
+		}
+	}
+	
+	public static String getUsernameType(String username) {
+		if (IConstants.hasUsernamePrefix) {
+			return username.substring(0, IConstants.APP_USER_PREFIX_LENGTH);
+		} else {
+			return username;
+		}
+	}
+	
+	public static String prefixUsernameWithClientType(String username) {
+		if (IConstants.hasUsernamePrefix) {
+			return IConstants.APP_CLIENT_PREFIX + username;
+		} else {
+			return username;
+		}
+	}
+	
+	public static String prefixUsernameWithVendorType(String username) {
+		if (IConstants.hasUsernamePrefix) {
+			return IConstants.APP_VENDOR_PREFIX + username;
+		} else {
+			return username;
+		}
+	}
+		
 }
