@@ -1,18 +1,13 @@
 package com.narenkg.hecko.models.base;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.narenkg.hecko.models.audit.DateAudit;
 import com.narenkg.hecko.models.common.Role;
 
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -55,12 +50,10 @@ public class User extends DateAudit {
 		this.password = password;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
-
 	public Boolean isVendor() {
 		return false;
 	}
+	
+	public  Set<Role> getRoles() {return null;}
 
 }

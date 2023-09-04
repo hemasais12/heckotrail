@@ -49,7 +49,7 @@ public class ClientService extends UserService{
 	}
 	
 	public void setDefaultRole(User client) {
-		client.setRoles(Collections.singleton(roleService.getClientRole()));
+		((Client)client).setRoles(Collections.singleton(roleService.getClientRole()));
 	}
 	
 	

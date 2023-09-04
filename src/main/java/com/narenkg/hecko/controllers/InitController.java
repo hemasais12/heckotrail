@@ -247,7 +247,9 @@ public class InitController {
 		.add(new Message(errorColor, EMessage.REFFERAL_CODE_INCORRECT.name(), mapCategories.get(EMessageType.ERROR.name()),
 				EMessageType.ERROR.name(), "Incorrect referral code. Please re-enter.", "Incorrect referral code. Please re-enter."));
 		
-		
+		messageList
+		.add(new Message(errorColor, EMessage.UNETHICAL_REQUEST.name(), mapCategories.get(EMessageType.ERROR.name()),
+				EMessageType.ERROR.name(), "Unethical request. If this is continued, this IP will be blocked.", "Unethical request. If this is continued, this IP will be blocked."));
 
 		messageRepository.saveAll(messageList);
 		messageRepository.flush();
@@ -260,9 +262,7 @@ public class InitController {
 		String successColor = "Green";
 		String errorColor = "Red";
 		
-		messageList
-		.add(new Message(errorColor, EMessage.UNETHICAL_REQUEST.name(), mapCategories.get(EMessageType.ERROR.name()),
-				EMessageType.ERROR.name(), "Unethical request. If this is continued, this IP will be blocked.", "Unethical request. If this is continued, this IP will be blocked."));
+		
 		
 		messageRepository.saveAll(messageList);
 		messageRepository.flush();

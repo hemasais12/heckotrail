@@ -1,6 +1,7 @@
 package com.narenkg.hecko.services;
 
 import java.util.Collections;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.narenkg.hecko.consts.EMessage;
 import com.narenkg.hecko.models.base.User;
+import com.narenkg.hecko.models.common.Role;
 import com.narenkg.hecko.payload.response.ApiResponse;
 import com.narenkg.hecko.payload.response.JwtResponse;
 import com.narenkg.hecko.payload.response.UserProfile;
@@ -175,5 +177,7 @@ public abstract class UserService {
 	public abstract User getNewEntity(String userId, String password);
 	
 	public abstract void setDefaultRole(User user);
+	
+	
 
 }

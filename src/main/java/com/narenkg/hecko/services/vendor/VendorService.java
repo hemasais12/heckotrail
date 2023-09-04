@@ -46,6 +46,6 @@ public class VendorService extends UserService {
 	}
 	
 	public void setDefaultRole(User vendor) {
-		vendor.setRoles(Collections.singleton(roleService.getClientRole()));
+		((Vendor)vendor).setRoles(Collections.singleton(roleService.getVendorRole()));
 	}
 }
