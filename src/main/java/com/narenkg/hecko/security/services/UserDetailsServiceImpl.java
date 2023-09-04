@@ -36,6 +36,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		System.out.println("username == "+username);
 
 		if (username == null || username.trim().isBlank())
 			throw new UsernameNotFoundException("User id cannot be blank");

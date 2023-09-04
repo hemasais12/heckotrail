@@ -12,6 +12,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.narenkg.hecko.consts.IConstants;
 import com.narenkg.hecko.security.services.UserDetailsServiceImpl;
 
 import jakarta.servlet.FilterChain;
@@ -36,6 +37,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String emailOrMobileNumber = jwtUtils.getUserNameFromJwtToken(jwt);
+				
+				
+				
+				logger.info("emailOrMobileNumber -----*****************************----------->:"+emailOrMobileNumber);
+				
+				if(isRequestSourceVendor(request)) {
+					emailOrMobileNumber = IConstants.APP_VENDOR_PREFIX + emailOrMobileNumber;
+				} else {
+					emailOrMobileNumber = IConstants.APP_CLIENT_PREFIX + emailOrMobileNumber;
+				}
 				
 				UserDetails userDetails = userDetailsService.loadUserByUsername(emailOrMobileNumber);
 				
