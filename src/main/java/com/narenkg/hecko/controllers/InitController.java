@@ -77,7 +77,7 @@ public class InitController {
 
 	// http://34.16.153.248:5210/api/test/all -- Test app
 	// http://34.16.153.248:5210/api/init/init?requestId=0
-	@GetMapping("/init")
+	@GetMapping("/db")
 	public String updateTeamApp(@RequestParam int requestId) throws Exception {
 		String msg = "Welcome to the App. " + "Let's Login or SignUp";
 		try {

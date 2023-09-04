@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/general")
 public class GeneralController {
-	@GetMapping("/error")
+	@GetMapping("/public/error")
 	public String error() {
 		return "Error.";
 	}
 
-	@GetMapping("/all")
-	public String allAccess() {
+	@GetMapping("/public/test")
+	public String allPublicAccess() {
 		return "Public Content: "+(new Date());
+	}
+	
+	@GetMapping("/secured/test")
+	public String securedAccess() {
+		return "Secured Content: "+(new Date());
 	}
 }

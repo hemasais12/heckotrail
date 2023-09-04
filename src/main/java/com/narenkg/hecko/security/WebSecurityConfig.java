@@ -44,7 +44,6 @@ public class WebSecurityConfig {
 		return new AuthTokenFilter();
 	}
 
-
 	@Bean
 	public DaoAuthenticationProvider userAuthenticationProvider() {
 		logger.info("*************************************************************authenticationProvider ");
@@ -78,24 +77,24 @@ public class WebSecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/api/auth/**").permitAll().requestMatchers("/api/init/**")
-								.permitAll().requestMatchers("/api/test/**").permitAll().anyRequest().authenticated());
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/api/v/auth/**").permitAll()
+						.requestMatchers("/api/c/auth/**").permitAll().requestMatchers("/api/init/**").permitAll()
+						.requestMatchers("/api/general/public/**").permitAll().anyRequest().authenticated());
 
 		http.authenticationProvider(userAuthenticationProvider());
-		
-		//http.authenticationProvider(null)
+
+		// http.authenticationProvider(null)
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
-	
 
-	/*@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(clientAuthenticationProvider())
-				.authenticationProvider(vendorAuthenticationProvider());
-	}*/
+	/*
+	 * @Autowired public void configureGlobal(AuthenticationManagerBuilder auth)
+	 * throws Exception {
+	 * auth.authenticationProvider(clientAuthenticationProvider())
+	 * .authenticationProvider(vendorAuthenticationProvider()); }
+	 */
 
 }

@@ -14,13 +14,6 @@ public abstract class BaseController {
 	private MessageService messageService;
 
 	public ResponseEntity<?> sendUnethicalResponse() {
-		
-		System.out.println("--------------------------sendUnethicalResponse");
-		
-		System.out.println("--------------------------message"+messageService.getMessage(EMessage.UNETHICAL_REQUEST).getDescription());
-		
-		
-		
 		return ResponseEntity.badRequest().body(
 				new ApiResponse(EApiResponseType.FAIL, messageService.getMessage(EMessage.UNETHICAL_REQUEST)));
 	}

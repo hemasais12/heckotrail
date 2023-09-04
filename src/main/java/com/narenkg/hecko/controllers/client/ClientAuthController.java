@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth/c")
+@RequestMapping("/api/c/auth")
 public class ClientAuthController extends BaseAuthController {
 	
 	@Autowired

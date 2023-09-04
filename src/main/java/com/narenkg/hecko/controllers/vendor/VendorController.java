@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/vendor/services")
+@RequestMapping("/api/v/services")
 public class VendorController {
 
 	
