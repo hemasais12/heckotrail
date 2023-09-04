@@ -16,6 +16,7 @@ import LogoLayout from "../../controls/layout/LogoLayout";
 import StandardButton from "../../controls/buttons/StandardButton";
 import Errors from "../components/errors";
 import { validatePassword } from "../../utils/ValidateFormUtil";
+import { USERNAME_PREFIX } from "../../common/constants";
 
 function LoginByPassword({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +50,7 @@ function LoginByPassword({ navigation, route }) {
     setIsLoading(true);
 
     const requestData = {
-      email: loginId,
+      email: USERNAME_PREFIX + loginId,
       password: password,
     };
     AuthService.doSigninByEmail(requestData)

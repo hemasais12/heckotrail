@@ -12,7 +12,7 @@ import {
   PASSWORD_NOT_MATCHING,
 } from "../../common/errorkeys";
 import Errors from "../components/errors";
-import { PASSWORD_MIN_LENGTH } from "../../common/constants";
+import { PASSWORD_MIN_LENGTH, USERNAME_PREFIX } from "../../common/constants";
 import {
   validateConfirmPassword,
   validateOTP,
@@ -54,7 +54,7 @@ function SignupPasswordAndOTP({ route, navigation }) {
     setIsLoading(true);
 
     const requestData = {
-      email: loginId,
+      email: USERNAME_PREFIX + loginId,
       password: password,
       confirmPassword: confirmPassword,
       otp: otp,

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { STORAGE_TOKEN } from "../../common/constants";
+import { IS_VENDOR_APP, STORAGE_TOKEN } from "../../common/constants";
 
 export async function request(options) {
   const headers = new Headers({
@@ -7,9 +7,12 @@ export async function request(options) {
   });
 
   const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
-
   if (storedToken) {
     headers.append("Authorization", "Bearer " + storedToken);
+  }
+
+  if (IS_VENDOR_APP) {
+    headers.append("TempDate", "Date " + "2021-01-01");
   }
 
   const defaults = { headers: headers };

@@ -7,6 +7,7 @@ import { getLangObject } from "../../utils/LanguageUtil";
 import AuthService from "../../services/AuthService";
 import LogoLayout from "../../controls/layout/LogoLayout";
 import StandardButton from "../../controls/buttons/StandardButton";
+import { USERNAME_PREFIX } from "../../common/constants";
 
 function ConfirmOTP({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,7 @@ function ConfirmOTP({ navigation, route }) {
     setIsLoading(true);
 
     const requestData = {
-      mobileNumber: loginId,
+      mobileNumber: USERNAME_PREFIX + loginId,
       otp: otp,
       referralCode: null,
     };

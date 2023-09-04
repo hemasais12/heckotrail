@@ -9,6 +9,7 @@ import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import AuthService from "../../services/AuthService";
 import TextLink from "../../views/TextLink";
 import Errors from "../components/errors";
+import { USERNAME_PREFIX } from "../../common/constants";
 
 const screen = Dimensions.get("screen");
 
@@ -46,7 +47,7 @@ function LoginId({ route, navigation }) {
 
     const requestData = {
       isInputEmail: !isMobile,
-      emailOrMobileNumber: loginId,
+      emailOrMobileNumber: USERNAME_PREFIX + loginId,
     };
     doSignInOrSignup(requestData)
       .then((response) => {

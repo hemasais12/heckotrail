@@ -5,7 +5,9 @@ export const BACKEND_URL = "http://34.16.153.248:5210";
 
 export const API_URL = BACKEND_URL + "/api/v";
 
+export const IS_VENDOR_APP = true;
 export const USERNAME_PREFIX = "v?";
+export const USERNAME_PREFIX_LEN = 2;
 
 export const ACCESS_TOKEN = "accessToken";
 export const CURRENT_USER = "currentUser";
