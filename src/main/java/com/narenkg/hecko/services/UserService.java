@@ -1,5 +1,7 @@
 package com.narenkg.hecko.services;
 
+import java.util.Collections;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,5 +173,7 @@ public abstract class UserService {
 	public abstract User getNewEntity(String userId);
 	
 	public abstract User getNewEntity(String userId, String password);
+	
+	public abstract void setDefaultRole(User user);
 
 }

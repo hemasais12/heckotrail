@@ -256,6 +256,8 @@ public abstract class BaseAuthController extends BaseController {
 
 			otpService.clearOtp(prefixedId);
 			
+			getUserService().setDefaultRole(user);
+			
 			getUserService().save(user, signUpRequest.getReferralCode());
 
 			logger.info("-------------------------------------Starting---------------------------------------");
@@ -320,6 +322,8 @@ public abstract class BaseAuthController extends BaseController {
 			user.setMobilePassword(encoder.encode(originalId));
 			
 			otpService.clearOtp(prefixedId);
+			
+			getUserService().setDefaultRole(user);
 
 			getUserService().save(user, signUpRequest.getReferralCode());
 
