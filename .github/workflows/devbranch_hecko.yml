@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'hecko'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FE5589D798D542948415A1B87023B1AE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_627CFB0449F145DEAC80FE5C917107D2 }}
           package: '*.jar'
