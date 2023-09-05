@@ -1,10 +1,14 @@
 import MapView, { Marker } from "react-native-maps";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, View, StatusBar, Text, Dimensions } from "react-native";
 import ScreenBackground from "../../controls/layout/ScreenBackground";
 import SearchTextBox from "../../views/SearchTextBox";
 import { GlobalColors } from "../../common/colors";
 import LocationPanel from "../../controls/layout/LocationPanel";
-import { getCurrentPositionAsync } from "expo-location";
+import {
+  getCurrentPositionAsync,
+  useForegroundPermissions,
+  PermissionStatus,
+} from "expo-location";
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { getLangObject } from "../../utils/LanguageUtil";
@@ -17,7 +21,7 @@ const screenWidth = screen.width;
 function EditVendorNameAndLocation() {
   const [address, setAddress] = useState();
   const [centerRegion, setCenterRegion] = useState();
-  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [modalIsVisible, setModalIsVisible] = useState(false); //as
 
   async function verifyPermissions() {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -25,14 +29,17 @@ function EditVendorNameAndLocation() {
       console.log("Permission to access location was denied");
       return;
     }
+
     return true;
   }
 
   async function getCurrentLocation() {
     const hasPermission = await verifyPermissions();
+
     if (!hasPermission) {
       return;
     }
+
     let currentLocation = await getCurrentPositionAsync();
 
     setCenterRegion({
@@ -57,6 +64,7 @@ function EditVendorNameAndLocation() {
   }, []);
 
   function editAddressHandler() {
+    console.log("edit address");
     setModalIsVisible(true);
   }
 

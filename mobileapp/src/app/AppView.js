@@ -140,12 +140,12 @@ function AuthenticatedVendorStack() {
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
-  console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
+  /*console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
   console.log("authCtx.userRole not set:" + !authCtx.userRole);
   console.log("authCtx.userRole:" + authCtx.userRole);
   console.log(
     "authCtx.isVendorSetupDone not set:" + !authCtx.isVendorSetupDone
-  );
+  );*/
 
   return (
     <NavigationContainer>
@@ -168,7 +168,7 @@ function Root() {
   useEffect(() => {
     async function fetchToken() {
       /////
-      authCtx.logout();
+      //authCtx.logout();
       const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
       const userRole = await AsyncStorage.getItem(STORAGE_USERROLE);
 
