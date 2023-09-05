@@ -11,14 +11,12 @@ import LoginByPassword from "../screens/auth/LoginByPassword";
 
 import ConfirmOTP from "../screens/auth/ConfirmOTP";
 import SignupPasswordAndOTP from "../screens/auth/SignupPasswordAndOTP";
-import SelectRole from "../screens/common/SelectRole";
 import WelcomeScreen from "../screens/common/WelcomeScreen";
 
 import AuthContextProvider, { AuthContext } from "../store/AuthContextProvider";
 import IconButton from "../controls/buttons/IconButton";
 
 import {
-  ROLE_CLIENT,
   ROLE_VENDOR,
   STORAGE_TOKEN,
   STORAGE_USERROLE,
@@ -95,25 +93,10 @@ function AuthenticatedClientStack() {
   );
 }
 
-function UserRoleStack() {
+function VendorNameAndLocation() {
   const authCtx = useContext(AuthContext);
   return (
     <Stack.Navigator screenOptions={{}}>
-      <Stack.Screen
-        name="SelectRole"
-        component={SelectRole}
-        options={{
-          title: "Confirm role",
-          headerRight: ({ tintColor }) => (
-            <IconButton
-              icon="exit"
-              color={tintColor}
-              size={24}
-              onPress={authCtx.logout}
-            />
-          ),
-        }}
-      />
       <Stack.Screen
         name="EditVendorNameAndLocation"
         component={EditVendorNameAndLocation}
@@ -157,23 +140,19 @@ function AuthenticatedVendorStack() {
 
 function Navigation() {
   const authCtx = useContext(AuthContext);
-  /*console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
+  console.log("authCtx.isAuthenticated:" + authCtx.isAuthenticated);
   console.log("authCtx.userRole not set:" + !authCtx.userRole);
   console.log("authCtx.userRole:" + authCtx.userRole);
   console.log(
     "authCtx.isVendorSetupDone not set:" + !authCtx.isVendorSetupDone
-  );*/
+  );
 
   return (
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && !authCtx.userRole && <UserRoleStack />}
-      {authCtx.isAuthenticated && authCtx.userRole === ROLE_CLIENT && (
-        <AuthenticatedClientStack />
-      )}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
-        !authCtx.isVendorSetupDone && <UserRoleStack />}
+        !authCtx.isVendorSetupDone && <VendorNameAndLocation />}
       {authCtx.isAuthenticated &&
         authCtx.userRole === ROLE_VENDOR &&
         authCtx.isVendorSetupDone && <AuthenticatedVendorStack />}
@@ -188,7 +167,8 @@ function Root() {
 
   useEffect(() => {
     async function fetchToken() {
-      //authCtx.logout();
+      /////
+      authCtx.logout();
       const storedToken = await AsyncStorage.getItem(STORAGE_TOKEN);
       const userRole = await AsyncStorage.getItem(STORAGE_USERROLE);
 

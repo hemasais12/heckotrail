@@ -1,5 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IS_VENDOR_APP, STORAGE_TOKEN } from "../../common/constants";
+import {
+  APP_REQUEST_HEADER,
+  APP_REQUEST_HEADER_START,
+  IS_VENDOR_APP,
+  STORAGE_TOKEN,
+} from "../../common/constants";
 
 export async function request(options) {
   const headers = new Headers({
@@ -12,8 +17,10 @@ export async function request(options) {
   }
 
   if (IS_VENDOR_APP) {
-    headers.append("TempDate", "Date " + "2021-01-01");
+    headers.append(APP_REQUEST_HEADER, APP_REQUEST_HEADER_START + "2021-01-01");
   }
+
+  //console.log(headers);
 
   const defaults = { headers: headers };
   options = Object.assign({}, defaults, options);

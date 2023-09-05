@@ -7,7 +7,8 @@ import { getLangObject } from "../../utils/LanguageUtil";
 import AuthService from "../../services/AuthService";
 import LogoLayout from "../../controls/layout/LogoLayout";
 import StandardButton from "../../controls/buttons/StandardButton";
-import { USERNAME_PREFIX } from "../../common/constants";
+import { ROLE_VENDOR, USERNAME_PREFIX } from "../../common/constants";
+import { setUserLoggedIn } from "../../utils/UserUtils";
 
 function ConfirmOTP({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,10 +17,6 @@ function ConfirmOTP({ navigation, route }) {
 
   const authCtx = useContext(AuthContext);
   const { isSignup, loginId } = route.params;
-
-  function setUserData(data) {
-    authCtx.authenticate(data.jwtAuthenticationResponse.token);
-  }
 
   function submitHandler(event) {
     event.preventDefault();
@@ -33,7 +30,7 @@ function ConfirmOTP({ navigation, route }) {
     doSignupOrSignIn(requestData)
       .then((response) => {
         setIsLoading(false);
-        setUserData(response.data);
+        setUserLoggedIn(response.data, authCtx);
       })
       .catch((error) => {
         setIsLoading(false);

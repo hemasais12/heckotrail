@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { GlobalColors } from "../../common/colors";
-import { ROLE_CLIENT, ROLE_VENDOR } from "../../common/constants";
+import { ROLE_VENDOR } from "../../common/constants";
 import { getLangObject } from "../../utils/LanguageUtil";
 import CustomPressable from "../commons/CustomPressable";
 import NormalText from "../texts/NormalText";
+
+export const ROLE_CLIENT = "CLIENT";
 
 function RoleView({ children, role, isSelected, onPress }) {
   const [selected, setSelected] = useState(isSelected);

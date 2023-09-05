@@ -1,19 +1,17 @@
 import { useState, useContext, useEffect } from "react";
 import { StyleSheet, View, StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  ROLE_CLIENT,
-  ROLE_VENDOR,
-  STORAGE_USERROLE,
-} from "../../common/constants";
+import { ROLE_VENDOR, STORAGE_USERROLE } from "../../common/constants";
 import StandardButton from "../../controls/buttons/StandardButton";
-import RoleView from "../../controls/images/RoleView";
+import RoleView from "../../controls/images/RoleViewX";
 import ScreenBackground from "../../controls/layout/ScreenBackground";
 import ScreenHeaderText from "../../controls/texts/ScreenHeaderText";
 import { AuthContext } from "../../store/AuthContextProvider";
 import { getLangObject } from "../../utils/LanguageUtil";
 import ErrorText from "../../controls/texts/ErrorText";
 import AuthService from "../../services/AuthService";
+
+export const ROLE_CLIENT = "CLIENT";
 
 function SelectRole({ navigation, route }) {
   const authCtx = useContext(AuthContext);

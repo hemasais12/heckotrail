@@ -8,6 +8,8 @@ export const API_URL = BACKEND_URL + "/api/v";
 export const IS_VENDOR_APP = true;
 export const USERNAME_PREFIX = "v?";
 export const USERNAME_PREFIX_LEN = 2;
+export const APP_REQUEST_HEADER = "TempDate";
+export const APP_REQUEST_HEADER_START = "Date ";
 
 export const ACCESS_TOKEN = "accessToken";
 export const CURRENT_USER = "currentUser";
@@ -16,8 +18,7 @@ export const CURRENT_USER_ROLES = "roles";
 export const TOKEN_EXPIRED = "tokenExpried";
 export const OTP_LENGTH = 4;
 
-export const ROLE_CLIENT = "CLIENT";
-export const ROLE_VENDOR = "VENDOR";
+export const ROLE_VENDOR = "ROLE_VENDOR";
 
 export const STORAGE_TOKEN = "token1";
 export const STORAGE_USERLANG = "language1";

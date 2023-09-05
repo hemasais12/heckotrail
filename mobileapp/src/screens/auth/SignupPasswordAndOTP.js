@@ -18,6 +18,7 @@ import {
   validateOTP,
   validatePassword,
 } from "../../utils/ValidateFormUtil";
+import { setUserLoggedIn } from "../../utils/UserUtils";
 
 function SignupPasswordAndOTP({ route, navigation }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +65,7 @@ function SignupPasswordAndOTP({ route, navigation }) {
     AuthService.doSignupByEmail(requestData)
       .then((response) => {
         setIsLoading(false);
-        authCtx.authenticate(response.data.jwtAuthenticationResponse.token);
+        setUserLoggedIn(response.data, authCtx);
       })
       .catch((error) => {
         setIsLoading(false);

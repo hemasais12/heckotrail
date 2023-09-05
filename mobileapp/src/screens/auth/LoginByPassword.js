@@ -17,6 +17,7 @@ import StandardButton from "../../controls/buttons/StandardButton";
 import Errors from "../components/errors";
 import { validatePassword } from "../../utils/ValidateFormUtil";
 import { USERNAME_PREFIX } from "../../common/constants";
+import { setUserLoggedIn } from "../../utils/UserUtils";
 
 function LoginByPassword({ navigation, route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,10 +32,6 @@ function LoginByPassword({ navigation, route }) {
     validatePassword(password, validator);
     setErrors(validator.errors);
     return validator.isValid;
-  }
-
-  function setUserData(data) {
-    authCtx.authenticate(data.jwtAuthenticationResponse.token);
   }
 
   function formFieldChangeHandler(newText, setHandler) {
@@ -56,7 +53,7 @@ function LoginByPassword({ navigation, route }) {
     AuthService.doSigninByEmail(requestData)
       .then((response) => {
         setIsLoading(false);
-        setUserData(response.data);
+        setUserLoggedIn(response.data, authCtx);
       })
       .catch((error) => {
         setIsLoading(false);
