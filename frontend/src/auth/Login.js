@@ -60,7 +60,8 @@ const Login = (props) => {
             textColor="white"
             bgColor={yellow}
             btnLabel="Submit ->"
-            Press={saveData}
+            // Press={saveData}
+            Press={() => props.navigation.navigate("Customer")}
           />
         </View>
         <View style={styles.bottomView}>

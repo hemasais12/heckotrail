@@ -3,9 +3,9 @@ import React from "react";
 
 const VendorHomeScreen = (props) => {
   return (
+    <>
     <View>
       <View style={styles.mainView}>
-        {/* <Text style={styles.header}>Registered Services</Text> */}
         <View style={styles.bodyView}>
           <View style={styles.innerBodyView}>
             <Image
@@ -25,7 +25,7 @@ const VendorHomeScreen = (props) => {
       <View style={styles.bottomView}>
         <View style={styles.bottomImgView}>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("Vendor")}
+            onPress={() => props.navigation.navigate("Services")}
           >
             <Image
               source={require("../assets/home.png")}
@@ -55,6 +55,7 @@ const VendorHomeScreen = (props) => {
         </View>
       </View>
     </View>
+    </>
   );
 };
 

@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput,ScrollView, KeyboardAvoidingView } from "react-native";
 import React from "react";
 import Btn from "../common/Btn";
 import { yellow } from "../common/Constants";
 
 const BikeService = (props) => {
   return (
-    <View>
+    <ScrollView style={styles.screen}>
+    <KeyboardAvoidingView style={styles.screen} behavior="position">
+    <View style={styles.screen}>
       <View style={styles.mainView}>
         <Text style={styles.headingText}>Register Services</Text>
         <Text style={styles.subtext}>Please enter details</Text>
@@ -36,12 +38,17 @@ const BikeService = (props) => {
         />
       </View>
     </View>
+    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
 export default BikeService;
 
 const styles = StyleSheet.create({
+  screen:{
+    flex:1,
+  },
   mainView: {
     marginHorizontal: 30,
     marginVertical: 40,

@@ -17,8 +17,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<!-- Add CloudSQL Starter for MySQL-->
-		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
-		<spring-cloud.version>2022.0.1</spring-cloud.version>
+<!--		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>-->
+<!--		<spring-cloud.version>2022.0.1</spring-cloud.version>-->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -39,35 +39,35 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Add SQL server / Azure
-		
+		<!-- Add SQL server / Azure -->
+
 		<dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
 
 		<!-- Add CloudSQL Starter for MySQL -->
-		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>spring-cloud-gcp-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.google.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-gcp-starter</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.google.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Add Local MySQL 
+		<!-- Add Local MySQL -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -124,24 +124,24 @@
 		</dependency>
 	</dependencies>
 	<!-- Add CloudSQL Starter for MySQL -->
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.google.cloud</groupId>
-				<artifactId>spring-cloud-gcp-dependencies</artifactId>
-				<version>${spring-cloud-gcp.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+<!--	<dependencyManagement>-->
+<!--		<dependencies>-->
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.cloud</groupId>-->
+<!--				<artifactId>spring-cloud-dependencies</artifactId>-->
+<!--				<version>${spring-cloud.version}</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>com.google.cloud</groupId>-->
+<!--				<artifactId>spring-cloud-gcp-dependencies</artifactId>-->
+<!--				<version>${spring-cloud-gcp.version}</version>-->
+<!--				<type>pom</type>-->
+<!--				<scope>import</scope>-->
+<!--			</dependency>-->
+<!--		</dependencies>-->
+<!--	</dependencyManagement>-->
 
 	<build>
 		<plugins>
